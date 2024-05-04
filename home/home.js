@@ -1,15 +1,17 @@
 const articlesContainer = document.getElementById('articles-container')
-const Articles_API = `${BASE_URL}/articles`
+const ARTICLES_API = `${BASE_URL}/articles`
 const articles = []
 
 ;(function init() {
-  axios.get(Articles_API).then((response) => {
+  axios.get(ARTICLES_API).then((response) => {
     const data = response.data
     articles.push(...data)
     renderArticles(articles)
     console.log(articles)
   })
 })()
+
+articlesContainer.addEventListener('click', redirectToArticle)
 
 function renderArticles(articles) {
   let htmlContent = ''
@@ -29,7 +31,7 @@ function renderArticles(articles) {
         ${createCategories(article.category)}
       </div>
     </div>
-    <a href="../article/article.html?id=${article.id}" class="title">${title}</a>
+    <div class="title" data-id=${article.id} class="title">${title}</div>
     <div class="preview">${preview}</div>
   </div>
   <div class="picture">
@@ -46,4 +48,13 @@ function createCategories(categories) {
     htmlContent += `<span class="category">${category}</span>`
   })
   return htmlContent
+}
+
+function redirectToArticle(event) {
+  const target = event.target
+  if (target.classList.contains('title')) {
+    const id = target.dataset.id
+    cookie.set('articleId', id)
+    window.location.href = '../article/article.html'
+  }
 }

@@ -68,7 +68,33 @@
 
 ## Articles
 
+### `全部文章`
+
 **URL :** `BASE_URL/articles`
+
+**Request :** `GET`
+
+**Body :**
+
+**Response :**
+
+```
+[
+  {
+    id: XX,
+    avatar: 'https://XXXXXX',
+    username: 'XXXXXX',
+    title: 'XXXXXX',
+    category: ['XX', 'XX', 'XX'],
+    picture: 'https://XXXXXX',
+    content: 'XXXXXX'
+  }
+]
+```
+
+### `單篇文章`
+
+**URL :** `BASE_URL/articles/:id`
 
 **Request :** `GET`
 
