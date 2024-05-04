@@ -20,7 +20,7 @@
 
 * {
   box-sizing: border-box;
-  /* font-family: 'Noto Sans TC', sans-serif; */
+  font-family: 'Fira Code', 'Roboto', 'Roboto Mono', 'Noto Sans TC', sans-serif;
 }
 
 body {

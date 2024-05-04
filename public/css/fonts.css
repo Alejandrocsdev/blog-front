@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 400;
+  src: url('../fonts/FiraCode-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 700;
+  src: url('../fonts/FiraCode-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  src: url('../fonts/roboto-regular-webfont.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 700;
+  src: url('../fonts/roboto-bold-webfont.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-weight: 400;
+  src: url('../fonts/RobotoMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-weight: 700;
+  src: url('../fonts/RobotoMono-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Noto Sans TC";
+  font-weight: 400;
+  src: url('../fonts/NotoSansTC-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Noto Sans TC";
+  font-weight: 700;
+  src: url('../fonts/NotoSansTC-Bold.woff2') format('woff2');
+}
