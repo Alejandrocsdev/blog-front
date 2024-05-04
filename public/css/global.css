@@ -2,20 +2,20 @@
   --header-height: 60px;
   --footer-height: 60px;
   /* Light Mode */
-  /* --primary-background-color: ;
-  --secondary-background-color: ;
-  --tertiary-background-color: ;
-  --border-color: ;
-  --text-color: ; */
+  --primary-background-color: hsl(26, 100%, 92%);
+  --secondary-background-color: hsl(24, 43%, 76%);
+  --tertiary-background-color: hsl(24, 43%, 90%);
+  --border-color: hsl(0, 0%, 50%);
+  --text-color: hsl(0, 0%, 20%);
 }
 
 /* Dark Mode */
 /* .dark {
-  --primary-background-color: ;
-  --secondary-background-color: ;
-  --tertiary-background-color: ;
-  --border-color: ;
-  --text-color: ;
+  --primary-background-color: hsl(0, 0%, 0%);
+  --secondary-background-color: hsl(221, 51%, 16%);
+  --tertiary-background-color: hsl(201, 100%, 14%);
+  --border-color: hsl(0, 0%, 50%);
+  --text-color: hsl(0, 0%, 80%);
 } */
 
 * {
@@ -30,7 +30,7 @@ body {
 header {
   height: var(--header-height);
   width: 100%;
-  background-color: beige;
+  background-color: var(--secondary-background-color);
   display: flex;
   position: fixed;
 }
@@ -93,8 +93,8 @@ header {
 #sign-up {
   padding: 5px;
   margin-right: 10px;
-  border: 1px solid hsl(0, 0%, 50%);
-  background-color: hsl(24, 43%, 90%);
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-background-color);
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -109,10 +109,12 @@ header {
 
 main {
   min-height: 100vh;
+  background-color: var(--primary-background-color);
 }
 
 footer {
   height: var(--footer-height);
+  background-color: var(--secondary-background-color);
   display: flex;
   justify-content: center;
   align-items: center;

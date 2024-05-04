@@ -1,0 +1,139 @@
+:root {
+  --article-height: 200px;
+  --container-width: 700px;
+}
+
+#container {
+  width: var(--container-width);
+  padding: calc(var(--header-height) + 20px) 20px 20px 20px;
+  margin: 0 auto;
+  /* CONTENT BOX */
+  box-sizing: content-box;
+}
+
+#search-container {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: var(--secondary-background-color);
+  display: flex;
+}
+
+#search {
+  width: 100%;
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  background-color: var(--tertiary-background-color);
+  border-right: none;
+}
+
+#search-btn {
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  background-color: var(--tertiary-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#articles-container {
+  display: grid;
+  gap: 20px;
+}
+
+.article {
+  height: var(--article-height);
+  border: 1px solid var(--border-color);
+  display: flex;
+}
+
+/* .main {
+  height: 100%;
+  width: calc(var(--container-width) - var(--article-height));
+  padding: 10px;
+  background-color: var(--tertiary-background-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.info {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+}
+
+.avatar img {
+  width: 30px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.username {
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+.username:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0077b6;
+}
+
+.category {
+  margin-left: 8px;
+  padding: 3px 8px;
+  background-color: var(--secondary-background-color);
+  border-radius: 5px;
+}
+
+.category:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
+.title {
+  margin-bottom: 5px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.title:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0077b6;
+}
+
+.preview {
+  font-size: 20px;
+  word-wrap: break-word;
+}
+
+.picture {
+  height: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  position: relative;
+}
+
+.picture:hover {
+  cursor: pointer;
+}
+
+.picture img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  transition: transform 0.5s, filter 0.5s;
+}
+
+.picture:hover img {
+  transform: scale(1.1);
+  filter: brightness(80%);
+} */
