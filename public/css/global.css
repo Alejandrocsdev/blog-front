@@ -10,13 +10,13 @@
 }
 
 /* Dark Mode */
-/* .dark {
+.dark {
   --primary-background-color: hsl(0, 0%, 0%);
   --secondary-background-color: hsl(221, 51%, 16%);
   --tertiary-background-color: hsl(201, 100%, 14%);
   --border-color: hsl(0, 0%, 50%);
   --text-color: hsl(0, 0%, 80%);
-} */
+}
 
 * {
   box-sizing: border-box;
@@ -25,6 +25,7 @@
 
 body {
   margin: 0;
+  color: var(--text-color);
 }
 
 header {
