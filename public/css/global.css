@@ -1,0 +1,45 @@
+:root {
+  --header-height: 60px;
+  --footer-height: 60px;
+  /* Light Mode */
+  /* --primary-background-color: ;
+  --secondary-background-color: ;
+  --tertiary-background-color: ;
+  --border-color: ;
+  --text-color: ; */
+}
+
+/* Dark Mode */
+/* .dark {
+  --primary-background-color: ;
+  --secondary-background-color: ;
+  --tertiary-background-color: ;
+  --border-color: ;
+  --text-color: ;
+} */
+
+* {
+  box-sizing: border-box;
+  /* font-family: 'Noto Sans TC', sans-serif; */
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  height: var(--header-height);
+  width: 100%;
+  position: fixed;
+}
+
+main {
+  min-height: 100vh;
+}
+
+footer {
+  height: var(--footer-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
