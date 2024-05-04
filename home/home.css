@@ -122,10 +122,6 @@
   position: relative;
 }
 
-.picture:hover {
-  cursor: pointer;
-}
-
 .picture img {
   width: 100%;
   aspect-ratio: 1/1;

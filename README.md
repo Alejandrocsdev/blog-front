@@ -77,6 +77,15 @@
 **Response :**
 
 ```
-
-
+[
+  {
+    id: XX,
+    avatar: 'https://XXXXXX',
+    username: 'XXXXXX',
+    title: 'XXXXXX',
+    category: ['XX', 'XX', 'XX'],
+    picture: 'https://XXXXXX',
+    content: 'XXXXXX'
+  }
+]
 ```

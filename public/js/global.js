@@ -2,14 +2,12 @@ const home = document.getElementById('home')
 const darkMode = document.getElementById('dark-mode')
 const theme = document.getElementById('theme')
 
-init()
-
-function init() {
+;(function init() {
   // local storage 預設為light模式
   setTheme()
   home.addEventListener('click', onRedirectHome)
   darkMode.addEventListener('click', onToggleMode)
-}
+})()
 
 // #監聽器函式: Home鍵
 function onRedirectHome() {
