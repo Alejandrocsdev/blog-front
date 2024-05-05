@@ -87,7 +87,8 @@
 #comment-cancel,
 #comment-submit {
   cursor: pointer;
-
+  color: var(--text-color);
+  background-color: var(--primary-background-color);
 }
 
 #comment-submit {

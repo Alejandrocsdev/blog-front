@@ -101,7 +101,7 @@
 
 **Request :** `GET`
 
-**Body :**
+**Body :** `{ params: { search: keyword }`
 
 **Response :**
 

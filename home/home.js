@@ -1,5 +1,6 @@
 const articlesContainer = document.getElementById('articles-container')
 const paginator = document.getElementById('paginator')
+const searchContainer = document.getElementById('search-container')
 const ARTICLES_API = `${BASE_URL}/articles`
 const articles = []
 
@@ -10,7 +11,7 @@ const total = 10
 ;(function init() {
   cookie.remove('articleId')
 
-  axios.get(ARTICLES_API).then((response) => {
+  axios.get(`${ARTICLES_API}`).then((response) => {
     const data = response.data
     articles.push(...data)
     renderArticles(articles)
@@ -22,6 +23,7 @@ const total = 10
   renderPaginator()
 
   paginator.addEventListener('click', onPaginator)
+  searchContainer.addEventListener('click', onSearch)
 })()
 
 function renderArticles(articles) {
@@ -113,4 +115,19 @@ function onPaginator(event) {
       break
   }
   renderPaginator()
+}
+
+function onSearch(event) {
+  const search = searchContainer.children[0]
+  const value = search.value
+  const target = event.target
+  if (value && (target.id === 'search-btn' || target.tagName === 'I')) {
+    axios.get(`${ARTICLES_API}`, { params: { search: value } }).then((response) => {
+      const data = response.data
+      articles.length = 0
+      articles.push(...data)
+      renderArticles(articles)
+      console.log(articles[0])
+    })
+  }
 }

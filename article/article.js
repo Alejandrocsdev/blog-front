@@ -47,7 +47,12 @@ function onClickTextarea(event) {
   } else if (target.id === 'comment-cancel') {
     commentSectionState('close')
     commentSection.value = ''
-  } else if (target.id !== 'comment-section' && isTextareaActive && !commentSection.value) {
+  } else if (
+    target.id !== 'comment-section' &&
+    target.id !== 'comment-submit' &&
+    isTextareaActive &&
+    !commentSection.value
+  ) {
     commentSectionState('close')
   }
 }
