@@ -94,7 +94,7 @@
 
 ### `單篇文章`
 
-**URL :** `BASE_URL/articles/:id`
+**URL :** `BASE_URL/articles/articleId`
 
 **Request :** `GET`
 

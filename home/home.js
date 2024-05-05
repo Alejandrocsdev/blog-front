@@ -3,6 +3,7 @@ const ARTICLES_API = `${BASE_URL}/articles`
 const articles = []
 
 ;(function init() {
+  cookie.remove('articleId')
   axios.get(ARTICLES_API).then((response) => {
     const data = response.data
     articles.push(...data)

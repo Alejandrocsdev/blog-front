@@ -16,21 +16,29 @@ const storage = new Storage()
 class Cookie {
   constructor() {
     this.name = 'data'
-    this.obj = {}
+    this.obj = this.get(this.name) || {}
+    this.options = 'secure=true; samesite=none; path=/'
   }
 
-  set(key, value, options = {}) {
-    this.obj[key] = value
-    const { path = '/' } = options
-    document.cookie = `${this.name}=${JSON.stringify(
-      this.obj
-    )}; secure=true; samesite=none; path=${path}`
+  set(key, value) {
+    key === this.name ? (this.obj = value) : (this.obj[key] = value)
+    document.cookie = `${this.name}=${JSON.stringify(this.obj)}; ${this.options}`
   }
 
   get(key) {
     const data = document.cookie
-    const value = JSON.parse(data.split('=')[1])
-    return value[key]
+    const value = data.split('=')[1]
+    if (value) {
+      const parsedValue = JSON.parse(value)
+      return key === this.name ? parsedValue : parsedValue[key]
+    } else {
+      return undefined
+    }
+  }
+
+  remove(key) {
+    delete this.obj[key]
+    this.set(this.name, this.obj)
   }
 }
 
