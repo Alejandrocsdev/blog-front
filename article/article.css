@@ -70,12 +70,24 @@
   background-color: var(--secondary-background-color);
 }
 
+#empty-section {
+  height: 50px;
+  width: 100%;
+  color: var(--text-color);
+  background-color: var(--primary-background-color);
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #comment-section {
   height: 50px;
   width: 100%;
   color: var(--text-color);
   background-color: var(--primary-background-color);
   resize: none;
+  display: none;
 }
 
 #comment-buttons {
@@ -96,7 +108,6 @@
 }
 
 #history-container {
-  /* height: 200px; */
   margin-top: 20px;
   padding: var(--article-padding);
   background-color: var(--tertiary-background-color);

@@ -7,6 +7,8 @@ const articles = []
 // paginator variable
 let current = 1
 const total = 10
+console.log('當前頁數: ', current)
+console.log('總文章數: ', total)
 
 ;(function init() {
   cookie.remove('articleId')
@@ -15,7 +17,7 @@ const total = 10
     const data = response.data
     articles.push(...data)
     renderArticles(articles)
-    console.log(articles[0])
+    console.log('本頁文章: ', articles)
   })
 
   articlesContainer.addEventListener('click', onRedirectToArticle)
@@ -122,12 +124,13 @@ function onSearch(event) {
   const value = search.value
   const target = event.target
   if (value && (target.id === 'search-btn' || target.tagName === 'I')) {
+    console.log('搜尋關鍵字: ', value)
     axios.get(`${ARTICLES_API}`, { params: { search: value } }).then((response) => {
       const data = response.data
       articles.length = 0
       articles.push(...data)
       renderArticles(articles)
-      console.log(articles[0])
+      console.log('搜尋結果: ', articles)
     })
   }
 }

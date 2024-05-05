@@ -12,19 +12,21 @@
 |   └── ....js
 └── public
     ├── css
-    |    ├── fonts.css
-    |    └── global.css
+    |   ├── fonts.css
+    |   └── global.css
     ├── js
-    |    ├── utils.js
-    |    └── global.js
+    |   ├── utils.js
+    |   └── global.js
     ├── fonts
-    |    ├── NotoSansTC-Regular.woff2
-    |    ├── NotoSansTC-Bold.woff2
-    |    └── ...(other fonts)
+    |   ├── NotoSansTC-Regular.woff2
+    |   ├── NotoSansTC-Bold.woff2
+    |   └── ...(other fonts)
     └── images
-        └── logo
-            ├── logo.png
-            └── logo.svg
+        ├── logo
+        |   ├── logo.png
+        |   └── logo.svg
+        └── guest
+            └── guest.png
 ```
 ### utils.js
 
@@ -121,7 +123,7 @@
 
 ### `單篇文章`
 
-**URL :** `BASE_URL/articles/articleId`
+**URL :** `BASE_URL/articles/:id`
 
 **Request :** `GET`
 
@@ -139,6 +141,30 @@
     category: ['XX', 'XX', 'XX'],
     picture: 'https://XXXXXX',
     content: 'XXXXXX'
+  }
+]
+```
+
+## Comments
+
+### `單篇文章全部留言`
+
+**URL :** `BASE_URL/comments/:id`
+
+**Request :** `GET`
+
+**Body :**
+
+**Response :**
+
+```
+[
+  {
+    "id": XX,
+    "avatar": "https://XXXXXX",
+    "username": "XXXXXX",
+    "articleId": XX,
+    "comment": "XXXXXX"
   }
 ]
 ```
