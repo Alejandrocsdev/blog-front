@@ -1,12 +1,17 @@
 const home = document.getElementById('home')
 const darkMode = document.getElementById('dark-mode')
 const theme = document.getElementById('theme')
+const signIn = document.getElementById('sign-in')
+const signUp = document.getElementById('sign-up')
+const modalBg = document.createElement('div')
 
 ;(function init() {
   // local storage 預設為light模式
   setTheme()
   home.addEventListener('click', onRedirectHome)
   darkMode.addEventListener('click', onToggleMode)
+  signIn.addEventListener('click', onSigningModal('登入'))
+  signUp.addEventListener('click', onSigningModal('註冊'))
 })()
 
 // #監聽器函式: Home鍵
@@ -30,6 +35,19 @@ function onToggleMode() {
   }
 }
 
+// #監聽器函式: 註冊 & 登入 彈跳窗
+function onSigningModal(type) {
+  return () => {
+    modalBg.innerHTML = createModal(type)
+    modalBg.id = 'modal-bg'
+    document.body.appendChild(modalBg)
+    const modalClose = document.getElementById('modal-close')
+    modalClose.addEventListener('click', () => {
+      modalBg.remove()
+    })
+  }
+}
+
 // 其他函式: 黑暗模式圖示切換
 function toggleMode() {
   const icon = darkMode.children[0]
@@ -47,4 +65,39 @@ function setTheme() {
   } else if (storage.get('theme') === 'dark') {
     toggleMode()
   }
+}
+
+// 其他函式: 新增彈跳窗HTML字串
+function createModal(name) {
+  return `<table id="modal">
+    <tr>
+      <td id="modal-close">
+        <button>X</button>
+      </td>
+    </tr>
+    <tbody>
+      <tr>
+        <td colspan="3">
+          <h1 id="modal-name">${name}</h1>
+        </td>
+      </tr>
+      ${createLabeledInput('username', '帳號')}
+      ${name === '註冊' ? createLabeledInput('email', '信箱') : ''}
+      ${createLabeledInput('password', '密碼')}
+      ${name === '註冊' ? createLabeledInput('re-password', '確認密碼') : ''}
+      <tr>
+        <td colspan="3"><button id="submit">提交</button></td>
+      </tr>
+    </tbody>
+    <tr><td></td></tr>
+  </table>`
+}
+
+// 其他函式: 新增彈跳窗共用input欄位HTML字串
+function createLabeledInput(id, text) {
+  return `<tr>
+    <td><label for="${id}">${text}</label></td>
+    <td>：</td>
+    <td><input id="${id}" name="${id}"></input></td>
+  </tr>`
 }
