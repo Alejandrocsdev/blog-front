@@ -1,6 +1,7 @@
 const title = document.getElementById('title')
 const avatar = document.querySelector('.avatar img')
 const username = document.querySelector('.username')
+const categoryContainer = document.getElementById('category-container')
 const picture = document.querySelector('#picture img')
 const content = document.getElementById('content')
 const commentSection = document.getElementById('comment-section')
@@ -25,8 +26,18 @@ function renderArticle(article) {
   title.textContent = article.title
   avatar.src = article.avatar
   username.textContent = article.username
+  console.log(categoryContainer)
+  categoryContainer.innerHTML = createCategories(article.category)
   picture.src = article.picture
   content.textContent = article.content
+}
+
+function createCategories(categories) {
+  let htmlContent = ''
+  categories.forEach((category) => {
+    htmlContent += `<span class="category">${category}</span>`
+  })
+  return htmlContent
 }
 
 function onClickTextarea(event) {

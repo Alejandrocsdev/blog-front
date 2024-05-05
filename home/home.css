@@ -133,3 +133,40 @@
   transform: scale(1.1);
   filter: brightness(80%);
 }
+
+#paginator {
+  height: 20px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#paginator i,
+#paginator div {
+  height: 20px;
+  width: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#paginator i:hover,
+#paginator div:hover {
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-background-color);
+}
+
+.clicked {
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-background-color);
+}
+
+.inactive {
+  color: gray;
+  cursor: default!important;
+  border: none!important;
+  background-color: transparent!important;
+}

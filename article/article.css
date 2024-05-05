@@ -42,6 +42,18 @@
   margin-left: 10px;
 }
 
+.category {
+  margin-left: 8px;
+  padding: 3px 8px;
+  background-color: var(--secondary-background-color);
+  border-radius: 5px;
+}
+
+.category:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
 #picture {
   width: calc(var(--container-width) - var(--article-padding) * 2);
 }

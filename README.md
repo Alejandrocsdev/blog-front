@@ -77,6 +77,20 @@
 - 如textarea已被點擊過, 且comment不為空, 被點任何其他地方, textarea維持原狀
 - 點擊取消按鈕, 清除textarea及縮小欄位
 
+## 8. Paginator
+
+![Paginator](./public/images/wireframe/paginator.png)
+
+## 8. Paginator Detail
+
+![Paginator Detail](./public/images/wireframe/paginator-detail.png)
+
+- 以總頁數10為例
+- 顯示頁數: 5
+- 1~6頁時, 當下頁數在最左側
+- 頁數7~10, 顯示頁數維持在6~10
+- 頁數不足5時, 顯示全部頁數
+
 # API
 
 ## Articles
