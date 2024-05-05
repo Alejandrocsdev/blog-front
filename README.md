@@ -64,6 +64,19 @@
 
 ![Sign Up Modal](./public/images/wireframe/sign-up.png)
 
+## 6. Comment Section
+
+![Comment Section](./public/images/wireframe/comment-section.png)
+
+## 7. Comment
+
+![Comment](./public/images/wireframe/comment.png)
+
+- 點擊comment(textarea)時, textarea會增加高度, 同時取消與留言按鈕會跑出來.
+- 如textarea已被點擊過, 且comment為空, 被點任何其他地方, textarea會縮小, 按鈕也會隱藏
+- 如textarea已被點擊過, 且comment不為空, 被點任何其他地方, textarea維持原狀
+- 點擊取消按鈕, 清除textarea及縮小欄位
+
 # API
 
 ## Articles

@@ -19,24 +19,25 @@
   margin: 0 0 10px 0;
 }
 
-#info {
+/* artcile, comment, history 共用 */
+.info {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
 }
 
-#avatar {
+.avatar {
   width: 40px;
   height: 40px;
 }
 
-#avatar img {
+.avatar img {
   width: 40px;
   object-fit: cover;
   border-radius: 20px;
 }
 
-#username {
+.username {
   font-size: 20px;
   margin-left: 10px;
 }
@@ -49,4 +50,56 @@
   height: 220px;
   width: 100%;
   object-fit: cover;
+}
+
+#comment-container {
+  margin-top: 20px;
+  padding: var(--article-padding);
+  background-color: var(--secondary-background-color);
+}
+
+#comment-section {
+  height: 50px;
+  width: 100%;
+  color: var(--text-color);
+  background-color: var(--primary-background-color);
+  resize: none;
+}
+
+#comment-buttons {
+  display: flex;
+  justify-content: end;
+  display: none;
+}
+
+#comment-cancel,
+#comment-submit {
+  cursor: pointer;
+
+}
+
+#comment-submit {
+  margin-left: 10px;
+}
+
+#history-container {
+  /* height: 200px; */
+  margin-top: 20px;
+  padding: var(--article-padding);
+  background-color: var(--tertiary-background-color);
+}
+
+.history {
+  margin-top: 10px;
+}
+
+.history-comment {
+  max-height: 100px;
+  padding: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: var(--primary-background-color);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
 }
