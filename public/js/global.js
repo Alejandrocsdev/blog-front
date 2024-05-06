@@ -1,3 +1,4 @@
+// HTML元素
 const home = document.getElementById('home')
 const darkMode = document.getElementById('dark-mode')
 const theme = document.getElementById('theme')
@@ -5,12 +6,17 @@ const signIn = document.getElementById('sign-in')
 const signUp = document.getElementById('sign-up')
 const modalBg = document.createElement('div')
 
-;(function init() {
-  // local storage 預設為light模式
+// 初始函式
+;(function headerInit() {
+  // local storage預設light模式
   setTheme()
+  // 監聽器: Home鍵
   home.addEventListener('click', onRedirectHome)
+  // 監聽器: 黑暗模式切換
   darkMode.addEventListener('click', onToggleMode)
+  // 監聽器: 登入 彈跳窗
   signIn.addEventListener('click', onSigningModal('登入'))
+  // 監聽器: 註冊 彈跳窗
   signUp.addEventListener('click', onSigningModal('註冊'))
 })()
 
@@ -18,9 +24,12 @@ const modalBg = document.createElement('div')
 function onRedirectHome() {
   const currentPath = window.location.href
   const fileName = currentPath.split('/').slice(-1)[0]
+
   if (fileName === 'home.html') {
+    // 刷新
     window.location.href = currentPath
   } else {
+    // 導向home頁面
     window.location.href = '../home/home.html'
   }
 }
@@ -48,7 +57,7 @@ function onSigningModal(type) {
   }
 }
 
-// 其他函式: 黑暗模式圖示切換
+// 黑暗模式圖示切換
 function toggleMode() {
   const icon = darkMode.children[0]
   // toggle icon
@@ -58,7 +67,7 @@ function toggleMode() {
   theme.classList.toggle('dark')
 }
 
-// 其他函式: 黑暗模式切換(local storage)
+// 黑暗模式切換(local storage)
 function setTheme() {
   if (!storage.get('theme')) {
     storage.set('theme', 'light')
@@ -67,7 +76,7 @@ function setTheme() {
   }
 }
 
-// 其他函式: 新增彈跳窗HTML字串
+// 新增: 彈跳窗HTML字串
 function createModal(name) {
   return `<table id="modal">
     <tr>
@@ -93,11 +102,22 @@ function createModal(name) {
   </table>`
 }
 
-// 其他函式: 新增彈跳窗共用input欄位HTML字串
+// 新增: 彈跳窗共用input欄位HTML字串
 function createLabeledInput(id, text) {
   return `<tr>
     <td><label for="${id}">${text}</label></td>
     <td>：</td>
     <td><input id="${id}" name="${id}"></input></td>
   </tr>`
+}
+
+// 新增(home / article): category元素
+function createCategories(categories) {
+  let htmlContent = ''
+
+  categories.forEach((category) => {
+    htmlContent += `<span class="category">${category}</span>`
+  })
+
+  return htmlContent
 }

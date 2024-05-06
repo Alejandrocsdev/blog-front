@@ -108,17 +108,21 @@
 **Response :**
 
 ```
-[
-  {
-    id: XX,
-    avatar: 'https://XXXXXX',
-    username: 'XXXXXX',
-    title: 'XXXXXX',
-    category: ['XX', 'XX', 'XX'],
-    picture: 'https://XXXXXX',
-    content: 'XXXXXX'
-  }
-]
+{
+  total: XX,
+  main: [
+    {
+      id: XX,
+      avatar: 'https://XXXXXX',
+      username: 'XXXXXX',
+      title: 'XXXXXX',
+      category: ['XX', 'XX', 'XX'],
+      picture: 'https://XXXXXX',
+      content: 'XXXXXX'
+    },
+    {...}
+  ]
+}
 ```
 
 ### `單篇文章`
@@ -141,8 +145,39 @@
     category: ['XX', 'XX', 'XX'],
     picture: 'https://XXXXXX',
     content: 'XXXXXX'
-  }
+  },
+  {...}
 ]
+```
+
+### `部分文章`
+
+**URL :** `BASE_URL/articles?offset=XX&size=XX`
+
+**Request :** `GET`
+
+**Body :** `{ params: { search: keyword }`
+
+**Response :**
+
+```
+{
+  total: XX,
+  offset: XX,
+  size: XX,
+  main: [
+    {
+      id: XX,
+      avatar: 'https://XXXXXX',
+      username: 'XXXXXX',
+      title: 'XXXXXX',
+      category: ['XX', 'XX', 'XX'],
+      picture: 'https://XXXXXX',
+      content: 'XXXXXX'
+    },
+    {...}
+  ]
+}
 ```
 
 ## Comments
@@ -165,6 +200,7 @@
     "username": "XXXXXX",
     "articleId": XX,
     "comment": "XXXXXX"
-  }
+  },
+  {...}
 ]
 ```

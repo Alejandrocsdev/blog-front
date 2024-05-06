@@ -1,40 +1,149 @@
+// API
+const ARTICLES_API = `${BASE_URL}/articles`
+
+// 回傳資料
+const articles = []
+
+// HTML元素
 const articlesContainer = document.getElementById('articles-container')
 const paginator = document.getElementById('paginator')
 const searchContainer = document.getElementById('search-container')
-const ARTICLES_API = `${BASE_URL}/articles`
-const articles = []
 
-// paginator variable
-let current = 1
-const total = 10
-console.log('當前頁數: ', current)
-console.log('總文章數: ', total)
+// 分頁變數
+let page = 1
+let totalArticles
+let totalPages
+let offset = 0
+const size = 3
+const showPages = 4
+console.log('<<<固定參數>>>')
+console.log('每頁篇數: ', size)
+console.log('顯示分頁: ', showPages)
+console.log('\n')
+console.log('<<<初始參數>>>')
+console.log('當前頁數: ', page)
 
+// 搜尋關鍵字
+let keyword = ''
+console.log('搜尋字串: ', keyword)
+console.log('\n')
+
+// 初始函式
 ;(function init() {
+  // 從cookie移除articleId
   cookie.remove('articleId')
-
-  axios.get(`${ARTICLES_API}`).then((response) => {
-    const data = response.data
-    articles.push(...data)
-    renderArticles(articles)
-    console.log('本頁文章: ', articles)
-  })
-
+  // 取得文章
+  getArticles('載入')
+  // 監聽器: 文章標題導向article頁面
   articlesContainer.addEventListener('click', onRedirectToArticle)
-
-  renderPaginator()
-
+  // 監聽器: 切換分頁
   paginator.addEventListener('click', onPaginator)
+  // 監聽器: 搜尋內容
   searchContainer.addEventListener('click', onSearch)
 })()
 
+// 取得文章
+function getArticles(type, keyword) {
+  // 發送全部文章請求
+  axios
+    .get(`${ARTICLES_API}?offset=${offset}&size=${size}`, { params: { search: keyword } })
+    .then((response) => {
+      // 回傳資料
+      const data = response.data
+      const main = data.main
+      console.log(`全部資訊(${type}): `, data)
+      console.log(`本頁文章(${type}): `, main)
+      // 儲存文章
+      articles.length = 0
+      articles.push(...main)
+      // 渲染文章
+      renderArticles(articles)
+      // 儲存 文章數 & 頁數
+      totalArticles = data.total
+      totalPages = Math.ceil(totalArticles / size)
+      console.log(`總文章數(${type}): `, totalArticles)
+      console.log(`全部頁數(${type}): `, totalPages)
+      // 渲染分頁
+      renderPaginator()
+      console.log(`當前頁數(${type}): `, page)
+      console.log(`搜尋字串(${type}): `, keyword)
+      console.log('\n')
+    })
+}
+
+// #監聽器函式: 文章標題導向article頁面
+function onRedirectToArticle(event) {
+  const target = event.target
+
+  if (target.classList.contains('title')) {
+    // 於cookie儲存articleId
+    const id = target.dataset.id
+    cookie.set('articleId', id)
+    // 導向article頁面
+    window.location.href = '../article/article.html'
+  }
+}
+
+// #監聽器函式: 切換分頁
+function onPaginator(event) {
+  const target = event.target
+  // 簡化目標函式
+  const targetClass = (type) => target.classList.contains(type)
+  // 更新當前頁數
+  switch (true) {
+    case targetClass('first'):
+      page = 1
+      break
+    case targetClass('previous'):
+      page = page - 1 >= 1 ? page - 1 : page
+      break
+    case targetClass('next'):
+      page = page + 1 <= totalPages ? page + 1 : page
+      break
+    case targetClass('last'):
+      page = totalPages
+      break
+    case targetClass('number'):
+      page = Number(target.textContent)
+      break
+  }
+
+  // 更新offset
+  offset = (page - 1) * size
+
+  if (!targetClass('inactive')) {
+    // 取得文章
+    getArticles('分頁', keyword)
+  }
+}
+
+// #監聽器函式: 搜尋內容
+function onSearch(event) {
+  const target = event.target
+
+  // 取得搜尋關鍵字
+  const search = searchContainer.children[0]
+  keyword = search.value
+
+  if (keyword && (target.id === 'search-btn' || target.tagName === 'I')) {
+    // 更新offset
+    offset = (page - 1) * size
+    // 取得文章
+    getArticles('搜尋', keyword)
+  }
+}
+
+// 文章渲染
 function renderArticles(articles) {
   let htmlContent = ''
+
   articles.forEach((article) => {
+    // 限制顯示字數
     const title =
       article.title.length <= 20 ? article.title : article.title.substring(0, 20) + '...'
     const preview =
       article.content.length <= 60 ? article.content : article.content.substring(0, 60) + '...'
+
     htmlContent += `<div class="article">
   <div class="main">
     <div class="info">
@@ -57,80 +166,39 @@ function renderArticles(articles) {
   articlesContainer.innerHTML = htmlContent
 }
 
-function createCategories(categories) {
-  let htmlContent = ''
-  categories.forEach((category) => {
-    htmlContent += `<span class="category">${category}</span>`
-  })
-  return htmlContent
-}
-
-function onRedirectToArticle(event) {
-  const target = event.target
-  if (target.classList.contains('title')) {
-    const id = target.dataset.id
-    cookie.set('articleId', id)
-    window.location.href = '../article/article.html'
-  }
-}
-
+// 分頁渲染
 function renderPaginator() {
-  const first = current === 1 ? 'inactive' : ''
-  const last = current === total ? 'inactive' : ''
+  // 更新首末分頁箭頭狀態
+  const first = page === 1 ? 'inactive' : ''
+  const last = page === totalPages ? 'inactive' : ''
+
+  // first & previous 分頁箭頭
   let htmlContent = `<i class="fa-solid fa-backward-fast first ${first}"></i>
   <i class="fa-solid fa-caret-left previous ${first}"></i>`
+
   for (
-    let i = current <= total - 4 ? current : total - 4;
-    total >= 5 ? i < current + 5 && i <= total : i <= total;
+    // 分頁起始值
+    let i = page <= 1 ? page : 1;
+    // 分頁顯示數
+    totalPages >= showPages ? i < page + showPages && i <= totalPages : i <= totalPages;
+    // 分頁間距
     i++
   ) {
     htmlContent +=
-      i === current
-        ? `<div class="number clicked">${i}</div>`
+      i === page
+        ? // 當前頁數元素(含樣式)
+          `<div class="number clicked">${i}</div>`
         : i >= 1
-        ? `<div class="number">${i}</div>`
-        : ''
+        ? // 其他頁數元素
+          `<div class="number">${i}</div>`
+        : // 不顯示頁數
+          ''
   }
+  // next & last 分頁箭頭
   htmlContent += `<i class="fa-solid fa-caret-right next ${last}"></i>
   <i class="fa-solid fa-forward-fast last ${last}"></i>`
+
   paginator.innerHTML = htmlContent
 }
 
-function onPaginator(event) {
-  const target = event.target
-  const targetClass = (type) => target.classList.contains(type)
-  switch (true) {
-    case targetClass('first'):
-      current = 1
-      break
-    case targetClass('previous'):
-      current = current - 1 >= 1 ? current - 1 : current
-      break
-    case targetClass('next'):
-      current = current + 1 <= total ? current + 1 : current
-      break
-    case targetClass('last'):
-      current = total
-      break
-    case targetClass('number'):
-      current = Number(target.textContent)
-      break
-  }
-  renderPaginator()
-}
-
-function onSearch(event) {
-  const search = searchContainer.children[0]
-  const value = search.value
-  const target = event.target
-  if (value && (target.id === 'search-btn' || target.tagName === 'I')) {
-    console.log('搜尋關鍵字: ', value)
-    axios.get(`${ARTICLES_API}`, { params: { search: value } }).then((response) => {
-      const data = response.data
-      articles.length = 0
-      articles.push(...data)
-      renderArticles(articles)
-      console.log('搜尋結果: ', articles)
-    })
-  }
-}
+// createCategories(categories): global.js
