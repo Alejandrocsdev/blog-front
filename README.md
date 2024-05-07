@@ -99,7 +99,7 @@
 
 ### `全部文章`
 
-**URL :** `BASE_URL/articles`
+**URL :** `BASE_URL/articles?offset=XX&size=XX`
 
 **Request :** `GET`
 
@@ -110,6 +110,8 @@
 ```
 {
   total: XX,
+  offset: XX,
+  size: XX,
   main: [
     {
       id: XX,
@@ -150,13 +152,15 @@
 ]
 ```
 
-### `部分文章`
+## Comments
 
-**URL :** `BASE_URL/articles?offset=XX&size=XX`
+### `單篇文章全部留言`
+
+**URL :** `BASE_URL/comments/:id?offset=XX&size=XX`
 
 **Request :** `GET`
 
-**Body :** `{ params: { search: keyword }`
+**Body :**
 
 **Response :**
 
@@ -167,40 +171,13 @@
   size: XX,
   main: [
     {
-      id: XX,
-      avatar: 'https://XXXXXX',
-      username: 'XXXXXX',
-      title: 'XXXXXX',
-      category: ['XX', 'XX', 'XX'],
-      picture: 'https://XXXXXX',
-      content: 'XXXXXX'
+      "id": XX,
+      "avatar": "https://XXXXXX",
+      "username": "XXXXXX",
+      "articleId": XX,
+      "comment": "XXXXXX"
     },
     {...}
   ]
 }
-```
-
-## Comments
-
-### `單篇文章全部留言`
-
-**URL :** `BASE_URL/comments/:id`
-
-**Request :** `GET`
-
-**Body :**
-
-**Response :**
-
-```
-[
-  {
-    "id": XX,
-    "avatar": "https://XXXXXX",
-    "username": "XXXXXX",
-    "articleId": XX,
-    "comment": "XXXXXX"
-  },
-  {...}
-]
 ```

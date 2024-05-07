@@ -16,20 +16,37 @@ const content = document.getElementById('content')
 const commentSection = document.getElementById('comment-section')
 const commentButtons = document.getElementById('comment-buttons')
 const historyContainer = document.getElementById('history-container')
+const footer = document.getElementById('footer')
+
+// 留言變數
+let totalComments
+let showComments
+let offset = 0
+const size = 2
 
 // 留言區狀態
 let isTextareaActive = false
 
 // 從cookie取得articleId
 const id = cookie.get('articleId')
+
+// 觀察器: 留言無限下滑
+const commentsObserver = new IntersectionObserver(infiniteScroll)
+
+console.log('<<<固定參數>>>')
+console.log('顯示留言: ', size)
+console.log('\n')
+console.log('<<<初始參數>>>')
+console.log('留言狀態: ', isTextareaActive)
 console.log('articleId: ', id)
+console.log('\n')
 
 // 初始函式
 ;(function init() {
   // 取得文章
   getArticle()
   // 取得留言
-  getComments()
+  getComments('載入')
   // 監聽器: 留言區狀態
   document.body.addEventListener('click', onClickTextarea)
 })()
@@ -40,6 +57,7 @@ function getArticle() {
     // 回傳資料
     const data = response.data
     console.log(`文章資訊: `, data)
+    console.log('\n')
     // 儲存文章
     article.push(data)
     // 渲染文章
@@ -48,15 +66,27 @@ function getArticle() {
 }
 
 // 取得留言
-function getComments() {
-  axios.get(`${COMMENTS_API}/${id}`).then((response) => {
+function getComments(type) {
+  axios.get(`${COMMENTS_API}/${id}?offset=${offset}&size=${size}`).then((response) => {
     // 回傳資料
     const data = response.data
-    console.log(`留言資訊: `, data)
+    const main = data.main
+    console.log(`留言資訊(${type}): `, data)
+    console.log(`本頁留言(${type}): `, main)
     // 儲存留言
-    comments.push(...data)
+    comments.length = 0
+    comments.push(...main)
     // 渲染留言
     renderComments(comments)
+    // 儲存 總留言數 & 當前留言數
+    totalComments = data.total
+    showComments = historyContainer.children.length
+    console.log(`總留言數(${type}): `, totalComments)
+    console.log(`當前留言(${type}): `, showComments)
+    console.log('\n')
+    // 更新offset
+    offset += size
+    commentsObserver.observe(footer)
   })
 }
 
@@ -83,6 +113,20 @@ function onClickTextarea(event) {
   }
 }
 
+// 觀察器: 留言無限下滑
+function infiniteScroll(entries) {
+  console.log('留言觀察: ', entries[0].isIntersecting)
+  console.log('\n')
+
+  if (entries[0].isIntersecting) {
+    getComments('下滑')
+  }
+
+  if (totalComments - showComments === 0) {
+    commentsObserver.disconnect()
+  }
+}
+
 // 文章渲染
 function renderArticle(article) {
   title.textContent = article.title
@@ -95,21 +139,19 @@ function renderArticle(article) {
 
 // 留言渲染
 function renderComments(comments) {
-  let htmlContent = ''
-
   comments.forEach((comment) => {
-    htmlContent += `<div class="history">
-    <div class="info">
-      <div class="avatar">
-        <img src="${comment.avatar}">
-      </div>
-      <div class="username">${comment.username}</div>
+    const history = document.createElement('div')
+    history.classList.add('history')
+    const htmlContent = `<div class="info">
+    <div class="avatar">
+      <img src="${comment.avatar}">
     </div>
-    <div class="history-comment">${comment.comment}</div>
-  </div>`
+      <div class="username">${comment.username}</div>
+  </div>
+  <div class="history-comment">${comment.comment}</div>`
+    history.innerHTML = htmlContent
+    historyContainer.appendChild(history)
   })
-
-  historyContainer.innerHTML = htmlContent
 }
 
 // 留言區狀態

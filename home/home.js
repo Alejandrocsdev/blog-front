@@ -66,7 +66,7 @@ function getArticles(type, keyword) {
       // 渲染分頁
       renderPaginator()
       console.log(`當前頁數(${type}): `, page)
-      console.log(`搜尋字串(${type}): `, keyword)
+      console.log(`搜尋字串(${type}): `, keyword || '')
       console.log('\n')
     })
 }
