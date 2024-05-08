@@ -25,6 +25,10 @@ function onRedirectHome() {
   const currentPath = window.location.href
   const fileName = currentPath.split('/').slice(-1)[0]
 
+  // 從cookie移除keyword & filter
+  cookie.remove('keyword')
+  cookie.remove('filter')
+
   if (fileName === 'home.html') {
     // 刷新
     window.location.href = currentPath
@@ -112,11 +116,10 @@ function createLabeledInput(id, text) {
 }
 
 // 新增(home / article): category元素
-function createCategories(categories) {
+function createCategories(data) {
   let htmlContent = ''
-
-  categories.forEach((category) => {
-    htmlContent += `<span class="category">${category}</span>`
+  data.forEach((categories) => {
+    htmlContent += `<span class="category" data-filter="categories">${categories.category}</span>`
   })
 
   return htmlContent

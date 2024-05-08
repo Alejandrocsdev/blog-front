@@ -17,6 +17,7 @@ const commentSection = document.getElementById('comment-section')
 const commentButtons = document.getElementById('comment-buttons')
 const historyContainer = document.getElementById('history-container')
 const footer = document.getElementById('footer')
+const container = document.getElementById('container')
 
 // 留言變數
 let totalComments
@@ -28,7 +29,7 @@ const size = 2
 let isTextareaActive = false
 
 // 從cookie取得articleId
-const id = cookie.get('articleId')
+const id = cookie.get('article_id')
 
 // 觀察器: 留言無限下滑
 const commentsObserver = new IntersectionObserver(infiniteScroll)
@@ -43,12 +44,17 @@ console.log('\n')
 
 // 初始函式
 ;(function init() {
+  // 從cookie移除keyword & filter
+  cookie.remove('keyword')
+  cookie.remove('filter')
   // 取得文章
   getArticle()
   // 取得留言
   getComments('載入')
   // 監聽器: 留言區狀態
   document.body.addEventListener('click', onClickTextarea)
+  // 監聽器: 篩選文章類別
+  container.addEventListener('click', onFilter)
 })()
 
 // 取得文章
@@ -113,6 +119,20 @@ function onClickTextarea(event) {
   }
 }
 
+// #監聽器函式: 篩選文章類別
+function onFilter(event) {
+  const target = event.target
+
+  if (target.classList.contains('username') || target.classList.contains('category')) {
+    const keyword = target.textContent
+    const filter = target.dataset.filter
+    cookie.set('keyword', keyword)
+    cookie.set('filter', filter)
+    // 導向home頁面
+    window.location.href = '../home/home.html'
+  }
+}
+
 // 觀察器: 留言無限下滑
 function infiniteScroll(entries) {
   console.log('留言觀察: ', entries[0].isIntersecting)
@@ -130,9 +150,10 @@ function infiniteScroll(entries) {
 // 文章渲染
 function renderArticle(article) {
   title.textContent = article.title
-  avatar.src = article.avatar
-  username.textContent = article.username
-  categoryContainer.innerHTML = createCategories(article.category)
+  avatar.src = article.user.avatar
+  username.textContent = article.user.username
+  username.dataset.filter = 'user'
+  categoryContainer.innerHTML = createCategories(article.categories)
   picture.src = article.picture
   content.textContent = article.content
 }
@@ -144,9 +165,9 @@ function renderComments(comments) {
     history.classList.add('history')
     const htmlContent = `<div class="info">
     <div class="avatar">
-      <img src="${comment.avatar}">
+      <img src="${comment.user.avatar}">
     </div>
-      <div class="username">${comment.username}</div>
+      <div class="username" data-filter="user">${comment.user.username}</div>
   </div>
   <div class="history-comment">${comment.comment}</div>`
     history.innerHTML = htmlContent

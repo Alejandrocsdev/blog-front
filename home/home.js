@@ -8,6 +8,7 @@ const articles = []
 const articlesContainer = document.getElementById('articles-container')
 const paginator = document.getElementById('paginator')
 const searchContainer = document.getElementById('search-container')
+const search = document.getElementById('search')
 
 // 分頁變數
 let page = 1
@@ -24,35 +25,44 @@ console.log('<<<初始參數>>>')
 console.log('當前頁數: ', page)
 
 // 搜尋關鍵字
-let keyword = ''
+let keyword = cookie.get('keyword') || ''
 console.log('搜尋字串: ', keyword)
+console.log('\n')
+
+// 篩選類別
+let filter = cookie.get('filter') || ''
+console.log('篩選類別: ', filter)
 console.log('\n')
 
 // 初始函式
 ;(function init() {
-  // 從cookie移除articleId
-  cookie.remove('articleId')
+  // 從cookie移除article_id
+  cookie.remove('article_id')
   // 取得文章
-  getArticles('載入')
+  getArticles('載入', keyword)
   // 監聽器: 文章標題導向article頁面
-  articlesContainer.addEventListener('click', onRedirectToArticle)
+  articlesContainer.addEventListener('click', onTitleRedirect)
+  // 監聽器: 篩選文章類別
+  articlesContainer.addEventListener('click', onFilter)
   // 監聽器: 切換分頁
   paginator.addEventListener('click', onPaginator)
   // 監聽器: 搜尋內容
   searchContainer.addEventListener('click', onSearch)
+  // 監聽器: 搜尋內容(enter鍵)
+  search.addEventListener('keydown', onEnterSearch)
 })()
 
 // 取得文章
-function getArticles(type, keyword) {
+function getArticles(stage, keyword) {
   // 發送全部文章請求
   axios
-    .get(`${ARTICLES_API}?offset=${offset}&size=${size}`, { params: { search: keyword } })
+    .get(`${ARTICLES_API}?offset=${offset}&size=${size}`, { params: { search: keyword, filter } })
     .then((response) => {
       // 回傳資料
       const data = response.data
       const main = data.main
-      console.log(`全部資訊(${type}): `, data)
-      console.log(`本頁文章(${type}): `, main)
+      console.log(`全部資訊(${stage}): `, data)
+      console.log(`本頁文章(${stage}): `, main)
       // 儲存文章
       articles.length = 0
       articles.push(...main)
@@ -61,26 +71,41 @@ function getArticles(type, keyword) {
       // 儲存 文章數 & 頁數
       totalArticles = data.total
       totalPages = Math.ceil(totalArticles / size)
-      console.log(`總文章數(${type}): `, totalArticles)
-      console.log(`全部頁數(${type}): `, totalPages)
+      console.log(`總文章數(${stage}): `, totalArticles)
+      console.log(`全部頁數(${stage}): `, totalPages)
       // 渲染分頁
       renderPaginator()
-      console.log(`當前頁數(${type}): `, page)
-      console.log(`搜尋字串(${type}): `, keyword || '')
+      console.log(`當前頁數(${stage}): `, page)
+      console.log(`搜尋字串(${stage}): `, keyword)
+      console.log(`篩選類別(${stage}): `, filter)
       console.log('\n')
     })
 }
 
 // #監聽器函式: 文章標題導向article頁面
-function onRedirectToArticle(event) {
+function onTitleRedirect(event) {
   const target = event.target
 
   if (target.classList.contains('title')) {
-    // 於cookie儲存articleId
+    // 於cookie儲存article_id
     const id = target.dataset.id
-    cookie.set('articleId', id)
+    cookie.set('article_id', id)
     // 導向article頁面
     window.location.href = '../article/article.html'
+  }
+}
+
+// #監聽器函式: 篩選文章類別
+function onFilter(event) {
+  const target = event.target
+
+  if (target.classList.contains('username') || target.classList.contains('category')) {
+    keyword = target.textContent
+    filter = target.dataset.filter
+    // 更新offset & page
+    offset = 0
+    page = 1
+    getArticles('篩選', keyword)
   }
 }
 
@@ -122,12 +147,29 @@ function onSearch(event) {
   const target = event.target
 
   // 取得搜尋關鍵字
-  const search = searchContainer.children[0]
   keyword = search.value
 
-  if (keyword && (target.id === 'search-btn' || target.tagName === 'I')) {
-    // 更新offset
-    offset = (page - 1) * size
+  if (target.id === 'search-btn' || target.tagName === 'I') {
+    // 更新offset & page
+    offset = 0
+    page = 1
+    // 更新filter
+    filter = ''
+    // 取得文章
+    getArticles('搜尋', keyword)
+  }
+}
+
+// #監聽器函式: 搜尋內容(enter鍵)
+function onEnterSearch(event) {
+  if (event.key === 'Enter') {
+    // 取得搜尋關鍵字
+    keyword = search.value
+    // 更新offset & page
+    offset = 0
+    page = 1
+    // 更新filter
+    filter = ''
     // 取得文章
     getArticles('搜尋', keyword)
   }
@@ -148,11 +190,11 @@ function renderArticles(articles) {
   <div class="main">
     <div class="info">
       <div class="avatar">
-        <img src="${article.avatar}">
+        <img src="${article.user.avatar}">
       </div>
-      <div class="username">${article.username}</div>
+      <div class="username" data-filter="user">${article.user.username}</div>
       <div class="category-container">
-        ${createCategories(article.category)}
+        ${createCategories(article.categories)}
       </div>
     </div>
     <div class="title" data-id=${article.id} class="title">${title}</div>
@@ -178,7 +220,7 @@ function renderPaginator() {
 
   for (
     // 分頁起始值
-    let i = page <= 1 ? page : 1;
+    let i = page <= totalPages - (showPages - 1) ? page : totalPages - (showPages - 1);
     // 分頁顯示數
     totalPages >= showPages ? i < page + showPages && i <= totalPages : i <= totalPages;
     // 分頁間距

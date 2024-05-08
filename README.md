@@ -115,11 +115,11 @@
   main: [
     {
       id: XX,
-      avatar: 'https://XXXXXX',
+      avatar: 'XXXXXX',
       username: 'XXXXXX',
       title: 'XXXXXX',
-      category: ['XX', 'XX', 'XX'],
-      picture: 'https://XXXXXX',
+      categories: [{ id: XX, category: 'XX' }, ...],
+      picture: 'XXXXXX',
       content: 'XXXXXX'
     },
     {...}
@@ -141,11 +141,11 @@
 [
   {
     id: XX,
-    avatar: 'https://XXXXXX',
+    avatar: 'XXXXXX',
     username: 'XXXXXX',
     title: 'XXXXXX',
-    category: ['XX', 'XX', 'XX'],
-    picture: 'https://XXXXXX',
+    categories: [{ id: XX, category: 'XX' }, ...],
+    picture: 'XXXXXX',
     content: 'XXXXXX'
   },
   {...}
