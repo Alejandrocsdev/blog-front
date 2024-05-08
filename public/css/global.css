@@ -138,6 +138,7 @@ footer {
 #modal {
   width: 380px;
   height: 400px;
+  padding: 10px;
   background-color: var(--secondary-background-color);
   border: 3px solid var(--border-color);
   border-radius: 15px;
@@ -147,9 +148,29 @@ footer {
   position: relative;
 }
 
+#modal-form div {
+  height: 55px;
+}
+
+#modal-form div label {
+  width: 70px;
+  text-align: center;
+  display: inline-block;
+}
+
+#modal-form div input {
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  background-color: var(--tertiary-background-color);
+}
+
 #modal-close {
   width: 20px;
   height: 20px;
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  background-color: var(--tertiary-background-color);
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -158,29 +179,9 @@ footer {
   left: 15px;
 }
 
-#modal-close button {
-  color: var(--text-color);
-  border: 2px solid var(--border-color);
-  background-color: var(--tertiary-background-color);
-  cursor: pointer;
-}
-
-#modal tr {
-  height: 55px;
-}
-
-#modal tr td:nth-child(1) {
-  text-align: center;
-}
-
-#modal tr td:nth-child(3) input {
-  color: var(--text-color);
-  border: 2px solid var(--border-color);
-  background-color: var(--tertiary-background-color);
-}
-
 #modal-name {
-  margin: 0;
+  margin: 0 0 20px 0;
+  text-align: center;
 }
 
 #submit {

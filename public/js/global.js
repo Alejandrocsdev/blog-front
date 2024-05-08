@@ -1,3 +1,6 @@
+// API
+const USERS_API = `${BASE_URL}/users`
+
 // HTML元素
 const home = document.getElementById('home')
 const darkMode = document.getElementById('dark-mode')
@@ -54,10 +57,15 @@ function onSigningModal(type) {
     modalBg.innerHTML = createModal(type)
     modalBg.id = 'modal-bg'
     document.body.appendChild(modalBg)
+
     const modalClose = document.getElementById('modal-close')
-    modalClose.addEventListener('click', () => {
-      modalBg.remove()
+    modalClose.addEventListener('click', () => modalBg.remove())
+
+    modalBg.addEventListener('click', (event) => {
+      const target = event.target
+      console.log(target)
     })
+    const submit = document.getElementById('submit')
   }
 }
 
@@ -82,37 +90,27 @@ function setTheme() {
 
 // 新增: 彈跳窗HTML字串
 function createModal(name) {
-  return `<table id="modal">
-    <tr>
-      <td id="modal-close">
-        <button>X</button>
-      </td>
-    </tr>
-    <tbody>
-      <tr>
-        <td colspan="3">
-          <h1 id="modal-name">${name}</h1>
-        </td>
-      </tr>
-      ${createLabeledInput('username', '帳號')}
-      ${name === '註冊' ? createLabeledInput('email', '信箱') : ''}
-      ${createLabeledInput('password', '密碼')}
-      ${name === '註冊' ? createLabeledInput('re-password', '確認密碼') : ''}
-      <tr>
-        <td colspan="3"><button id="submit">提交</button></td>
-      </tr>
-    </tbody>
-    <tr><td></td></tr>
-  </table>`
+  const path = name === '註冊' ? 'register' : 'login'
+  return `<div id="modal">
+<form id="modal-form" action="${USERS_API}/${path}" method="POST">
+    <button id="modal-close" type="button">X</button>
+    <h1 id="modal-name">${name}</h1>
+    ${createLabeledInput('username', '帳號')}
+    ${name === '註冊' ? createLabeledInput('email', '信箱') : ''}
+    ${createLabeledInput('password', '密碼', 'password')}
+    ${name === '註冊' ? createLabeledInput('re-password', '確認密碼', 'password') : ''}
+    <button id="submit" type="submit">提交</button>
+  </form>
+</div>`
 }
 
 // 新增: 彈跳窗共用input欄位HTML字串
-function createLabeledInput(id, text) {
-  return `<tr>
-    <td><label for="${id}">${text}</label></td>
-    <td>：</td>
-    <td><input id="${id}" name="${id}"></input></td>
-  </tr>`
+function createLabeledInput(id, text, type = 'text') {
+  return `<div>
+  <label for="${id}">${text}</label>
+  <span>:</span>
+  <input id="${id}" name="${id}" type="${type}">
+</div>`
 }
 
 // 新增(home / article): category元素
