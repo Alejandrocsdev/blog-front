@@ -99,11 +99,11 @@
 
 ### `全部文章`
 
-**URL :** `BASE_URL/articles?offset=XX&size=XX`
+**URL :** `BASE_URL/articles?offset=XX&size=XX&keyword=XX&filter=XX`
 
 **Request :** `GET`
 
-**Body :** `{ params: { search: keyword }`
+**Body :**
 
 **Response :**
 
@@ -115,14 +115,25 @@
   main: [
     {
       id: XX,
-      avatar: 'XXXXXX',
-      username: 'XXXXXX',
       title: 'XXXXXX',
-      categories: [{ id: XX, category: 'XX' }, ...],
       picture: 'XXXXXX',
-      content: 'XXXXXX'
-    },
-    {...}
+      content: 'XXXXXX',
+      user: [
+        { 
+          id: XX, 
+          avatar: 'XXXXXX', 
+          username: 'XXXXXX',
+          email: 'XXXXXX',
+          password: 'XXXXXX'
+        }
+      ],
+      categories: [
+        { 
+          id: XX, 
+          category: 'XXXXXX'
+        }
+      ]
+    }
   ]
 }
 ```
@@ -141,14 +152,25 @@
 [
   {
     id: XX,
-    avatar: 'XXXXXX',
-    username: 'XXXXXX',
     title: 'XXXXXX',
-    categories: [{ id: XX, category: 'XX' }, ...],
     picture: 'XXXXXX',
-    content: 'XXXXXX'
-  },
-  {...}
+    content: 'XXXXXX',
+    user: [
+      { 
+        id: XX, 
+        avatar: 'XXXXXX', 
+        username: 'XXXXXX',
+        email: 'XXXXXX',
+        password: 'XXXXXX'
+      }
+    ],
+    categories: [
+      { 
+        id: XX, 
+        category: 'XXXXXX'
+      }
+    ]
+  }
 ]
 ```
 
@@ -171,13 +193,19 @@
   size: XX,
   main: [
     {
-      "id": XX,
-      "avatar": "https://XXXXXX",
-      "username": "XXXXXX",
-      "articleId": XX,
-      "comment": "XXXXXX"
-    },
-    {...}
+      id: XX,
+      article_id: XX,
+      comment: "XXXXXX",
+      user: [
+        { 
+          id: XX, 
+          avatar: 'XXXXXX', 
+          username: 'XXXXXX',
+          email: 'XXXXXX',
+          password: 'XXXXXX'
+        }
+      ]
+    }
   ]
 }
 ```

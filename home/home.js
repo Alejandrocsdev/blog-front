@@ -23,14 +23,12 @@ console.log('顯示分頁: ', showPages)
 console.log('\n')
 console.log('<<<初始參數>>>')
 console.log('當前頁數: ', page)
-
-// 搜尋關鍵字
-let keyword = cookie.get('keyword') || ''
-console.log('搜尋字串: ', keyword)
 console.log('\n')
 
-// 篩選類別
+// 搜尋關鍵字 & 篩選類別
+let keyword = cookie.get('keyword') || ''
 let filter = cookie.get('filter') || ''
+console.log('搜尋字串: ', keyword)
 console.log('篩選類別: ', filter)
 console.log('\n')
 
@@ -56,7 +54,7 @@ console.log('\n')
 function getArticles(stage, keyword) {
   // 發送全部文章請求
   axios
-    .get(`${ARTICLES_API}?offset=${offset}&size=${size}`, { params: { search: keyword, filter } })
+    .get(`${ARTICLES_API}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`)
     .then((response) => {
       // 回傳資料
       const data = response.data

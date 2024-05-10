@@ -61,12 +61,39 @@ function onSigningModal(type) {
     const modalClose = document.getElementById('modal-close')
     modalClose.addEventListener('click', () => modalBg.remove())
 
-    modalBg.addEventListener('click', (event) => {
-      const target = event.target
-      console.log(target)
-    })
-    const submit = document.getElementById('submit')
+    const modalForm = document.getElementById('modal-form')
+    modalForm.addEventListener('submit', (event) => modalSubmit(event, type))
   }
+}
+
+function modalSubmit(event, type) {
+  event.preventDefault()
+
+  const formData = new FormData(event.target)
+
+  const username = formData.get('username')
+  const email = formData.get('email')
+  const password = formData.get('password')
+  const rePassword = formData.get('re-password')
+
+  const registerBody = { username, email, password }
+  const loginBody = { username, password }
+
+  type === '註冊' ? registerRequest(registerBody) : loginRequest(loginBody)
+}
+
+function registerRequest(body) {
+  axios.post(`${USERS_API}/register`, body).then((response) => {
+    const data = response.data
+    console.log('註冊成功')
+    console.log(`用戶ID: ${data}`)
+  })
+}
+
+function loginRequest(body) {
+  axios.post(`${USERS_API}/login`, body).then((response) => {
+    const data = response.data
+  })
 }
 
 // 黑暗模式圖示切換
@@ -90,9 +117,8 @@ function setTheme() {
 
 // 新增: 彈跳窗HTML字串
 function createModal(name) {
-  const path = name === '註冊' ? 'register' : 'login'
   return `<div id="modal">
-<form id="modal-form" action="${USERS_API}/${path}" method="POST">
+<form id="modal-form">
     <button id="modal-close" type="button">X</button>
     <h1 id="modal-name">${name}</h1>
     ${createLabeledInput('username', '帳號')}
