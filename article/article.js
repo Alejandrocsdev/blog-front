@@ -160,6 +160,7 @@ function renderArticle(article) {
 
 // 留言渲染
 function renderComments(comments) {
+  console.log(comments)
   comments.forEach((comment) => {
     const history = document.createElement('div')
     history.classList.add('history')

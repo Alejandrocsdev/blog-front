@@ -171,7 +171,7 @@
 
 .inactive {
   color: gray;
-  cursor: default!important;
-  border: none!important;
-  background-color: transparent!important;
+  cursor: default !important;
+  border: none !important;
+  background-color: transparent !important;
 }

@@ -5,22 +5,24 @@ const USERS_API = `${BASE_URL}/users`
 const home = document.getElementById('home')
 const darkMode = document.getElementById('dark-mode')
 const theme = document.getElementById('theme')
-const signIn = document.getElementById('sign-in')
-const signUp = document.getElementById('sign-up')
+const sign = document.getElementById('sign')
 const modalBg = document.createElement('div')
 
+// 登入狀態
+let isLoggedIn = cookie.get('isLoggedIn') || false
+console.log('登入狀態: ', isLoggedIn)
+console.log('\n')
+
 // 初始函式
-;(function headerInit() {
+;(function init() {
   // local storage預設light模式
   setTheme()
   // 監聽器: Home鍵
   home.addEventListener('click', onRedirectHome)
   // 監聽器: 黑暗模式切換
   darkMode.addEventListener('click', onToggleMode)
-  // 監聽器: 登入 彈跳窗
-  signIn.addEventListener('click', onSigningModal('登入'))
-  // 監聽器: 註冊 彈跳窗
-  signUp.addEventListener('click', onSigningModal('註冊'))
+  // 根據登入狀態渲染navbar按鈕
+  renderSignButtons(isLoggedIn)
 })()
 
 // #監聽器函式: Home鍵
@@ -66,6 +68,21 @@ function onSigningModal(type) {
   }
 }
 
+// #監聽器函式: 會員選單
+function onProfile(event) {
+  const target = event.target
+  if(target.id === 'profile') {
+    window.location.href = '../profile/profile.html'
+  } else if (target.id === 'create') {
+    window.location.href = '../create/create.html'
+  } else if (target.id === 'edit') {
+    window.location.href = '../edit/edit.html'
+  } else if (target.id === 'logout') {
+    console.log(logout)
+  }
+}
+
+// 登入/註冊: 提交
 function modalSubmit(event, type) {
   event.preventDefault()
 
@@ -82,18 +99,67 @@ function modalSubmit(event, type) {
   type === '註冊' ? registerRequest(registerBody) : loginRequest(loginBody)
 }
 
+// 註冊請求
 function registerRequest(body) {
   axios.post(`${USERS_API}/register`, body).then((response) => {
     const data = response.data
+    console.log(data)
     console.log('註冊成功')
-    console.log(`用戶ID: ${data}`)
+    // 切換到登入modal
+    modalBg.innerHTML = createModal('登入')
+    modalBg.id = 'modal-bg'
+    document.body.appendChild(modalBg)
   })
 }
 
+// 登入請求
 function loginRequest(body) {
-  axios.post(`${USERS_API}/login`, body).then((response) => {
-    const data = response.data
-  })
+  axios
+    .post(`${USERS_API}/login`, body)
+    .then((response) => {
+      const data = response.data
+      const token = data.token
+      const user = data.user
+      cookie.set('token', token)
+      cookie.set('user', user)
+      cookie.set('isLoggedIn', true)
+      isLoggedIn = true
+      console.log('登入成功')
+      console.log(data)
+      // 切換到頁面
+      modalBg.remove()
+      // 根據登入狀態渲染navbar按鈕
+      renderSignButtons(isLoggedIn)
+    })
+    .catch((error) => {
+      const errorMessage = error.response.data.message
+      console.error(errorMessage)
+    })
+}
+
+// 登出請求
+function logoutRequest(body) {
+  axios
+    .post(`${USERS_API}/login`, body)
+    .then((response) => {
+      const data = response.data
+      const token = data.token
+      const user = data.user
+      cookie.set('token', token)
+      cookie.set('user', user)
+      cookie.set('isLoggedIn', true)
+      isLoggedIn = true
+      console.log('登入成功')
+      console.log(data)
+      // 切換到頁面
+      modalBg.remove()
+      // 根據登入狀態渲染navbar按鈕
+      renderSignButtons(isLoggedIn)
+    })
+    .catch((error) => {
+      const errorMessage = error.response.data.message
+      console.error(errorMessage)
+    })
 }
 
 // 黑暗模式圖示切換
@@ -112,6 +178,46 @@ function setTheme() {
     storage.set('theme', 'light')
   } else if (storage.get('theme') === 'dark') {
     toggleMode()
+  }
+}
+
+function renderSignButtons(state) {
+  sign.innerHTML = createSignButtons(state)
+  if (state) {
+    const profileDropdown = document.getElementById('profile-dropdown')
+    profileDropdown.addEventListener('click', onProfile)
+  } else {
+    // 監聽器: 登入 彈跳窗
+    const signIn = document.getElementById('sign-in')
+    signIn.addEventListener('click', onSigningModal('登入'))
+    // 監聽器: 註冊 彈跳窗
+    const signUp = document.getElementById('sign-up')
+    signUp.addEventListener('click', onSigningModal('註冊'))
+  }
+}
+
+// 新增: 登入/註冊按鈕HTML字串
+function createSignButtons(state) {
+  if (state) {
+    const user = cookie.get('user')
+    const avatar = user.avatar
+    return `<div id="profile-dropdown">
+    <div id="profile-avatar">
+      <img src="${avatar}">
+    </div>
+    <div id="dropdown-content">
+      <div id="profile">後台</div>
+      <div id="create">撰寫</div>
+      <div id="logout">登出</div>
+    </div>
+  </div>`
+  } else {
+    return `<div id="sign-in">
+    Sign In
+  </div>
+  <div id="sign-up">
+    Sign Up
+  </div>`
   }
 }
 

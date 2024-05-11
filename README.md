@@ -182,7 +182,7 @@
 
 **Request :** `GET`
 
-**Body :**
+**Body :** `{ username, email, password }`
 
 **Response :**
 
@@ -207,5 +207,47 @@
       ]
     }
   ]
+}
+```
+
+## Users
+
+### `用戶註冊`
+
+**URL :** `BASE_URL/users/register`
+
+**Request :** `POST`
+
+**Body :** `{ username, email, password }`
+
+**Response :**
+
+```
+{
+  message: '註冊成功'
+}
+```
+
+### `用戶登入`
+
+**URL :** `BASE_URL/users/login`
+
+**Request :** `POST`
+
+**Body :** `{ username, password }`
+
+**Response :**
+
+```
+{
+  message: '登入成功',
+  token: 'XXXXXX',
+  user: { 
+          id: XX, 
+          avatar: 'XXXXXX', 
+          username: 'XXXXXX',
+          email: 'XXXXXX'
+        }
+      
 }
 ```

@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
   <link rel="stylesheet" href="../public/css/fonts.css">
   <link rel="stylesheet" href="../public/css/global.css">
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="edit.css">
   <title>Blog</title>
 </head>
 
@@ -30,34 +30,34 @@
   </header>
   <main>
     <div id="container">
-      <div id="search-container">
-        <input id="search" type="text">
-        <button id="search-btn">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-      <!-- <div class="dropdown">
-        <button class="dropbtn">Profile</button>
-        <div class="dropdown-content">
-          <a href="#">Edit</a>
-          <a href="#" id="logoutBtn">Logout</a>
-        </div>
-      </div> -->
-      <div id="articles-container">
-        <!-- 渲染文章列表 -->
-      </div>
-      <div id="paginator">
-        <!-- 渲染分頁器 -->
-      </div>
+      <form id="edit-form">
+        <label for="title">標題: </label>
+        <input type="text" id="title" name="title">
+        <label for="category_01">分類 1: </label>
+        <select id="category_01" name="category_01">
+          <option selected></option>
+        </select>
+        <label for="category_02">分類 2: </label>
+        <select id="category_02" name="category_02">
+          <option selected></option>
+        </select>
+        <label for="category_03">分類 3: </label>
+        <select id="category_03" name="category_03">
+          <option selected></option>
+        </select>
+        <label for="content">內容: </label>
+        <textarea id="content" name="content"></textarea>
+        <button type="button">清除</button>
+        <button id="edit-submit" type="submit">提交</button>
+      </form>
     </div>
   </main>
-  <footer>MIT licensed | Copyright &copy; 2024</footer>
+  <footer id="footer">MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../public/js/utils.js"></script>
   <script src="../public/js/global.js"></script>
-  <script src="home.js"></script>
-  <!-- 渲染登入/註冊彈跳窗 -->
+  <script src="edit.js"></script>
 </body>
 
 </html>
