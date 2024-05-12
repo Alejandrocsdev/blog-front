@@ -1,0 +1,30 @@
+nav {
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 20px;
+  display: flex;/* 把容器變成 flex 容器 */
+  align-items: center; /* 垂直置中 */
+  justify-content: space-between; /* 水平分散 */
+ 
+}
+
+.nav-link {
+outline: 3px solid tomato;/* 暫時觀察用 */
+width: 10em;
+display: flex; /* 把容器變成 flex 容器 */
+align-items: center; /* 垂直置中 */
+justify-content: space-between;/* 水平分散 */
+
+
+}
+
+.nav-logo img {
+max-height: 50px;
+max-width: 50px;
+
+}
+
+.fa-solid {
+font-size: 30px;
+
+}
