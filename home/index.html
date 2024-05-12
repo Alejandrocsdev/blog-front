@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
   <link rel="stylesheet" href="../public/css/fonts.css">
   <link rel="stylesheet" href="../public/css/global.css">
-  <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" href="style.css">
   <title>Blog</title>
 </head>
 
@@ -29,35 +29,28 @@
     </div>
   </header>
   <main>
-    <div id="container">
-      <div id="profile-info">
-        <div id="avatar">
-          <img src="">
-        </div>
-        <div id="info">
-          <label for="username">帳號:</label>
-          <div id="username"></div>
-          <label for="email">信箱:</label>
-          <div id="email"></div>
-        </div>
+    <div class="container">
+      <div id="search-container">
+        <input id="search" type="text">
+        <button id="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </div>
-      <div id="user-articles">
-        <!-- 目前沒有文章 -->
-        <div class="article-title">title</div>
-        <div class="article-title">title</div>
-        <div class="article-title">title</div>
-        <div class="article-title">title</div>
-        <div class="article-title">title</div>
-        <div class="article-title">title</div>
+      <div id="articles-container">
+        <!-- 渲染文章列表 -->
+      </div>
+      <div id="paginator">
+        <!-- 渲染分頁器 -->
       </div>
     </div>
   </main>
-  <footer id="footer">MIT licensed | Copyright &copy; 2024</footer>
+  <footer>MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../public/js/utils.js"></script>
   <script src="../public/js/global.js"></script>
-  <script src="profile.js"></script>
+  <script src="main.js"></script>
+  <!-- 渲染登入/註冊彈跳窗 -->
 </body>
 
 </html>

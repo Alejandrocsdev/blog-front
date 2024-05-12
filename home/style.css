@@ -1,14 +1,5 @@
 :root {
   --article-height: 200px;
-  --container-width: 700px;
-}
-
-#container {
-  width: var(--container-width);
-  padding: calc(var(--header-height) + 20px) 20px 20px 20px;
-  margin: 0 auto;
-  /* CONTENT BOX */
-  box-sizing: content-box;
 }
 
 #search-container {
@@ -48,16 +39,16 @@
 
 .article {
   height: var(--article-height);
-  border: 1px solid var(--border-color);
   display: flex;
 }
 
 .main {
   height: 100%;
-  width: calc(var(--container-width) - var(--article-height));
+  width: calc(100% - var(--article-height));
   padding: 10px;
   background-color: var(--tertiary-background-color);
-  border-right: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
+  border-right: none;
 }
 
 .info {
@@ -123,6 +114,7 @@
 .picture {
   height: 100%;
   aspect-ratio: 1/1;
+  border: 1px solid var(--border-color);
   overflow: hidden;
   position: relative;
 }

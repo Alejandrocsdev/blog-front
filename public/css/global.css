@@ -1,6 +1,8 @@
 :root {
   --header-height: 60px;
   --footer-height: 60px;
+  --container-width: 700px;
+  --container-padding: 20px;
   /* Light Mode */
   --primary-background-color: hsl(26, 100%, 92%);
   --secondary-background-color: hsl(24, 43%, 76%);
@@ -154,6 +156,13 @@ header {
 main {
   min-height: 100vh;
   background-color: var(--primary-background-color);
+}
+
+.container {
+  width: var(--container-width);
+  padding: var(--container-padding);
+  padding-top: calc(var(--header-height) + 20px);
+  margin: 0 auto;
 }
 
 footer {

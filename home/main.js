@@ -89,7 +89,7 @@ function onTitleRedirect(event) {
     const id = target.dataset.id
     cookie.set('article_id', id)
     // 導向article頁面
-    window.location.href = '../article/article.html'
+    window.location.href = '../article/index.html'
   }
 }
 

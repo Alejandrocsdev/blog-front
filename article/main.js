@@ -17,7 +17,8 @@ const commentSection = document.getElementById('comment-section')
 const commentButtons = document.getElementById('comment-buttons')
 const historyContainer = document.getElementById('history-container')
 const footer = document.getElementById('footer')
-const container = document.getElementById('container')
+// const memberAvatar = document.getElementById('member-avatar')
+// const memberUsername = document.getElementById('member-username')
 
 // 留言變數
 let totalComments
@@ -30,6 +31,8 @@ let isTextareaActive = false
 
 // 從cookie取得articleId
 const id = cookie.get('article_id')
+// 從cookie取得user
+user = cookie.get('user') || ''
 
 // 觀察器: 留言無限下滑
 const commentsObserver = new IntersectionObserver(infiniteScroll)
@@ -51,6 +54,10 @@ console.log('\n')
   getArticle()
   // 取得留言
   getComments('載入')
+  // 渲染會員資料
+  if (user) {
+    renderMemberInfo()
+  }
   // 監聽器: 留言區狀態
   document.body.addEventListener('click', onClickTextarea)
   // 監聽器: 篩選文章類別
@@ -129,7 +136,7 @@ function onFilter(event) {
     cookie.set('keyword', keyword)
     cookie.set('filter', filter)
     // 導向home頁面
-    window.location.href = '../home/home.html'
+    window.location.href = '../home/index.html'
   }
 }
 
@@ -160,7 +167,6 @@ function renderArticle(article) {
 
 // 留言渲染
 function renderComments(comments) {
-  console.log(comments)
   comments.forEach((comment) => {
     const history = document.createElement('div')
     history.classList.add('history')

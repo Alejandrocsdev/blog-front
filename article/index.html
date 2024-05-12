@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
   <link rel="stylesheet" href="../public/css/fonts.css">
   <link rel="stylesheet" href="../public/css/global.css">
-  <link rel="stylesheet" href="article.css">
+  <link rel="stylesheet" href="style.css">
   <title>Blog</title>
 </head>
 
@@ -29,7 +29,7 @@
     </div>
   </header>
   <main>
-    <div id="container">
+    <div class="container">
       <div id="article">
         <h1 id="title">title</h1>
         <div class="info">
@@ -46,10 +46,10 @@
       </div>
       <div id="comment-container">
         <div class="info">
-          <div class="avatar">
+          <div id="member-avatar">
             <img src="../public/images/guest/guest.png">
           </div>
-          <div class="username">Guest</div>
+          <div id="member-username">Guest</div>
         </div>
         <div id="empty-section">留言請登入</div>
         <textarea id="comment-section"></textarea>
@@ -68,7 +68,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../public/js/utils.js"></script>
   <script src="../public/js/global.js"></script>
-  <script src="article.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>

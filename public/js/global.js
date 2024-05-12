@@ -8,10 +8,16 @@ const theme = document.getElementById('theme')
 const sign = document.getElementById('sign')
 const modalBg = document.createElement('div')
 
+const memberAvatar = document.getElementById('member-avatar')
+const memberUsername = document.getElementById('member-username')
+
 // 登入狀態
 let isLoggedIn = cookie.get('isLoggedIn') || false
 console.log('登入狀態: ', isLoggedIn)
 console.log('\n')
+
+// 從cookie取得user
+let user = cookie.get('user') || ''
 
 // 初始函式
 ;(function init() {
@@ -34,13 +40,8 @@ function onRedirectHome() {
   cookie.remove('keyword')
   cookie.remove('filter')
 
-  if (fileName === 'home.html') {
-    // 刷新
-    window.location.href = currentPath
-  } else {
-    // 導向home頁面
-    window.location.href = '../home/home.html'
-  }
+  // 導向home頁面
+  window.location.href = '../home/index.html'
 }
 
 // #監聽器函式: 黑暗模式切換
@@ -71,12 +72,12 @@ function onSigningModal(type) {
 // #監聽器函式: 會員選單
 function onProfile(event) {
   const target = event.target
-  if(target.id === 'profile') {
-    window.location.href = '../profile/profile.html'
+  if (target.id === 'profile') {
+    window.location.href = '../profile/index.html'
   } else if (target.id === 'create') {
-    window.location.href = '../create/create.html'
+    window.location.href = '../create/index.html'
   } else if (target.id === 'edit') {
-    window.location.href = '../edit/edit.html'
+    window.location.href = '../edit/index.html'
   } else if (target.id === 'logout') {
     console.log(logout)
   }
@@ -119,9 +120,9 @@ function loginRequest(body) {
     .then((response) => {
       const data = response.data
       const token = data.token
-      const user = data.user
       cookie.set('token', token)
-      cookie.set('user', user)
+      cookie.set('user', data.user)
+      user = cookie.get('user')
       cookie.set('isLoggedIn', true)
       isLoggedIn = true
       console.log('登入成功')
@@ -130,6 +131,8 @@ function loginRequest(body) {
       modalBg.remove()
       // 根據登入狀態渲染navbar按鈕
       renderSignButtons(isLoggedIn)
+      // 根據登入狀態渲染會員資料
+      updateState()
     })
     .catch((error) => {
       const errorMessage = error.response.data.message
@@ -138,29 +141,29 @@ function loginRequest(body) {
 }
 
 // 登出請求
-function logoutRequest(body) {
-  axios
-    .post(`${USERS_API}/login`, body)
-    .then((response) => {
-      const data = response.data
-      const token = data.token
-      const user = data.user
-      cookie.set('token', token)
-      cookie.set('user', user)
-      cookie.set('isLoggedIn', true)
-      isLoggedIn = true
-      console.log('登入成功')
-      console.log(data)
-      // 切換到頁面
-      modalBg.remove()
-      // 根據登入狀態渲染navbar按鈕
-      renderSignButtons(isLoggedIn)
-    })
-    .catch((error) => {
-      const errorMessage = error.response.data.message
-      console.error(errorMessage)
-    })
-}
+// function logoutRequest(body) {
+//   axios
+//     .post(`${USERS_API}/login`, body)
+//     .then((response) => {
+//       const data = response.data
+//       const token = data.token
+//       const user = data.user
+//       cookie.set('token', token)
+//       cookie.set('user', user)
+//       cookie.set('isLoggedIn', true)
+//       isLoggedIn = true
+//       console.log('登入成功')
+//       console.log(data)
+//       // 切換到頁面
+//       modalBg.remove()
+//       // 根據登入狀態渲染navbar按鈕
+//       renderSignButtons(isLoggedIn)
+//     })
+//     .catch((error) => {
+//       const errorMessage = error.response.data.message
+//       console.error(errorMessage)
+//     })
+// }
 
 // 黑暗模式圖示切換
 function toggleMode() {
@@ -253,4 +256,17 @@ function createCategories(data) {
   })
 
   return htmlContent
+}
+
+function updateState() {
+  const pathname = window.location.pathname
+  if(pathname === '/article/index.html') {
+    renderMemberInfo()
+  }
+}
+
+// 渲染會員資料
+function renderMemberInfo() {
+  memberAvatar.src = user.avatar
+  memberUsername.textContent = user.username
 }

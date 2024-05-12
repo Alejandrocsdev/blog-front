@@ -1,9 +1,0 @@
-:root {
-  --container-width: 700px;
-}
-
-#container {
-  width: var(--container-width);
-  padding: calc(var(--header-height) + 20px) 20px 20px 20px;
-  margin: 0 auto;
-}

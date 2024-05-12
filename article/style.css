@@ -1,12 +1,5 @@
 :root {
-  --container-width: 700px;
   --article-padding: 10px;
-}
-
-#container {
-  width: var(--container-width);
-  padding: calc(var(--header-height) + 20px) 0 20px 0;
-  margin: 0 auto;
 }
 
 #article {
@@ -26,18 +19,21 @@
   align-items: center;
 }
 
-.avatar {
+.avatar,
+#member-avatar {
   width: 40px;
   height: 40px;
 }
 
-.avatar img {
+.avatar img,
+#member-avatar img {
   width: 40px;
   object-fit: cover;
   border-radius: 20px;
 }
 
-.username {
+.username,
+#member-username {
   font-size: 20px;
   margin-left: 10px;
 }
@@ -58,10 +54,6 @@
 .category:hover {
   cursor: pointer;
   filter: brightness(90%);
-}
-
-#picture {
-  width: calc(var(--container-width) - var(--article-padding) * 2);
 }
 
 #picture img {
