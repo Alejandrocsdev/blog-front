@@ -1,12 +1,17 @@
 // API
 const USERS_API = `${BASE_URL}/users`
 
-// HTML元素
+// HTML元素(header)
 const home = document.getElementById('home')
 const darkMode = document.getElementById('dark-mode')
 const theme = document.getElementById('theme')
 const sign = document.getElementById('sign')
-const modalBg = document.createElement('div')
+const signIn = document.getElementById('sign-in')
+const signUp = document.getElementById('sign-up')
+const profileDropdown = document.getElementById('profile-dropdown')
+const modalBg = document.getElementById('modal-bg')
+const modalClose = document.getElementById('modal-close')
+const modalForm = document.getElementById('modal-form')
 // HTML元素(登入-article)
 const memberAvatar = document.querySelector('#member-avatar img')
 const memberUsername = document.getElementById('member-username')
@@ -19,10 +24,13 @@ let isLoggedIn = cookie.get('isLoggedIn') || false
 let user = cookie.get('user') || ''
 // 從cookie取得token
 let token = cookie.get('token') || ''
+// 彈跳窗類別
+let modalType
 console.log('<<<共用參數>>>')
 console.log('登入狀態: ', isLoggedIn)
 console.log('會員資訊: ', user)
 console.log('會員憑證: ', token)
+console.log('視窗類別: ', modalType || '')
 console.log('\n')
 
 // 初始函式
@@ -33,8 +41,14 @@ console.log('\n')
   home.addEventListener('click', onRedirectHome)
   // 監聽器: 黑暗模式切換
   darkMode.addEventListener('click', onToggleMode)
-  // 根據登入狀態渲染navbar按鈕
-  renderSignButtons(isLoggedIn)
+  // 監聽器: 登入/註冊 彈跳窗
+  sign.addEventListener('click', onSigningModal)
+  // 監聽器: 登入/註冊 彈跳窗 開/關
+  modalClose.addEventListener('click', onToggleModal)
+  // 監聽器: 登入/註冊 彈跳窗 提交表單
+  modalForm.addEventListener('submit', modalSubmit)
+  // 監聽器: 會員選單
+  profileDropdown.addEventListener('click', onProfile)
 })()
 
 // #監聽器函式: Home鍵
@@ -60,19 +74,36 @@ function onToggleMode() {
   }
 }
 
-// #監聽器函式: 註冊 & 登入 彈跳窗
-function onSigningModal(type) {
-  return () => {
-    modalBg.innerHTML = createModal(type)
-    modalBg.id = 'modal-bg'
-    document.body.appendChild(modalBg)
-
-    const modalClose = document.getElementById('modal-close')
-    modalClose.addEventListener('click', () => modalBg.remove())
-
-    const modalForm = document.getElementById('modal-form')
-    modalForm.addEventListener('submit', (event) => modalSubmit(event, type))
+// #監聽器函式: 登入/註冊 彈跳窗
+function onSigningModal(event) {
+  const target = event.target
+  if (target.id === 'sign-in' || target.id === 'sign-up') {
+    modalType = target.id === 'sign-in' ? '登入' : '註冊'
+    modalForm.innerHTML = createModal(modalType)
+    onToggleModal()
   }
+}
+
+// #監聽器函式: 登入/註冊 彈跳窗 開/關
+function onToggleModal() {
+  modalBg.classList.toggle('hide')
+}
+
+// #監聽器函式: 登入/註冊 彈跳窗 提交表單
+function modalSubmit(event) {
+  event.preventDefault()
+
+  const formData = new FormData(event.target)
+
+  const username = formData.get('username')
+  const email = formData.get('email')
+  const password = formData.get('password')
+  const rePassword = formData.get('re-password')
+
+  const registerBody = { username, email, password }
+  const loginBody = { username, password }
+
+  modalType === '註冊' ? registerRequest(registerBody) : loginRequest(loginBody)
 }
 
 // #監聽器函式: 會員選單
@@ -90,23 +121,6 @@ function onProfile(event) {
   }
 }
 
-// 登入/註冊: 提交
-function modalSubmit(event, type) {
-  event.preventDefault()
-
-  const formData = new FormData(event.target)
-
-  const username = formData.get('username')
-  const email = formData.get('email')
-  const password = formData.get('password')
-  const rePassword = formData.get('re-password')
-
-  const registerBody = { username, email, password }
-  const loginBody = { username, password }
-
-  type === '註冊' ? registerRequest(registerBody) : loginRequest(loginBody)
-}
-
 // 註冊請求
 function registerRequest(body) {
   axios.post(`${USERS_API}/register`, body).then((response) => {
@@ -114,9 +128,8 @@ function registerRequest(body) {
     console.log(data)
     console.log('註冊成功')
     // 切換到登入modal
-    modalBg.innerHTML = createModal('登入')
-    modalBg.id = 'modal-bg'
-    document.body.appendChild(modalBg)
+    modalType = '登入'
+    modalForm.innerHTML = createModal(modalType)
   })
 }
 
@@ -135,9 +148,10 @@ function loginRequest(body) {
       console.log('登入成功')
       console.log(data)
       // 切換到頁面
-      modalBg.remove()
-      // 根據登入狀態渲染navbar按鈕
-      renderSignButtons(isLoggedIn)
+      modalType = ''
+      onToggleModal()
+      // 切換登入登出按鈕
+      switchSignButtons()
       // 根據登入狀態渲染會員資料
       updateState()
     })
@@ -157,8 +171,8 @@ function logoutRequest() {
       cookie.remove('isLoggedIn')
       isLoggedIn = false
       console.log('登出成功')
-      // 根據登入狀態渲染navbar按鈕
-      renderSignButtons(isLoggedIn)
+      // 切換登入登出按鈕
+      switchSignButtons()
       // 根據登入狀態渲染會員資料
       updateState()
     })
@@ -186,19 +200,29 @@ function setTheme() {
   }
 }
 
-function renderSignButtons(state) {
-  sign.innerHTML = createSignButtons(state)
-  if (state) {
-    const profileDropdown = document.getElementById('profile-dropdown')
-    profileDropdown.addEventListener('click', onProfile)
-  } else {
-    // 監聽器: 登入 彈跳窗
-    const signIn = document.getElementById('sign-in')
-    signIn.addEventListener('click', onSigningModal('登入'))
-    // 監聽器: 註冊 彈跳窗
-    const signUp = document.getElementById('sign-up')
-    signUp.addEventListener('click', onSigningModal('註冊'))
+// 切換登入登出按鈕
+function switchSignButtons() {
+  profileDropdown.classList.toggle('hide')
+  signIn.classList.toggle('hide')
+  signUp.classList.toggle('hide')
+}
+
+// 更新登入狀態
+function updateState() {
+  const pathname = window.location.pathname
+  if (pathname === '/article/index.html') {
+    updateArticlePageView()
+  } else if (pathname !== '/article/index.html' && pathname !== '/home/index.html') {
+    window.location.href = '../home/index.html'
   }
+}
+
+// 更新登入狀態樣式
+function updateArticlePageView() {
+  memberAvatar.src = isLoggedIn ? user.avatar : '../public/images/guest/guest.png'
+  memberUsername.textContent = isLoggedIn ? user.username : 'Guest'
+  emptySection.style.display = isLoggedIn ? 'none' : 'flex'
+  commentSection.style.display = isLoggedIn ? 'inline-block' : 'none'
 }
 
 // 新增: 登入/註冊按鈕HTML字串
@@ -228,17 +252,12 @@ function createSignButtons(state) {
 
 // 新增: 彈跳窗HTML字串
 function createModal(name) {
-  return `<div id="modal">
-<form id="modal-form">
-    <button id="modal-close" type="button">X</button>
-    <h1 id="modal-name">${name}</h1>
+  return `<h1 id="modal-name">${name}</h1>
     ${createLabeledInput('username', '帳號')}
     ${name === '註冊' ? createLabeledInput('email', '信箱') : ''}
     ${createLabeledInput('password', '密碼', 'password')}
     ${name === '註冊' ? createLabeledInput('re-password', '確認密碼', 'password') : ''}
-    <button id="submit" type="submit">提交</button>
-  </form>
-</div>`
+    <button id="submit" type="submit">提交</button>`
 }
 
 // 新增: 彈跳窗共用input欄位HTML字串
@@ -258,22 +277,4 @@ function createCategories(data) {
   })
 
   return htmlContent
-}
-
-// 更新登入狀態
-function updateState() {
-  const pathname = window.location.pathname
-  if (pathname === '/article/index.html') {
-    updateArticlePageView()
-  } else if (pathname !== '/article/index.html' && pathname !== '/home/index.html') {
-    window.location.href = '../home/index.html'
-  }
-}
-
-// 更新登入狀態樣式
-function updateArticlePageView() {
-  memberAvatar.src = isLoggedIn ? user.avatar : '../public/images/guest/guest.png'
-  memberUsername.textContent = isLoggedIn ? user.username : 'Guest'
-  emptySection.style.display = isLoggedIn ? 'none' : 'flex'
-  commentSection.style.display = isLoggedIn ? 'inline-block' : 'none'
 }
