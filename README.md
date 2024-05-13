@@ -3,9 +3,9 @@
 ```
 .
 ├── home
-|   ├── home.html
-|   ├── home.css
-|   └── home.js
+|   ├── index.html
+|   ├── style.css
+|   └── main.js
 ├── ...(other pages)
 |   ├── ....html
 |   ├── ....css

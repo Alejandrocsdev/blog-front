@@ -1,4 +1,4 @@
-### 2024-05-13
+### 2024-05-13 (week 1)
 
 # Alex 更新:
 
@@ -56,3 +56,23 @@
 - `.article-preview-container` 
 
   `margin: 1em 0;` => `margin-top: 1em;`
+
+---
+
+### task006-新增工具( utils ) local storage
+
+---
+
+1. 希望不是我講解任務的時候讓妳誤會了, 本次任務只要做出可以存儲local storage的class或是function就可以了. 我會傾向用class, 取名比較清楚. 設計這個工具的目的是避免使用向以下兩個例子冗長的程式:
+
+- `localStorage.setItem('darkMode', isDarkMode.JSON.stringify)`
+
+- `localStorage.getItem('darkMode').JSON.parse`
+
+  以我的作法為例:
+
+- `storage.set('darkMode', isDarkMode)`
+
+- `storage.get('darkMode')`
+
+  但重點是妳會正確使用😊
