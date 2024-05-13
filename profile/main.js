@@ -8,6 +8,7 @@ const avatarForm = document.getElementById('avatar-form')
 const avatarImg = document.querySelector('#avatar-form img')
 const fileInput = document.getElementById('fileInput')
 const userArticles = document.getElementById('user-articles')
+const profileAvatar = document.querySelector('#profile-avatar img')
 
 const articles = []
 
@@ -22,18 +23,13 @@ user = cookie.get('user') || ''
   userArticlesRequest()
   // 監聽器: 文章標題導向edit頁面
   userArticles.addEventListener('click', onTitleRedirect)
-  // 監聽器: 點擊照片
-  avatarImg.addEventListener('click', onClickAvatar)
+  // 監聽器: 點擊照片(觸發上傳)
+  avatarImg.addEventListener('click', () => fileInput.click())
   // 監聽器: 上傳照片
   fileInput.addEventListener('change', onUpload)
   // 監聽器: 提交表單
   avatarForm.addEventListener('submit', onSubmit)
 })()
-
-// 監聽器: 點擊照片
-function onClickAvatar() {
-  fileInput.click()
-}
 
 // 監聽器: 上傳照片
 function onUpload() {
@@ -51,7 +47,7 @@ function onUpload() {
 // 監聽器: 提交表單
 function onSubmit(event) {
   if (event) {
-    event.preventDefault();
+    event.preventDefault()
   }
   const file = fileInput.files[0]
   if (file) {
@@ -81,7 +77,7 @@ function userArticlesRequest() {
 
 function uploadImageRequest(formData) {
   axios
-    .post(`${USER_API}/upload`, formData, {
+    .post(`${USER_API}/${user.id}/upload`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`
@@ -90,6 +86,9 @@ function uploadImageRequest(formData) {
     .then((response) => {
       const data = response.data
       console.log(data)
+      user = data.user
+      cookie.set('user', data.user)
+      profileAvatar.src = user.avatar
     })
     .catch((error) => {
       console.error(error)
