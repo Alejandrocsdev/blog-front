@@ -1,0 +1,33 @@
+/*outline: 3px solid blue;*/
+.container {
+  background-color: bisque;
+  padding-top: 10px;
+  margin-top: 50px;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#inputTitle {
+  margin-top: auto;
+}
+
+#button-container {
+  display: flex;
+  justify-content: flex-end
+}
+
+.must {
+  color: red;
+}
+#floatingTextarea{
+  padding-top: 10px;
+  padding-left: 30px;
+}
+
+/* #add-btn {
+  border-radius: 50%;
+} */
