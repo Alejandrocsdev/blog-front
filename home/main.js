@@ -180,7 +180,7 @@ function renderArticles(articles) {
   articles.forEach((article) => {
     // 限制顯示字數
     const title =
-      article.title.length <= 20 ? article.title : article.title.substring(0, 20) + '...'
+      article.title.length <= 18 ? article.title : article.title.substring(0, 18) + '...'
     const preview =
       article.content.length <= 60 ? article.content : article.content.substring(0, 60) + '...'
 

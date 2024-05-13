@@ -13,12 +13,10 @@ const username = document.querySelector('.username')
 const categoryContainer = document.getElementById('category-container')
 const picture = document.querySelector('#picture img')
 const content = document.getElementById('content')
-const commentSection = document.getElementById('comment-section')
 const commentButtons = document.getElementById('comment-buttons')
 const historyContainer = document.getElementById('history-container')
 const footer = document.getElementById('footer')
-// const memberAvatar = document.getElementById('member-avatar')
-// const memberUsername = document.getElementById('member-username')
+const container = document.querySelector('.container')
 
 // 留言變數
 let totalComments
@@ -54,9 +52,9 @@ console.log('\n')
   getArticle()
   // 取得留言
   getComments('載入')
-  // 渲染會員資料
-  if (user) {
-    renderMemberInfo()
+  // 更新登入狀態樣式
+  if (user && isLoggedIn) {
+    updateArticlePageView()
   }
   // 監聽器: 留言區狀態
   document.body.addEventListener('click', onClickTextarea)
@@ -98,8 +96,10 @@ function getComments(type) {
     console.log(`當前留言(${type}): `, showComments)
     console.log('\n')
     // 更新offset
-    offset += size
-    commentsObserver.observe(footer)
+    if(offset <= totalComments) {
+      offset += size
+      commentsObserver.observe(footer)
+    }
   })
 }
 

@@ -9,8 +9,8 @@ const userArticles = document.getElementById('user-articles')
 
 const articles = []
 
-const token = cookie.get('token') || ''
-const user = cookie.get('user') || ''
+token = cookie.get('token') || ''
+user = cookie.get('user') || ''
 
 ;(function init() {
   // 從cookie移除article_id

@@ -7,17 +7,23 @@ const darkMode = document.getElementById('dark-mode')
 const theme = document.getElementById('theme')
 const sign = document.getElementById('sign')
 const modalBg = document.createElement('div')
-
-const memberAvatar = document.getElementById('member-avatar')
+// HTML元素(登入-article)
+const memberAvatar = document.querySelector('#member-avatar img')
 const memberUsername = document.getElementById('member-username')
+const commentSection = document.getElementById('comment-section')
+const emptySection = document.getElementById('empty-section')
 
 // 登入狀態
 let isLoggedIn = cookie.get('isLoggedIn') || false
-console.log('登入狀態: ', isLoggedIn)
-console.log('\n')
-
 // 從cookie取得user
 let user = cookie.get('user') || ''
+// 從cookie取得token
+let token = cookie.get('token') || ''
+console.log('<<<共用參數>>>')
+console.log('登入狀態: ', isLoggedIn)
+console.log('會員資訊: ', user)
+console.log('會員憑證: ', token)
+console.log('\n')
 
 // 初始函式
 ;(function init() {
@@ -79,7 +85,8 @@ function onProfile(event) {
   } else if (target.id === 'edit') {
     window.location.href = '../edit/index.html'
   } else if (target.id === 'logout') {
-    console.log(logout)
+    logoutRequest()
+    console.log('logout')
   }
 }
 
@@ -119,7 +126,7 @@ function loginRequest(body) {
     .post(`${USERS_API}/login`, body)
     .then((response) => {
       const data = response.data
-      const token = data.token
+      token = data.token
       cookie.set('token', token)
       cookie.set('user', data.user)
       user = cookie.get('user')
@@ -141,29 +148,24 @@ function loginRequest(body) {
 }
 
 // 登出請求
-// function logoutRequest(body) {
-//   axios
-//     .post(`${USERS_API}/login`, body)
-//     .then((response) => {
-//       const data = response.data
-//       const token = data.token
-//       const user = data.user
-//       cookie.set('token', token)
-//       cookie.set('user', user)
-//       cookie.set('isLoggedIn', true)
-//       isLoggedIn = true
-//       console.log('登入成功')
-//       console.log(data)
-//       // 切換到頁面
-//       modalBg.remove()
-//       // 根據登入狀態渲染navbar按鈕
-//       renderSignButtons(isLoggedIn)
-//     })
-//     .catch((error) => {
-//       const errorMessage = error.response.data.message
-//       console.error(errorMessage)
-//     })
-// }
+function logoutRequest() {
+  axios
+    .post(`${USERS_API}/logout`, {}, { headers: { Authorization: `Bearer ${token}` } })
+    .then(() => {
+      cookie.remove('token')
+      cookie.remove('user')
+      cookie.remove('isLoggedIn')
+      isLoggedIn = false
+      console.log('登出成功')
+      // 根據登入狀態渲染navbar按鈕
+      renderSignButtons(isLoggedIn)
+      // 根據登入狀態渲染會員資料
+      updateState()
+    })
+    .catch((error) => {
+      console.error('登出失敗', error)
+    })
+}
 
 // 黑暗模式圖示切換
 function toggleMode() {
@@ -258,15 +260,20 @@ function createCategories(data) {
   return htmlContent
 }
 
+// 更新登入狀態
 function updateState() {
   const pathname = window.location.pathname
-  if(pathname === '/article/index.html') {
-    renderMemberInfo()
+  if (pathname === '/article/index.html') {
+    updateArticlePageView()
+  } else if (pathname !== '/article/index.html' && pathname !== '/home/index.html') {
+    window.location.href = '../home/index.html'
   }
 }
 
-// 渲染會員資料
-function renderMemberInfo() {
-  memberAvatar.src = user.avatar
-  memberUsername.textContent = user.username
+// 更新登入狀態樣式
+function updateArticlePageView() {
+  memberAvatar.src = isLoggedIn ? user.avatar : '../public/images/guest/guest.png'
+  memberUsername.textContent = isLoggedIn ? user.username : 'Guest'
+  emptySection.style.display = isLoggedIn ? 'none' : 'flex'
+  commentSection.style.display = isLoggedIn ? 'inline-block' : 'none'
 }
