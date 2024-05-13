@@ -4,7 +4,7 @@
   display: flex;
 }
 
-#avatar {
+#avatar-form {
   width: 256px;
   height: 256px;
   display: flex;
@@ -12,10 +12,14 @@
   align-items: center;
 }
 
-#avatar img {
+#avatar-form img {
   width: 80%;
   height: 80%;
   cursor: pointer;
+}
+
+#fileInput {
+  display: none;
 }
 
 #info {
