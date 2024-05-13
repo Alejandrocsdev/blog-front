@@ -1,3 +1,20 @@
+// Local Storage
+class Storage {
+  // 儲存
+  set(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  // 取得
+  get(key) {
+    const value = JSON.parse(localStorage.getItem(key))
+    return value
+  }
+}
+
+// 宣告Storage實例
+const storage = new Storage()
+
 // 按鈕: 記住我的帳號
 const btnSet = document.querySelector('#btn-set')
 // 按鈕: 登入
