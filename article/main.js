@@ -91,7 +91,7 @@ function getArticle() {
 // 取得留言
 function getComments(type) {
   axios.get(`${COMMENTS_API}/${articleId}?offset=${offset}&size=${size}`).then((response) => {
-    // 回傳資料
+    // 回傳資料renderComments
     const data = response.data
     const main = data.main
     console.log(`留言資訊(${type}): `, data)
@@ -124,7 +124,14 @@ function createComment(body) {
     .then((response) => {
       // 回傳資料
       const data = response.data
+      const comment = data.comment
+      comments.unshift(comment)
+      console.log('createComment: ', comments)
       console.log(`會員: "${user.username}" ${data.message}`)
+      // 更新留言
+      offset = 0
+      historyContainer.innerHTML = ''
+      getComments('更新')
     })
 }
 
@@ -196,12 +203,12 @@ function renderComments(comments) {
     const history = document.createElement('div')
     history.classList.add('history')
     const htmlContent = `<div class="info">
-    <div class="avatar">
-      <img src="${comment.user.avatar}">
+      <div class="avatar">
+        <img src="${comment.user.avatar}">
+      </div>
+        <div class="username" data-filter="user">${comment.user.username}</div>
     </div>
-      <div class="username" data-filter="user">${comment.user.username}</div>
-  </div>
-  <div class="history-comment">${comment.comment}</div>`
+    <div class="history-comment">${comment.comment}</div>`
     history.innerHTML = htmlContent
     historyContainer.appendChild(history)
   })
