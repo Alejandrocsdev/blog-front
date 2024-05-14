@@ -9,7 +9,7 @@ nav {
 }
 
 .nav-link {
-outline: 3px solid tomato;/* 暫時觀察用 */
+
 width: 10em;
 display: flex; /* 把容器變成 flex 容器 */
 align-items: center; /* 垂直置中 */

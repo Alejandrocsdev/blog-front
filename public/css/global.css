@@ -1,3 +1,5 @@
+
+
 :root {
   --header-height: 60px;
   --footer-height: 60px;
@@ -20,7 +22,7 @@
 
 * {
   box-sizing: border-box;
-  /* font-family: 'Noto Sans TC', sans-serif; */
+  font-family: 'Nunito', 'Noto Sans TC', sans-serif; 
 }
 
 body {
@@ -32,12 +34,16 @@ header {
   width: 100%;
   position: fixed;
   height: 60px;
-  color: #666666;
+  color: #c5c5c5;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
 }
 
 main {
+  position: relative;
   min-height: 100vh;
+  top: 80px;
+  display: flex;
+  justify-content: center;
 }
 
 footer {
