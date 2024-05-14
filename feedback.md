@@ -76,3 +76,41 @@
 - `storage.get('darkMode')`
 
   但重點是妳會正確使用😊
+
+---
+
+# Yen:
+
+### task008-載入字體
+
+---
+
+1. `style.css`
+
+- 每個頁面都有獨立的css, 放在public/css的fonts跟global才是全部html共用的
+
+---
+
+2. `link` & `script`
+
+- link嵌入css並放在head, link嵌入javascript並放在body最下方. Font Awesome連結本來就有了,妳的我拿掉囉~ 不過如果妳有付費帳號的話歡迎說一聲, 哈哈~
+
+---
+
+3. `@font-face`
+
+- 如果字體檔名是VariableFont_wght, 不用特別設定font-weight, 它會根據css設定自動延展, 所以它檔案會比檔名為Regular或Bold大一些. 
+
+- font-family不會包含bold或其他weight名稱. 
+
+- font-style都是normal的話可以不用加, 想要使用italic要使用檔名為Italic-VariableFont_wght的檔案.
+
+- font-optical-sizing似乎影響不大, 有機會可以查查它的應用.
+
+---
+
+4. 切換分支
+
+- 如果要切換分支, 但當下分支已經異動過, 可以先commit或是stash再切換. SourceTree有防範機制, 有任何異動不可以切換分支, 如果是輸入指令切換分支會影響新分支內容.
+
+---
