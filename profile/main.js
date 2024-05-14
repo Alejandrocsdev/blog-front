@@ -8,7 +8,6 @@ const avatarForm = document.getElementById('avatar-form')
 const avatarImg = document.querySelector('#avatar-form img')
 const fileInput = document.getElementById('fileInput')
 const userArticles = document.getElementById('user-articles')
-const profileAvatar = document.querySelector('#profile-avatar img')
 
 const articles = []
 
