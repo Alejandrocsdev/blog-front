@@ -14,6 +14,7 @@ const categoryContainer = document.getElementById('category-container')
 const picture = document.querySelector('#picture img')
 const content = document.getElementById('content')
 const commentButtons = document.getElementById('comment-buttons')
+const commentSubmit = document.getElementById('comment-submit')
 const historyContainer = document.getElementById('history-container')
 const footer = document.getElementById('footer')
 const container = document.querySelector('.container')
@@ -28,7 +29,7 @@ const size = 2
 let isTextareaActive = false
 
 // 從cookie取得articleId
-const id = cookie.get('article_id')
+const articleId = cookie.get('articleId')
 // 從cookie取得user
 user = cookie.get('user') || ''
 
@@ -40,7 +41,7 @@ console.log('顯示留言: ', size)
 console.log('\n')
 console.log('<<<初始參數>>>')
 console.log('留言狀態: ', isTextareaActive)
-console.log('articleId: ', id)
+console.log('articleId: ', articleId)
 console.log('\n')
 
 // 初始函式
@@ -60,11 +61,22 @@ console.log('\n')
   document.body.addEventListener('click', onClickTextarea)
   // 監聽器: 篩選文章類別
   container.addEventListener('click', onFilter)
+  // 監聽器: 提交留言
+  commentSubmit.addEventListener('click', onSubmitComment)
 })()
+
+function onSubmitComment() {
+  const value = commentSection.value
+  if (value) {
+    createComment({ comment: value })
+  } else {
+    console.log(`Comment can't be empty`)
+  }
+}
 
 // 取得文章
 function getArticle() {
-  axios.get(`${ARTICLES_API}/${id}`).then((response) => {
+  axios.get(`${ARTICLES_API}/${articleId}`).then((response) => {
     // 回傳資料
     const data = response.data
     console.log(`文章資訊: `, data)
@@ -78,7 +90,7 @@ function getArticle() {
 
 // 取得留言
 function getComments(type) {
-  axios.get(`${COMMENTS_API}/${id}?offset=${offset}&size=${size}`).then((response) => {
+  axios.get(`${COMMENTS_API}/${articleId}?offset=${offset}&size=${size}`).then((response) => {
     // 回傳資料
     const data = response.data
     const main = data.main
@@ -96,11 +108,24 @@ function getComments(type) {
     console.log(`當前留言(${type}): `, showComments)
     console.log('\n')
     // 更新offset
-    if(offset <= totalComments) {
+    if (offset <= totalComments) {
       offset += size
       commentsObserver.observe(footer)
     }
   })
+}
+
+// 新增留言
+function createComment(body) {
+  axios
+    .post(`${COMMENTS_API}/user/${user.id}/article/${articleId}`, body, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then((response) => {
+      // 回傳資料
+      const data = response.data
+      console.log(`會員: "${user.username}" ${data.message}`)
+    })
 }
 
 // #監聽器函式: 留言區狀態

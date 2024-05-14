@@ -34,8 +34,8 @@ console.log('\n')
 
 // 初始函式
 ;(function init() {
-  // 從cookie移除article_id
-  cookie.remove('article_id')
+  // 從cookie移除articleId
+  cookie.remove('articleId')
   // 取得文章
   getArticles('載入', keyword)
   // 監聽器: 文章標題導向article頁面
@@ -85,9 +85,9 @@ function onTitleRedirect(event) {
   const target = event.target
 
   if (target.classList.contains('title')) {
-    // 於cookie儲存article_id
-    const id = target.dataset.id
-    cookie.set('article_id', id)
+    // 於cookie儲存articleIdd
+    const articleId = target.dataset.id
+    cookie.set('articleId', articleId)
     // 導向article頁面
     window.location.href = '../article/index.html'
   }

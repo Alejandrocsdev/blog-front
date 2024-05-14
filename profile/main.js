@@ -15,7 +15,7 @@ token = cookie.get('token') || ''
 user = cookie.get('user') || ''
 ;(function init() {
   // 從cookie移除article_id
-  cookie.remove('article_id')
+  cookie.remove('articleId')
   // 渲染會員資訊
   renderProfileInfo()
   // 請求會員文章
@@ -76,7 +76,7 @@ function userArticlesRequest() {
 
 function uploadImageRequest(formData) {
   axios
-    .post(`${USER_API}/${user.id}/upload`, formData, {
+    .patch(`${USER_API}/${user.id}/upload`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`
@@ -116,8 +116,8 @@ function onTitleRedirect(event) {
 
   if (target.classList.contains('article-title')) {
     // 於cookie儲存article_id
-    const id = target.dataset.id
-    cookie.set('article_id', id)
+    const articleId = target.dataset.id
+    cookie.set('articleId', articleId)
     // 導向edit頁面
     window.location.href = '../edit/index.html'
   }
