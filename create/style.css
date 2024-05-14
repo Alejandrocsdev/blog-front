@@ -29,6 +29,10 @@
   padding-left: 30px;
 }
 
-/* #add-btn {
-  border-radius: 50%;
-} */
+.dropdownbtn{
+  background-color: rgb(232, 229, 229);
+}
+
+.dropdownItem{
+  margin: 5px 10px
+}
