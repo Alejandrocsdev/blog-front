@@ -41,7 +41,7 @@ console.log('會員憑證: ', token)
   // 根據local storage切換darkmode模式
   setTheme()
   // 根據local storage切換登入狀態
-  setSignState()
+  toggleSignButtons()
   // 根據登入狀況限制路徑
   updateState()
   // 監聽器: Home鍵
@@ -226,17 +226,13 @@ function setTheme() {
 function toggleSignButtons() {
   if (isLoggedIn) {
     profileAvatar.src = user.avatar
-    profileDropdown.classList.toggle('hide')
+    profileDropdown.classList.remove('hide')
+    signIn.classList.add('hide')
+    signUp.classList.add('hide')
   } else {
-    signIn.classList.toggle('hide')
-    signUp.classList.toggle('hide')
-  }
-}
-
-// 登入登出切換(local storage)
-function setSignState() {
-  if (cookie.get('isLoggedIn')) {
-    toggleSignButtons()
+    profileDropdown.classList.add('hide')
+    signIn.classList.remove('hide')
+    signUp.classList.remove('hide')
   }
 }
 
