@@ -10,12 +10,11 @@
 
 - 每個頁面的javascript統一改成`main.js`
 
+---
 
 # Elva:
 
 ### task002-home頁面: 主容器+搜索欄+文章容器
-
----
 
 1. `<main>`
 
@@ -31,8 +30,6 @@
 
   主容器固定長度方便以後調整 *media-query*
 
-- `padding-top: calc(1em + var(--header-height));`
-
 ---
 
 3. `.search-input` & `.search-btn`
@@ -46,6 +43,8 @@
 - 不限制高度, 讓文章數決定總高度(因為不知道會渲染幾篇文章, 如果限制每次更新渲染篇數就得另外調整總高度)
 
 - `flex/space-around`: 限制高度又使用space-around的情況話, 渲染文章數不同, 間距也會不同, 因此失去一致性. 總高度800px, 單篇文章高度200px, 這樣最多只能渲染4篇文章且會沒有間距. 可以不設置justify-content只設置margin-top或margin-bottom, 但是這樣top或bottom會多出來一節, 所以我會用grid, 可以設置gap.
+
+---
 
 ### 其他調整
 
@@ -79,7 +78,59 @@
 
 ---
 
+### 2024-05-14 (week 1)
+
+# Alex 更新:
+
+`bootstrap`
+
+- `public/css/bootstrap.min.css`
+
+- `public/js/bootstrap.bundle.min.css`
+
+---
+
 # Yen:
+
+### task001-共用: header
+
+---
+
+1. `<header>`是全部頁面共用的, 所以樣式都設定在global.css.
+
+---
+
+2. `fa-solid`
+
+- 避免選用font awesome圖示的class, 很容易跟其他圖示重複.
+
+---
+
+3. `<nav>`
+
+- 移除`margin: 0 auto;`, 沒有影響.
+
+---
+
+4. `max-height` & `max-width`
+
+- Home鍵跟會員頭像設置height跟width就好了, 保持一致, 除非希望像素太低的圖片顯示小於外框可以加max.
+
+---
+
+5. `Sign in` & `Sign up`
+
+- 未來會分別設置不同的監聽器, class要獨立. 
+
+---
+
+### 待完成: 
+
+- Home鍵導向監聽器
+
+- 按黑模式圖示切換監聽器( 太陽 / 月亮 )
+
+---
 
 ### task008-載入字體
 
@@ -87,7 +138,7 @@
 
 1. `style.css`
 
-- 每個頁面都有獨立的css, 放在public/css的fonts跟global才是全部html共用的
+- 每個頁面都有獨立的css, 放在public/css的bootstrap, fonts跟global才是全部html共用的
 
 ---
 
@@ -112,5 +163,11 @@
 4. 切換分支
 
 - 如果要切換分支, 但當下分支已經異動過, 可以先commit或是stash再切換. SourceTree有防範機制, 有任何異動不可以切換分支, 如果是輸入指令切換分支會影響新分支內容.
+
+---
+
+### 其他調整
+
+- Home鍵加上cursor
 
 ---
