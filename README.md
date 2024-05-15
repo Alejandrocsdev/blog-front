@@ -3,23 +3,24 @@
 ```
 .
 ├── home
-|   ├── home.html
-|   ├── home.css
-|   └── home.js
+|   ├── index.html
+|   ├── style.css
+|   └── main.js
 ├── ...(other pages)
-|   ├── ....html
-|   ├── ....css
-|   └── ....js
+|   ├── index.html
+|   ├── style.css
+|   └── main.js
 └── public
     ├── css
+    |   ├── bootstrap.min.css
     |   ├── fonts.css
     |   └── global.css
     ├── js
+    |   ├── bootstrap.bundle.min.js
     |   ├── utils.js
     |   └── global.js
     ├── fonts
-    |   ├── NotoSansTC-Regular.woff2
-    |   ├── NotoSansTC-Bold.woff2
+    |   ├── NotoSansTC-VariableFont_wght.woff2
     |   └── ...(other fonts)
     └── images
         ├── logo

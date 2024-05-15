@@ -1,23 +1,15 @@
 let loginState = 'Sign_out'
 
-
-
-
-const Sign = document.querySelectorAll('.Sign')
+const signIn = document.querySelector('.sign-in')
+const signUp = document.querySelector('.sign-up')
 const guest = document.querySelector('.guest')
 
 if (loginState === 'Sign_out') {
-  
-  Sign.forEach( item =>  item.style.display = 'block' )
-  guest.style.display = 'none';
+  signIn.style.display = 'block'
+  signUp.style.display = 'block'
+  guest.style.display = 'none'
 } else if (loginState === 'Sign_in') {
-   Sign.forEach( item => item.style.display = 'none' )
-   guest.style.display = 'block';
-  }
-
-
-
-
-
-
-
+  signIn.style.display = 'none'
+  signUp.style.display = 'none'
+  guest.style.display = 'block'
+}

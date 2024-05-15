@@ -1,5 +1,3 @@
-
-
 :root {
   --header-height: 60px;
   --footer-height: 60px;
@@ -22,7 +20,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Nunito', 'Noto Sans TC', sans-serif; 
+  font-family: 'Nunito', 'Noto Sans TC', sans-serif;
 }
 
 body {
@@ -32,8 +30,47 @@ body {
 header {
   height: var(--header-height);
   width: 100%;
-  height: 60px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+}
+
+nav {
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 左 */
+.nav-logo img {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+/* 右 */
+.nav-link {
+  width: 30em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#btn-dark {
+  margin: 0 20px;
+  color: #c5c5c5;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.sign-in,
+.sign-up {
+  margin: 0 10px;
+}
+
+.guest img {
+  height: 38px;
+  width: 38px;
 }
 
 main {
