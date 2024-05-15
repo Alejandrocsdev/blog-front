@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../public/css/fonts.css">
+  <link rel="stylesheet" href="../public/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Blog</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <!-- Home鍵 -->
+      <span class="nav-logo">
+        <img src="../public/images/logo/logo.svg" alt="logo">
+      </span>
+      <span class="nav-link">
+        <!-- 暗黑模式 -->
+        <i class="btn fa-solid fa-moon" id="btn-dark"></i>
+        <!-- 登入 -->
+        <a href="#" class="sign-in">
+          <strong>Sign in</strong>
+        </a>
+        <!-- 註冊 -->
+        <a href="#" class="sign-up">
+          <strong>Sign up</strong>
+        </a>
+        <!-- 會員頭像 -->
+        <span class="guest">
+          <div class="dropdown">
+            <button class="btn" id="nav_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../public/images/guest/guest.png" alt="guest">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">後台</a></li>
+              <li><a class="dropdown-item" href="/create/index.html">撰寫</a></li>
+              <li><a class="dropdown-item" href="#">登出</a></li>
+            </ul>
+          </div>
+        </span>
+      </span>
+    </nav>
+  </header>
+  <main>
+    <div class="container">
+      <!--title  -->
+      <div class="title-container mt-2">
+        <div for="inputTitle" class="form-label me-2" id="inputTitle">文章標題<span class="must"> *</span>：</div>
+        <div class="col-auto">
+          <input type="text" class="form-control" id="title-input" placeholder="">
+        </div>
+      </div>
+      <!-- category -->
+      <div class="category-container mt-3 mb-3">
+        <div class="dropdown">
+          <label for="inputTitle" class="form-label me-2 ">文章類別： </label>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              data-bs-auto-close="outside" aria-expanded="false">
+              無分類
+            </button>
+            <ul class="dropdown-menu">
+              <p class="dropdownItem d-inline-flex gap-1">
+                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
+                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
+                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
+              </p>
+              <p class="dropdownItem d-inline-flex gap-1">
+                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
+                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
+                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
+              </p>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- content -->
+      <div class="content-container">
+        <label for="inputTitle" class="form-label me-2 mb-3">文章內容<span class="must"> *</span>： </label>
+
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+            style="height: 100px"></textarea>
+          <label for="floatingTextarea"></label>
+        </div>
+      </div>
+      <!-- button -->
+      <div class="button-container">
+        <div class="button-container mt-2" role="button" aria-label="button" id="button-container">
+          <button type="button" class="btn btn-sm btn-outline-secondary me-2 mb-3" id="cancel-btn">Cancel</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary mb-3" id="submit-btn">Submit</button>
+        </div>
+      </div>
+  </main>
+  <footer>MIT licensed | Copyright &copy; 2024</footer>
+  <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../public/js/bootstrap.bundle.min.js"></script>
+  <script src="../public/js/utils.js"></script>
+  <script src="../public/js/global.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>

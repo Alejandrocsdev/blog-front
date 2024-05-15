@@ -170,4 +170,33 @@
 
 - Home鍵加上cursor
 
+<<<<<<< HEAD
+=======
+---
+
+### 2024-05-15 (week 1)
+
+# Momo:
+
+### task026-create頁面
+
+---
+
+1. `<label for=""></label>`
+
+- label的for要對上唯一的id
+
+---
+
+2. `align-items` & `margin`
+
+- 擇一調整
+
+---
+
+### 待完成: 
+
+- 文章標題, 文章類別, 文章內容的label跟id對應清楚
+
+>>>>>>> feature/task026-create-page
 ---
