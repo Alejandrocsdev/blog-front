@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url(../fonts/NotoSansTC-VariableFont_wght.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url(../fonts/Nunito-VariableFont_wght.woff2) format('woff2');
+}
