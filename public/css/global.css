@@ -39,11 +39,7 @@ header {
 }
 
 main {
-  position: relative;
   min-height: 100vh;
-  top: 80px;
-  display: flex;
-  justify-content: center;
 }
 
 footer {
@@ -51,4 +47,29 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+nav {
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-link {
+  width: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo img {
+  max-height: 50px;
+  max-width: 50px;
+}
+
+.fa-solid {
+  font-size: 30px;
 }
