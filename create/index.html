@@ -21,15 +21,14 @@
     <div class="container">
       <!--title  -->
       <div class="title-container mt-2">
-        <div for="inputTitle" class="form-label me-2" id="inputTitle">文章標題<span class="must"> *</span>：</div>
+        <div for="inputTitle" class="form-label me-2">文章標題<span class="must"> *</span>：</div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="title-input" placeholder="">
+          <input type="text" class="form-control" id="inputTitle" placeholder="">
         </div>
       </div>
       <!-- category -->
       <div class="category-container mt-3 mb-3">
-        <div class="dropdown">
-          <label for="inputTitle" class="form-label me-2 ">文章類別： </label>
+         <div class="input-category form-label me-2 ">文章類別： 
           <div class="btn-group">
             <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
               aria-expanded="false">
@@ -47,18 +46,15 @@
                 <button type="button" class="btn dropdown-btn" data-bs-toggle="button">ABC</button>
               </p>              
             </ul>
-          </div>          
+          </div>
         </div>
       </div>
       <!-- content -->
       <div class="content-container">
-        <label for="inputTitle" class="form-label me-2 mb-3">文章內容<span class="must"> *</span>： </label>
+        <label for="inputContent" class="form-label me-2 mb-3">文章內容<span class="must"> *</span>： </label> 
+        <textarea class="form-control" placeholder="請輸入內容" id="inputContent"
+            style="height: 100px"></textarea>          
         
-        <div class="form-floating">
-          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-            style="height: 100px"></textarea>
-          <label for="textarea" class="textarea"></label>
-        </div>
       </div>
       <!-- button -->
       <div class="button-container">
