@@ -1,0 +1,79 @@
+body main article {
+  width: 900px;
+  margin: 3rem auto;
+  padding: 1rem;
+  background-color: #9f9f9f;
+  border-radius: 5px;
+}
+
+body main article h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+body main article div.user {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  height: 100px;
+}
+
+body main article div.user img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 1rem;
+}
+
+body main article div.user a.username {
+  flex: 0 1 150px;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: inherit;
+}
+
+body main article div.user ul.categories {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex: 1 1 700px;
+  margin: 1rem auto;
+  list-style: none;
+  padding-left: 0;
+}
+
+body main article div.user ul.categories li {
+  flex: 1 1 150px;
+  border: 1px solid rgb(176, 170, 238);
+  padding: 0.5rem;
+  margin: 1rem 0.5rem;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+body main article div.user ul.categories li a.category {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: inherit;
+}
+
+body main article div.user ul.categories li:hover {
+  background-color: peachpuff;
+}
+
+body main article img.article-img {
+  width: 80%;
+  height: 50vh;
+  display: block;
+  margin: 0 auto;
+}
+
+body main article div.article-content {
+  width: 100%;
+  text-indent: 2rem;
+  line-height: 2rem;
+  padding: 1rem;
+  font-size: 1rem;
+}

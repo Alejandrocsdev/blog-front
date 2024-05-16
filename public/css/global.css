@@ -10,6 +10,7 @@
 }
 
 /* Dark Mode */
+
 /* .dark {
   --primary-background-color: ;
   --secondary-background-color: ;
@@ -20,7 +21,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+  font-family: "Nunito", "Noto Sans TC", sans-serif;
 }
 
 body {
@@ -32,6 +33,7 @@ header {
   width: 100%;
   position: fixed;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+  background-color: #fff;
 }
 
 nav {
@@ -43,6 +45,7 @@ nav {
 }
 
 /* 左 */
+
 .nav-logo img {
   height: 50px;
   width: 50px;
@@ -50,6 +53,7 @@ nav {
 }
 
 /* 右 */
+
 .nav-link {
   width: 30em;
   display: flex;
