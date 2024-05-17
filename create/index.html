@@ -7,10 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
   <!-- <link rel="stylesheet" href="../public/css/fonts.css"> -->
   <link rel="stylesheet" href="../public/css/global.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"  
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
   <link rel="stylesheet" href="style.css">
   <title>Blog</title>
 </head>
@@ -19,50 +16,32 @@
   <header></header>
   <main>
     <div class="container">
-      <!--title  -->
-      <div class="title-container mt-2">
-        <div for="inputTitle" class="form-label me-2">文章標題<span class="must"> *</span>：</div>
-        <div class="col-auto">
-          <input type="text" class="form-control" id="inputTitle" placeholder="">
-        </div>
-      </div>
+      <!--title  -->      
+        <div class="title">文章標題<span class="must"> *</span>：          
+            <input class="input-title" id="input-title" placeholder="">
+        </div>       
+     
       <!-- category -->
-      <div class="category-container mt-3 mb-3">
-         <div class="input-category form-label me-2 ">文章類別： 
-          <div class="btn-group">
-            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-              aria-expanded="false">
-            無分類
-            </button>
-            <ul class="dropdown-menu">
-              <p class="dropdownItem d-inline-flex gap-1">
-                <button type="button" class="btn dropdown-btn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdown-btn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdown-btn" data-bs-toggle="button">ABC</button>
-              </p>
-              <p class="dropdownItem d-inline-flex gap-1">
-                <button type="button" class="btn dropdown-btn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdown-btn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdown-btn" data-bs-toggle="button">ABC</button>
-              </p>              
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- content -->
-      <div class="content-container">
-        <label for="inputContent" class="form-label me-2 mb-3">文章內容<span class="must"> *</span>： </label> 
-        <textarea class="form-control" placeholder="請輸入內容" id="inputContent"
-            style="height: 100px"></textarea>          
-        
-      </div>
+       <div class="categories">文章類別： 
+          <select class="dropdown">
+            <option class="category ">無分類</option>
+            <option class="category">test1</option>
+            <option class="category">test2</option>
+          </select>                
+        </div>     
+
+      <!-- content -->      
+        <div class="content">文章內容<span class="must"> *</span>： 
+        <textarea class="input-content" style="height: 100px" placeholder="請輸入內容"></textarea>
+        </div>              
+      
+
       <!-- button -->
-      <div class="button-container">
-        <div class="button-container mt-2" role="button" aria-label="button" id="button-container">
-          <button type="button" class="btn btn-sm btn-outline-secondary me-2 mb-3" id="cancel-btn">Cancel</button>
-          <button type="button" class="btn btn-sm btn-outline-secondary mb-3" id="submit-btn">Submit</button>
+       <div class="button-container">
+          <button class="cancel-btn">Cancel</button>
+          <button class="submit-btn">Submit</button>
         </div>
-      </div>      
+         
   </main>
   <footer>MIT licensed | Copyright &copy; 2024</footer>
   <!-- <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script> -->

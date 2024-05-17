@@ -1,34 +1,53 @@
-/*outline: 3px solid blue;*/
 .container {
   background-color: bisque;
-  padding-top: 10px;
-  margin-top: 50px;
+  padding: 20px;
 }
 
-.title-container {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
+.title{
+  margin-bottom: 10px;
 }
 
-#button-container {
+.input-title{
+  border-radius: 5px;
+  padding-left: 7px;
+  border-width: 1px;
+}
+
+.categories {
+  margin-bottom: 10px;
+}
+
+.dropdown{
+  border-radius: 5px;
+  margin-left: 15px
+}
+
+.content {
   display: flex;
-  justify-content: flex-end
+  align-items:flex-start;  /* 文章內容和textarea齊高 */
+}
+
+.input-content {
+  border-radius: 7px;
+  flex: 1;  /* 讓 textarea 填满剩餘空間 */
+  margin-left: 9px;
+  margin-bottom: 10px;
+  padding: 7px;
+  
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button{
+  border-radius: 5px;
+  margin-left: 10px;
+  border-width: 1px;
+  background-color: rgb(206, 205, 205);
 }
 
 .must {
   color: red;
-}
-
-#floatingTextarea {
-  padding-top: 10px;
-  padding-left: 22px;
-}
-
-.dropdown-btn{
-  background-color: rgb(232, 229, 229);
-}
-
-.dropdownItem{
-  margin: 5px 10px
 }
