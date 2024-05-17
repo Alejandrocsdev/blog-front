@@ -13,3 +13,10 @@ if (loginState === 'Sign_out') {
   signUp.style.display = 'none'
   guest.style.display = 'block'
 }
+
+const mode = document.querySelector('.darkmode')
+mode.addEventListener('click', function (event) {
+  let target = event.target
+  target.classList.toggle('fa-sun')
+  target.classList.toggle('fa-moon')
+})

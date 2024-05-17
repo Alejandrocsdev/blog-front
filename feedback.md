@@ -170,8 +170,6 @@
 
 - Home鍵加上cursor
 
-<<<<<<< HEAD
-=======
 ---
 
 ### 2024-05-15 (week 1)
@@ -198,5 +196,24 @@
 
 - 文章標題, 文章類別, 文章內容的label跟id對應清楚
 
->>>>>>> feature/task026-create-page
+---
+
+### 2024-05-17 (week 1)
+
+# Yen:
+
+### task005-basic-color
+
+---
+
+1. `<img href="home.html">`
+
+- `<img>`沒有`href`屬性, `<a>`才有
+
+---
+
+2. `--tertiary-background-color`
+
+- 沒有對應的dark顏色
+
 ---
