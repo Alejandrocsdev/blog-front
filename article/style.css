@@ -57,7 +57,10 @@ body main article div.user ul.categories li {
 
 body main article div.user ul.categories li:hover {
   background-color: pink;
+<<<<<<< HEAD
+=======
   cursor: pointer;
+>>>>>>> f5eff32c4f5c26e262e68c011a792831a7895827
 }
 
 body main article div.user ul.categories li a.category {
@@ -79,4 +82,8 @@ body main article div.article-content {
   line-height: 2rem;
   padding: 1rem;
   font-size: 1rem;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f5eff32c4f5c26e262e68c011a792831a7895827
