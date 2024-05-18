@@ -1,98 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../public/images/logo/logo.svg"
+    />
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../public/css/fonts.css" />
+    <link rel="stylesheet" href="../public/css/global.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blog</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
-  <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../public/css/fonts.css">
-  <link rel="stylesheet" href="../public/css/global.css">
-  <link rel="stylesheet" href="style.css">
-  <title>Blog</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../public/images/logo/logo.svg"
+    />
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../public/css/fonts.css" />
+    <link rel="stylesheet" href="../public/css/global.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Blog</title>
+  </head>
 
-<body>
-  <header>
-    <nav>
-      <!-- Home鍵 -->
-      <a class="nav-logo" href="../home/index.html">
-        <img src="../public/images/logo/logo.svg" alt="logo">
-      </a>
-      <span class="nav-link">
-        <!-- 暗黑模式 -->
-        <i class="btn fa-solid fa-moon darkmode"></i>
-        <!-- 登入 -->
-        <a href="#" class="sign-in">
-          <strong>Sign in</strong>
+  <body>
+    <header>
+      <nav>
+        <!-- Home鍵 -->
+        <a class="nav-logo" href="../home/index.html">
+          <img src="../public/images/logo/logo.svg" alt="logo" />
         </a>
-        <!-- 註冊 -->
-        <a href="#" class="sign-up">
-          <strong>Sign up</strong>
-        </a>
-        <!-- 會員頭像 -->
-        <span class="guest">
-          <div class="dropdown">
-            <button class="btn" id="nav_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="../public/images/guest/guest.png" alt="guest">
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">後台</a></li>
-              <li><a class="dropdown-item" href="../create/index.html">撰寫</a></li>
-              <li><a class="dropdown-item" href="#">登出</a></li>
-            </ul>
-          </div>
-        </span>
-      </span>
-    </nav>
-  </header>
-  <main>
-    <div class="main-wrap">
-      <!-- Search Bar -->
-      <form class="search-bar-container">
-        <input type="search" name="search" value="" id="search" class="form-control search-input"
-          placeholder="Keyword..." aria-label="Restaurant Name..." aria-describedby="search-button">
-        <button class="search-btn">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form>
-      <!-- Article Preview -->
-      <section class="article-preview-container">
-        <div class="article-overview">
-          <div class="article-left">
-            <div class="user">
-              <img src="../public/images/guest/guest.png" alt="avatar" />
-              <a href="#" class="username">Hu Kenneth</a>
-              <ul class="categories">
-                <li><a class="category" href="#">區塊鏈</a></li>
-                <li><a class="category" href="#">科技</a></li>
-                <li><a class="category" href="#">經濟</a></li>
+        <span class="nav-link">
+          <!-- 暗黑模式 -->
+          <i class="btn fa-solid fa-moon darkmode"></i>
+          <!-- 登入 -->
+          <a href="#" class="sign-in">
+            <strong>Sign in</strong>
+          </a>
+          <!-- 註冊 -->
+          <a href="#" class="sign-up">
+            <strong>Sign up</strong>
+          </a>
+          <!-- 會員頭像 -->
+          <span class="guest">
+            <div class="dropdown">
+              <button
+                class="btn"
+                id="nav_dropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img src="../public/images/guest/guest.png" alt="guest" />
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">後台</a></li>
+                <li>
+                  <a class="dropdown-item" href="../create/index.html">撰寫</a>
+                </li>
+                <li><a class="dropdown-item" href="#">登出</a></li>
               </ul>
             </div>
-            <a href="../article/index.html">
-              <h2>Secret作為模組化區塊鏈</h2>
-            </a>
-            <div class="article-content">
-              區塊鏈架構模型隨著過去十年區塊鏈技術的發展，我們正在見證區塊鏈架構以及看待它和分類它的方式的演變。在這篇文章中，我們將描述最受歡迎的區塊鏈架構模型——整體式、分層式和模組化，並了解Secret的新願景如何適應新穎的模組化範式。讓我們深入了解一下。整體模型從比特幣開始，最初的區塊鏈是使用整體架構創建的，其中一個軟體負責所有功能。比特幣、以太坊、Solana以及它們各自的克隆和變體——所有這些區塊鏈至少在最初遵循相同的整體設計。整體設計有其優點——區塊鏈節點的所有部分都在同一個可執行檔中運行，這意味著測試和部署相對容易、不同模組之間的低延遲通訊、資源效率等等。然而，整體設計是僵化的，可能會阻止根本性的改變——畢竟，一切都是緊密耦合的。層次模型隨著技術的發展和區塊鏈使用的成長，這種架構的限制變得明顯，人們開始考慮「第二層」或「L2」解決方案，第一個L2網路是更快的支付基礎設施，例如比特幣的閃電網路和以太坊的Plasma，隨後是透過大量的解決方案，如Polygon、Optimism、Arbitrum等等。最初，該架構假設只有兩層，但整齊的分層結構確實有其魅力，人們開始將Dapp稱為“Layer3”，將用戶界面稱為“Layer4”，將跨鏈橋接服務稱為“LayerZero”
+          </span>
+        </span>
+      </nav>
+    </header>
+    <main>
+      <div class="main-wrap">
+        <!-- Search Bar -->
+        <form class="search-bar-container">
+          <input
+            type="search"
+            name="search"
+            value=""
+            id="search"
+            class="form-control search-input"
+            placeholder="Keyword..."
+            aria-label="Restaurant Name..."
+            aria-describedby="search-button"
+          />
+          <button class="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+        <!-- Article Preview -->
+        <section class="article-preview-container">
+          <div class="article-overview">
+            <div class="article-left">
+              <div class="user">
+                <img src="../public/images/guest/guest.png" alt="avatar" />
+                <a href="#" class="username">Hu Kenneth</a>
+                <ul class="categories">
+                  <li><a class="category" href="#">區塊鏈</a></li>
+                  <li><a class="category" href="#">科技</a></li>
+                  <li><a class="category" href="#">經濟</a></li>
+                </ul>
+              </div>
+              <a href="../article/index.html">
+                <h2>Secret作為模組化區塊鏈</h2>
+              </a>
+              <div class="article-content">
+                區塊鏈架構模型隨著過去十年區塊鏈技術的發展，我們正在見證區塊鏈架構以及看待它和分類它的方式的演變。在這篇文章中，我們將描述最受歡迎的區塊鏈架構模型——整體式、分層式和模組化，並了解Secret的新願景如何適應新穎的模組化範式。讓我們深入了解一下。整體模型從比特幣開始，最初的區塊鏈是使用整體架構創建的，其中一個軟體負責所有功能。比特幣、以太坊、Solana以及它們各自的克隆和變體——所有這些區塊鏈至少在最初遵循相同的整體設計。整體設計有其優點——區塊鏈節點的所有部分都在同一個可執行檔中運行，這意味著測試和部署相對容易、不同模組之間的低延遲通訊、資源效率等等。然而，整體設計是僵化的，可能會阻止根本性的改變——畢竟，一切都是緊密耦合的。層次模型隨著技術的發展和區塊鏈使用的成長，這種架構的限制變得明顯，人們開始考慮「第二層」或「L2」解決方案，第一個L2網路是更快的支付基礎設施，例如比特幣的閃電網路和以太坊的Plasma，隨後是透過大量的解決方案，如Polygon、Optimism、Arbitrum等等。最初，該架構假設只有兩層，但整齊的分層結構確實有其魅力，人們開始將Dapp稱為“Layer3”，將用戶界面稱為“Layer4”，將跨鏈橋接服務稱為“LayerZero”
+              </div>
+            </div>
+            <div class="article-right">
+              <img
+                class="article-img"
+                src="https://miro.medium.com/v2/resize:fit:786/format:webp/0*qre_fPP-_hEl_YU-"
+                alt="article-image"
+              />
             </div>
           </div>
-          <div class="article-right">
-            <img class="article-img" src="https://miro.medium.com/v2/resize:fit:786/format:webp/0*qre_fPP-_hEl_YU-"
-              alt="article-image" />
-          </div>
-        </div>
-        <div class="article-overview"></div>
-        <div class="article-overview"></div>
-      </section>
-    </div>
-  </main>
-  <footer>MIT licensed | Copyright &copy; 2024</footer>
-  <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="../public/js/bootstrap.bundle.min.js"></script>
-  <script src="../public/js/utils.js"></script>
-  <script src="../public/js/global.js"></script>
-  <script src="main.js"></script>
-</body>
-
+          <div class="article-overview"></div>
+          <div class="article-overview"></div>
+        </section>
+      </div>
+    </main>
+    <footer>MIT licensed | Copyright &copy; 2024</footer>
+    <script
+      src="https://kit.fontawesome.com/6fb9682f78.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../public/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/js/utils.js"></script>
+    <script src="../public/js/global.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
