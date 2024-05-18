@@ -1,38 +1,56 @@
-/*outline: 3px solid blue;*/
 .container {
+  padding: 20px;
   background-color: bisque;
-  padding-top: 10px;
-  margin-top: 50px;
 }
 
-.title-container {
-  display: flex;
-  margin-top: 10px;
-}
-
-#inputTitle {
-  margin-top: auto;
+.title {
+  margin-bottom: 10px;
   display: flex;
 }
 
-#button-container {
+.input-title {
+  border-radius: 5px;
+  padding-left: 7px;
+  border-width: 1px;
+}
+
+.categories {
+  margin-bottom: 10px;
   display: flex;
-  justify-content: flex-end
+}
+
+.dropdown {
+  border-radius: 5px;
+}
+
+.content {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.input-content {
+  height: 350px;
+  padding: 7px 0 7px 12px;
+  border-radius: 7px;
+  flex: 1;
+  resize: none;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel-btn,
+.submit-btn {
+  border-radius: 5px;
+  margin-left: 10px;
+  border-width: 1px;
+  background-color: rgb(206, 205, 205);
 }
 
 .must {
   color: red;
-}
-
-#floatingTextarea {
-  padding-top: 10px;
-  padding-left: 30px;
-}
-
-.dropdownbtn{
-  background-color: rgb(232, 229, 229);
-}
-
-.dropdownItem{
-  margin: 5px 10px
 }

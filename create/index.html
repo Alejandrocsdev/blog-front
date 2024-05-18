@@ -16,7 +16,7 @@
   <header>
     <nav>
       <!-- Home鍵 -->
-      <a class="nav-logo" href="/home/index.html">
+      <a class="nav-logo" href="../home/index.html">
         <img src="../public/images/logo/logo.svg" alt="logo">
       </a>
       <span class="nav-link">
@@ -38,7 +38,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href="#">後台</a></li>
-              <li><a class="dropdown-item" href="/create/index.html">撰寫</a></li>
+              <li><a class="dropdown-item" href="../create/index.html">撰寫</a></li>
               <li><a class="dropdown-item" href="#">登出</a></li>
             </ul>
           </div>
@@ -49,53 +49,33 @@
   <main>
     <div class="container">
       <!--title  -->
-      <div class="title-container mt-2">
-        <div for="inputTitle" class="form-label me-2" id="inputTitle">文章標題<span class="must"> *</span>：</div>
-        <div class="col-auto">
-          <input type="text" class="form-control" id="title-input" placeholder="">
-        </div>
+      <div class="title">
+        <div>文章標題<span class="must"> *</span>：</div>
+        <input class="input-title" placeholder="">
       </div>
-      <!-- category -->
-      <div class="category-container mt-3 mb-3">
-        <div class="dropdown">
-          <label for="inputTitle" class="form-label me-2 ">文章類別： </label>
-          <div class="btn-group">
-            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              data-bs-auto-close="outside" aria-expanded="false">
-              無分類
-            </button>
-            <ul class="dropdown-menu">
-              <p class="dropdownItem d-inline-flex gap-1">
-                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
-              </p>
-              <p class="dropdownItem d-inline-flex gap-1">
-                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
-                <button type="button" class="btn dropdownbtn" data-bs-toggle="button">ABC</button>
-              </p>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- content -->
-      <div class="content-container">
-        <label for="inputTitle" class="form-label me-2 mb-3">文章內容<span class="must"> *</span>： </label>
 
-        <div class="form-floating">
-          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-            style="height: 100px"></textarea>
-          <label for="floatingTextarea"></label>
-        </div>
+      <!-- category -->
+      <div class="categories">
+        <div>文章類別<span class="must"> *</span>：</div>
+        <select class="dropdown">
+          <option class="category">無分類</option>
+          <option class="category">test1</option>
+          <option class="category">test2</option>
+        </select>
       </div>
+
+      <!-- content -->
+      <div class="content">
+        <div>文章內容<span class="must"> *</span>：</div>
+        <textarea class="input-content" placeholder="請輸入內容"></textarea>
+      </div>
+
       <!-- button -->
       <div class="button-container">
-        <div class="button-container mt-2" role="button" aria-label="button" id="button-container">
-          <button type="button" class="btn btn-sm btn-outline-secondary me-2 mb-3" id="cancel-btn">Cancel</button>
-          <button type="button" class="btn btn-sm btn-outline-secondary mb-3" id="submit-btn">Submit</button>
-        </div>
+        <button class="cancel-btn">Cancel</button>
+        <button class="submit-btn">Submit</button>
       </div>
+
   </main>
   <footer>MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
