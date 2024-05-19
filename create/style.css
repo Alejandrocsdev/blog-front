@@ -1,6 +1,7 @@
 .container {
   padding: 20px;
-  background-color: bisque;
+  background-color: var(--secondary-background-color);
+  color: var(--text-color);
 }
 
 .title {
@@ -12,6 +13,8 @@
   border-radius: 5px;
   padding-left: 7px;
   border-width: 1px;
+  background: var(--tertiary-background-color);
+  color: var(--text-color);
 }
 
 .categories {
@@ -21,6 +24,8 @@
 
 .dropdown {
   border-radius: 5px;
+  color: var(--text-color);
+  background: var(--tertiary-background-color);
 }
 
 .content {
@@ -36,6 +41,8 @@
   resize: none;
   scrollbar-width: thin;
   scrollbar-gutter: stable;
+  background: var(--tertiary-background-color);
+  color: var(--text-color);
 }
 
 .button-container {
@@ -48,7 +55,8 @@
   border-radius: 5px;
   margin-left: 10px;
   border-width: 1px;
-  background-color: rgb(206, 205, 205);
+  background: var(--tertiary-background-color);
+  color: var(--text-color);
 }
 
 .must {

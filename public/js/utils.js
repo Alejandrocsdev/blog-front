@@ -10,6 +10,11 @@ class Storage {
     const value = JSON.parse(localStorage.getItem(key))
     return value
   }
+
+  //刪除
+  remove(key){
+    localStorage.removeItem(key)
+  }
 }
 
 // 宣告Storage實例
