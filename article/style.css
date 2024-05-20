@@ -120,8 +120,9 @@ body main article div.article-content {
   font-size: 1.2rem;
 }
 
-.comment-area textarea{
+.text-area{
   width: 100%;
+  height: 3rem;
   resize: none;
   outline: none;
   background-color: var(--primary-background-color);
@@ -152,6 +153,11 @@ body main article div.article-content {
 }
 
 .comment-btn-container > button:hover, input:hover {
-  background: #2c2c2c;
+  background: var(--tertiary-background-color);
   cursor: pointer;
+}
+
+.textarea-clicked {
+  height: 7rem;
+  transition: 0.2s ease-in-out;
 }
