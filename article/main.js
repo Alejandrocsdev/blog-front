@@ -1,26 +1,36 @@
-// 登入功能還未完成, 先以點擊按鈕後就出現可以留言示意
+'use strict'
 
-const body = document.querySelector('body')
+// HTML元素
 const commentArea = document.querySelector('.comment-area')
 
+// 登入狀態
+let isLoggedIn = false
+// 留言區狀態
+let isTextareaActive = false
 
+// 初始函式
+;(function init() {
+  // 監聽器: 登入狀態
+  signIn.addEventListener('click', onLoginState)
+  //listen to body
+  body.addEventListener('click', onTextarea)
+})()
 
-// listen to sign-in btn
-signIn.addEventListener('click', (e)=> {
-  target = e.target
+// 監聽器函式: 登入狀態
+function onLoginState(event) {
+  const target = event.target
   commentArea.innerHTML = `
     <textarea name="user-comment" id="user-comment" class="text-area"></textarea>
     <div class="comment-btn-container">
     </div>
   `
-})
+}
 
 //listen to body
-body.addEventListener('click', (e)=> {
-  target = e.target
+function onTextarea(event) {
   const commentBtn = document.querySelector('.comment-btn-container')
   const textArea = document.querySelector('#user-comment')
-  // let isCommented = false
+  const target = event.target
 
   if (target.tagName === 'TEXTAREA') {
     commentBtn.innerHTML = `
@@ -29,16 +39,13 @@ body.addEventListener('click', (e)=> {
     `
     textArea.classList.add('textarea-clicked')
   }
-  
-  // text area without content, reset height
-  if(target.tagName !== 'TEXTAREA' && textArea.value.length === 0) {
-      textArea.classList.remove('textarea-clicked')
-      commentBtn.innerHTML = ''
-  } else if ( target.classList.contains('comment-cancel') ){
-      textArea.value = ''
-      textArea.classList.remove('textarea-clicked')
-      commentBtn.innerHTML = ''
+
+  if (target.tagName !== 'TEXTAREA' && !textArea.value) {
+    textArea.classList.remove('textarea-clicked')
+    commentBtn.innerHTML = ''
+  } else if (target.classList.contains('comment-cancel')) {
+    textArea.value = ''
+    textArea.classList.remove('textarea-clicked')
+    commentBtn.innerHTML = ''
   }
-})
-
-
+}
