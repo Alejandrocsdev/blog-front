@@ -1,4 +1,4 @@
-// API
+// 起始網址
 const BASE_URL = 'http://localhost:5000/v1'
 
 // Local Storage
@@ -15,7 +15,7 @@ class Storage {
   }
 }
 
-// 宣告Storage實例
+// 宣告實例
 const storage = new Storage()
 
 // Cookie
@@ -54,5 +54,5 @@ class Cookie {
   }
 }
 
-// 宣告Cookie實例
+// 宣告實例
 const cookie = new Cookie()

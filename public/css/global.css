@@ -6,14 +6,15 @@
   --secondary-background-color: #ebebeb;
   --tertiary-background-color: #c0c0c0;
   --text-color: #6b6b6b;
-}
+}   
 
 /* Dark Mode */
 .dark {
   --primary-background-color: #353535;
   --secondary-background-color: #494949;
-  --tertiary-background-color: ;
-  --text-color: #ffffff;
+  /* 新增顏色 */
+  --tertiary-background-color:#343434;
+  --text-color: #cccccc;
 }
 
 * {
@@ -85,4 +86,5 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--text-color);
 }

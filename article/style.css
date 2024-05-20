@@ -3,8 +3,9 @@ body main article {
   margin: 3rem auto;
   border: 1px solid;
   padding: 1rem;
-  background: #acacac;
+  background: var(--secondary-background-color);
   border-radius: 5px;
+  color: var(--text-color);
 }
 
 body main article h2.title {
