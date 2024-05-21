@@ -23,11 +23,11 @@
         <!-- 暗黑模式 -->
         <i class="btn fa-solid fa-moon darkmode"></i>
         <!-- 登入 -->
-        <a href="#" class="sign-in">
+        <a href="#" class="sign-in" id='sign-in'>
           <strong>Sign in</strong>
         </a>
         <!-- 註冊 -->
-        <a href="#" class="sign-up">
+        <a href="#" class="sign-up" id='sign-up'>
           <strong>Sign up</strong>
         </a>
         <!-- 會員頭像 -->
@@ -85,6 +85,57 @@
         <div class="article-overview"></div>
       </section>
     </div>
+    <!--登入畫面 -->
+    <dialog id="sign-in-showModal">
+      <div class="close">
+        <button class="close-btn" id="sign-in-close">X</button>
+      </div>
+      <div class="sign-in-content">
+        <h3 class="sign-in">登入</h3>
+        <div class="account">帳號：
+          <input type="text">
+        </div>
+        <div class="password">密碼：
+          <input type="text">
+        </div>
+      </div>
+      <div class="submit">
+        <button>提交</button>
+      </div>
+    </dialog>
+
+    <!--註冊畫面 -->
+    <dialog id="sign-up-showModal">
+      <div class="close">
+        <button class="close-btn" id="sign-up-close">X</button>
+      </div>
+      <h3 class="sign-up">註冊</h3>
+      <div class="sign-up-content-table">
+        <div class="content">
+          <div class="title">帳號</div>
+          <div class="colon">:</div>
+          <input type="text">
+        </div>
+        <div class="content">
+          <div class="title">信箱</div>
+          <div class="colon">:</div>
+          <input type="text">
+        </div>
+        <div class="content">
+          <div class="title">密碼</div>
+          <div class="colon">:</div>
+          <input type="text">
+        </div>
+        <div class="content">
+          <div class="title">確認密碼</div>
+          <div class="colon">:</div>
+          <input type="text">
+        </div>
+      </div>
+      <div class="submit">
+        <button>提交</button>
+      </div>
+    </dialog>
   </main>
   <footer>MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
