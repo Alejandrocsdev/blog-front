@@ -1,51 +1,59 @@
-'use strict'
+"use strict";
 
 // HTML元素
-const commentArea = document.querySelector('.comment-area')
+const commentAreas = document.querySelectorAll(".comment");
+const textArea = document.querySelector("#user-comment");
 
 // 登入狀態
-let isLoggedIn = false
+let isLoggedIn = false;
 // 留言區狀態
-let isTextareaActive = false
+let isTextareaActive = false;
 
 // 初始函式
-;(function init() {
+(function init() {
   // 監聽器: 登入狀態
-  signIn.addEventListener('click', onLoginState)
-  //listen to body
-  body.addEventListener('click', onTextarea)
-})()
+  nav.addEventListener("click", onLoginState);
+  // 監聽器: 留言區
+  body.addEventListener("click", onTextarea);
+})();
 
 // 監聽器函式: 登入狀態
 function onLoginState(event) {
-  const target = event.target
-  commentArea.innerHTML = `
-    <textarea name="user-comment" id="user-comment" class="text-area"></textarea>
-    <div class="comment-btn-container">
-    </div>
-  `
+  const target = event.target;
+  if (target.classList.contains("sign-in")) {
+    isLoggedIn = true;
+    switchCommentArea();
+  } else if (target.classList.contains("sign-up")) {
+    isLoggedIn = false;
+    switchCommentArea()
+  }
 }
 
-//listen to body
+//監聽器函式: 留言區狀態
 function onTextarea(event) {
-  const commentBtn = document.querySelector('.comment-btn-container')
-  const textArea = document.querySelector('#user-comment')
-  const target = event.target
+  const commentBtn = document.querySelector(".comment-btn-container");
+  const target = event.target;
 
-  if (target.tagName === 'TEXTAREA') {
-    commentBtn.innerHTML = `
-      <button class="comment-cancel">取消</button>
-      <input type="submit" value="確定">
-    `
-    textArea.classList.add('textarea-clicked')
+  if (target.tagName === "TEXTAREA" && !isTextareaActive) {
+    isTextareaActive = true;
+    textArea.classList.add("textarea-clicked");
+    commentBtn.classList.remove("hidden");
   }
 
-  if (target.tagName !== 'TEXTAREA' && !textArea.value) {
-    textArea.classList.remove('textarea-clicked')
-    commentBtn.innerHTML = ''
-  } else if (target.classList.contains('comment-cancel')) {
-    textArea.value = ''
-    textArea.classList.remove('textarea-clicked')
-    commentBtn.innerHTML = ''
+  if (target.tagName !== "TEXTAREA" && !textArea.value) {
+    isTextareaActive = false;
+    textArea.classList.remove("textarea-clicked");
+    commentBtn.classList.add("hidden");
+  } else if (target.classList.contains("comment-cancel")) {
+    commentBtn.classList.add("hidden");
+    textArea.value = "";
+    textArea.classList.remove("textarea-clicked");
   }
+}
+
+// 函式: 留言區樣式轉換
+function switchCommentArea() {
+  commentAreas.forEach((comment) => {
+  comment.classList.toggle("hidden");
+  });
 }
