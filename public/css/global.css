@@ -86,3 +86,65 @@ footer {
   justify-content: center;
   align-items: center;
 }
+
+.modal-overlay {
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sign-in-modal-content {
+  border-radius: 5px;
+  width: 350px;
+  padding: 20px;
+  margin: 10% auto;
+  background-color: antiquewhite;
+}
+
+.sign-in-content-table {
+  margin: 0 30px;
+}
+
+.sign-in-close {
+  border: solid 1px black;
+  border-radius: 50%;
+}
+
+.sign-up-modal-content {
+  border-radius: 5px;
+  width: 350px;
+  padding: 20px;
+  margin: 10% auto;
+  background-color: antiquewhite;
+}
+
+.sign-up-close {
+  border: solid 1px black;
+  border-radius: 50%;
+}
+
+.content {
+  display: table-row;
+}
+
+.title {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+.colon {
+  display: table-cell;
+  padding: 10px;
+}
+
+.submit {
+  margin: 25px auto;
+  text-align: center;
+}
