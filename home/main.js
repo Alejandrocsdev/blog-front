@@ -45,7 +45,7 @@ function showArticles(articlesData) {
   });
   articlePreviewContainer.innerHTML = rawHTML;
 }
-
+// 監聽文章標題
 articlePreviewContainer.addEventListener("click", function onTitleClick(event) {
   if (event.target.classList.contains("article-title")) {
     const articleId = Number(event.target.dataset.id);
