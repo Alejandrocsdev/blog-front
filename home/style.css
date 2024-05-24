@@ -4,7 +4,7 @@
   width: 900px;
   padding: 1em;
   margin: 1rem auto;
-  background: var(--secondary-background-color)
+  background: var(--secondary-background-color);
 }
 
 .search-bar-container {
@@ -20,7 +20,6 @@
   border-radius: 50px;
   background: var(--tertiary-background-color);
   color: var(--text-color);
-  
 }
 
 .search-input:focus {
@@ -126,10 +125,14 @@
   text-decoration: none;
 }
 
-.article-left h2 {
+.article-left h2.article-title {
   text-align: center;
-  margin: 0.5rem 0;
+  margin: 0.5rem auto;
   color: var(--text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  width: 400px;
 }
 
 .article-left h2:hover {

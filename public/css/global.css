@@ -6,27 +6,17 @@
   --secondary-background-color: #ebebeb;
   --tertiary-background-color: #c0c0c0;
   --text-color: #6b6b6b;
-}   
+}
 
 /* Dark Mode */
-<<<<<<< HEAD
 
-/* .dark {
+.dark {
   --primary-background-color: ;
   --secondary-background-color: ;
   --tertiary-background-color: ;
   --border-color: ;
   --text-color: ;
-} */
-=======
-.dark {
-  --primary-background-color: #353535;
-  --secondary-background-color: #494949;
-  /* 新增顏色 */
-  --tertiary-background-color:#343434;
-  --text-color: #cccccc;
 }
->>>>>>> 8e2ddd777df815d988aa575c9e73db4418c1899c
 
 * {
   box-sizing: border-box;
@@ -42,11 +32,7 @@ header {
   width: 100%;
   background-color: var(--secondary-background-color);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
-<<<<<<< HEAD
   background-color: #fff;
-=======
-  position: fixed;
->>>>>>> 8e2ddd777df815d988aa575c9e73db4418c1899c
 }
 
 nav {
@@ -103,9 +89,4 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-<<<<<<< HEAD
 }
-=======
-  color: var(--text-color);
-}
->>>>>>> 8e2ddd777df815d988aa575c9e73db4418c1899c
