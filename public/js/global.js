@@ -1,4 +1,6 @@
-// HTML元素
+'use strict'
+
+const nav = document.querySelector('#navigation')
 const signIn = document.querySelector('.sign-in')
 const signUp = document.querySelector('.sign-up')
 const guest = document.querySelector('.guest')
@@ -6,7 +8,7 @@ const mode = document.querySelector('.darkmode')
 const body = document.body
 
 // 變數
-let loginState = 'Sign_out'
+let isLoggedIn = cookie.get('isLoggedIn') || false
 
 // 初始函式
 ;(function init() {
@@ -50,13 +52,19 @@ function setTheme() {
 
 // 其他函式: 切換登入/登出樣式
 function toggleLoginView() {
-  if (loginState === 'Sign_out') {
-    signIn.style.display = 'block'
-    signUp.style.display = 'block'
-    guest.style.display = 'none'
-  } else if (loginState === 'Sign_in') {
+  if (isLoggedIn) {
     signIn.style.display = 'none'
     signUp.style.display = 'none'
     guest.style.display = 'block'
+  } else {
+    signIn.style.display = 'block'
+    signUp.style.display = 'block'
+    guest.style.display = 'none'
   }
 }
+
+mode.addEventListener('click', function (event) {
+  let target = event.target
+  target.classList.toggle('fa-sun')
+  target.classList.toggle('fa-moon')
+})
