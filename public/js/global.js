@@ -1,20 +1,23 @@
 'use strict'
-let loginState = 'Sign_out'
 
+// HTML元素
 const nav = document.querySelector('#navigation')
 const signIn = document.querySelector('.sign-in')
 const signUp = document.querySelector('.sign-up')
 const guest = document.querySelector('.guest')
 const body = document.body
 
-if (loginState === 'Sign_out') {
-  signIn.style.display = 'block'
-  signUp.style.display = 'block'
-  guest.style.display = 'none'
-} else if (loginState === 'Sign_in') {
+// 變數
+let isLoggedIn = cookie.get('isLoggedIn') || false
+
+if (isLoggedIn) {
   signIn.style.display = 'none'
   signUp.style.display = 'none'
   guest.style.display = 'block'
+} else {
+  signIn.style.display = 'block'
+  signUp.style.display = 'block'
+  guest.style.display = 'none'
 }
 
 const mode = document.querySelector('.darkmode')
