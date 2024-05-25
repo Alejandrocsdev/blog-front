@@ -7,7 +7,7 @@ const ARTICLE_URL = BASE_URL + '/articles'
 const articlePreviewContainer = document.querySelector('.article-preview-container')
 const pagination = document.querySelector('.pagination')
 
-// 變數
+// 儲存全部文章
 const articles = []
 // 每頁顯示的資料筆數
 let size = 1
@@ -28,17 +28,22 @@ let total = 10
 
 // API: 取得文章資料
 function getArticles() {
-  axios.get(ARTICLE_URL).then((responses) => {
-    const data = responses.data
-    const main = data.main
-    // 儲存全部文章
-    articles.push(...main)
-    console.log('回傳資料: ', data)
-    console.log('主體資料: ', main)
-    console.log('儲存資料: ', articles)
-    // 渲染全部文章
-    renderArticles(articles)
-  })
+  axios
+    .get(ARTICLE_URL)
+    .then((responses) => {
+      const data = responses.data
+      const main = data.main
+      // 儲存全部文章
+      articles.push(...main)
+      console.log('回傳資料: ', data)
+      console.log('主體資料: ', main)
+      console.log('儲存資料: ', articles)
+      // 渲染全部文章
+      renderArticles(articles)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
 }
 
 // 渲染全部文章

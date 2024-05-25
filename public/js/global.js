@@ -51,6 +51,10 @@ function toggleLoginView() {
 function setLoginState() {
   loginSwitch.textContent = isLoggedIn ? '登出' : '登入'
   console.log('登入狀態: ', isLoggedIn)
+  const pathname = window.location.pathname
+  if (pathname === '/article/index.html') {
+    switchCommentArea()
+  }
 }
 
 // 切換登入狀態(監聽)
@@ -73,11 +77,11 @@ function updateLoginView() {
 // 切換留言區狀態(article頁面)
 function switchCommentArea() {
   if (isLoggedIn) {
-    logInComment.classList.add('hidden')
-    logOutComment.classList.remove('hidden')
-  } else {
     logInComment.classList.remove('hidden')
     logOutComment.classList.add('hidden')
+  } else {
+    logInComment.classList.add('hidden')
+    logOutComment.classList.remove('hidden')
   }
 }
 
