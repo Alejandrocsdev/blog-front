@@ -1,12 +1,12 @@
 'use strict'
 
 // HTML元素
+const body = document.body
 const nav = document.querySelector('#navigation')
 const signIn = document.querySelector('.sign-in')
 const signUp = document.querySelector('.sign-up')
 const guest = document.querySelector('.guest')
 const mode = document.querySelector('.darkmode')
-const body = document.body
 const modalBg = document.querySelector('.modal-bg')
 const logInComment = document.querySelector('.log-in-comment')
 const logOutComment = document.querySelector('.log-out-comment')
@@ -14,15 +14,16 @@ const loginSwitch = document.getElementById('login-switch')
 
 // 變數
 let isLoggedIn = cookie.get('isLoggedIn') || false
-console.log('isLoggedIn: ', isLoggedIn)
 
 // 初始函式
 ;(function init() {
+  // 切換登入狀態(初始)
+  setLoginState()
   // 切換登入/登出樣式
   toggleLoginView()
   // 切換暗黑模式圖示
   mode.addEventListener('click', onDarkMode)
-  // 切換登入狀態
+  // 切換登入狀態(監聽)
   loginSwitch.addEventListener('click', onSwitchState)
 })()
 
@@ -33,7 +34,7 @@ function onDarkMode(event) {
   target.classList.toggle('fa-moon')
 }
 
-// 其他函式: 切換登入/登出樣式
+// 切換登入/登出樣式
 function toggleLoginView() {
   if (isLoggedIn) {
     signIn.style.display = 'none'
@@ -46,33 +47,30 @@ function toggleLoginView() {
   }
 }
 
+// 切換登入狀態(初始)
 function setLoginState() {
-  isLoggedIn ? (loginSwitch.textContent = '登入') : (loginSwitch.textContent = '登出')
-  cookie.set('isLoggedIn', isLoggedIn)
-  console.log(isLoggedIn)
+  loginSwitch.textContent = isLoggedIn ? '登出' : '登入'
+  console.log('登入狀態: ', isLoggedIn)
 }
 
+// 切換登入狀態(監聽)
 function onSwitchState() {
-  if (isLoggedIn) {
-    loginSwitch.textContent = '登出'
-    isLoggedIn = false
-  } else {
-    loginSwitch.textContent = '登入'
-    isLoggedIn = true
-  }
-  updateState()
+  loginSwitch.textContent = isLoggedIn ? '登入' : '登出'
+  isLoggedIn = isLoggedIn ? false : true
+  updateLoginView()
   cookie.set('isLoggedIn', isLoggedIn)
-  console.log(isLoggedIn)
+  console.log('登入狀態: ', isLoggedIn)
 }
 
-// 更新登入狀態
-function updateState() {
+// 更新不同頁面登入樣式
+function updateLoginView() {
   const pathname = window.location.pathname
   if (pathname === '/article/index.html') {
     switchCommentArea()
-  } 
+  }
 }
 
+// 切換留言區狀態(article頁面)
 function switchCommentArea() {
   if (isLoggedIn) {
     logInComment.classList.add('hidden')
@@ -88,7 +86,7 @@ signIn.addEventListener('click', function () {
   modalBg.innerHTML = createSignInModal()
   modalBg.classList.toggle('hidden')
   const modalClose = modalBg.querySelector('.modal-close')
-  modalClose.addEventListener('click', onModalClose)
+  modalClose.addEventListener('click', () => modalBg.classList.toggle('hidden'))
 })
 
 // 點擊signUp時，建立並顯示signUpModal
@@ -96,7 +94,7 @@ signUp.addEventListener('click', function () {
   modalBg.innerHTML = createSignUpModal()
   modalBg.classList.toggle('hidden')
   const modalClose = modalBg.querySelector('.modal-close')
-  modalClose.addEventListener('click', onModalClose)
+  modalClose.addEventListener('click', () => modalBg.classList.toggle('hidden'))
 })
 
 // 建立signInModal
@@ -157,8 +155,4 @@ function createSignUpModal() {
     <button>提交</button>
   </div>
 </div>`
-}
-
-function onModalClose() {
-  modalBg.classList.toggle('hidden')
 }

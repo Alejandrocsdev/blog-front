@@ -1,3 +1,5 @@
+'use strict'
+
 // API
 const ARTICLE_URL = BASE_URL + '/articles'
 
