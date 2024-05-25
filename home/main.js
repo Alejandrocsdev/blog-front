@@ -1,21 +1,17 @@
-<<<<<<< HEAD
-'use strict'
-=======
-const ARTICLE_URL = BASE_URL + "/articles";
-const articlePreviewContainer = document.querySelector(
-  ".article-preview-container"
-);
-const articles = [];
+const ARTICLE_URL = BASE_URL + '/articles'
+const articlePreviewContainer = document.querySelector('.article-preview-container')
+const articles = []
 
 // fetch data
 axios.get(ARTICLE_URL).then((responses) => {
-  articles.push(...responses.data.main);
-  showArticles(articles);
-});
+  articles.push(...responses.data.main)
+  console.log(articles)
+  showArticles(articles)
+})
 
 // show article
 function showArticles(articlesData) {
-  let rawHTML = "";
+  let rawHTML = ''
   articlesData.forEach((article) => {
     rawHTML += `
             <div class="article-overview">
@@ -44,15 +40,14 @@ function showArticles(articlesData) {
               />
             </div>
           </div>
-        `;
-  });
-  articlePreviewContainer.innerHTML = rawHTML;
+        `
+  })
+  articlePreviewContainer.innerHTML = rawHTML
 }
 // 監聽文章標題
-articlePreviewContainer.addEventListener("click", function onTitleClick(event) {
-  if (event.target.classList.contains("article-title")) {
-    const articleId = Number(event.target.dataset.id);
-    cookie.set("articleId", articleId);
+articlePreviewContainer.addEventListener('click', function onTitleClick(event) {
+  if (event.target.classList.contains('article-title')) {
+    const articleId = Number(event.target.dataset.id)
+    cookie.set('articleId', articleId)
   }
-});
->>>>>>> a5e296297aee3cc277b767cb83e022d81f4a715a
+})
