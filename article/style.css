@@ -162,7 +162,3 @@ input:hover {
   height: 7rem;
   transition: 0.2s ease-in-out;
 }
-
-.hidden {
-  display: none;
-}

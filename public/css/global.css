@@ -18,7 +18,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: "Nunito", "Noto Sans TC", sans-serif;
+  font-family: 'Nunito', 'Noto Sans TC', sans-serif;
 }
 
 body {
@@ -28,9 +28,9 @@ body {
 header {
   height: var(--header-height);
   width: 100%;
-  background-color: var(--primary-background-color);
+  background-color: var(--secondary-background-color);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
-  background-color: #fff;
+  position: fixed;
 }
 
 nav {
@@ -42,7 +42,6 @@ nav {
 }
 
 /* 左 */
-
 .nav-logo img {
   height: 50px;
   width: 50px;
@@ -50,7 +49,6 @@ nav {
 }
 
 /* 右 */
-
 .nav-link {
   width: 30em;
   display: flex;
@@ -78,7 +76,7 @@ nav {
 main {
   padding-top: var(--header-height);
   min-height: 100vh;
-  background-color: var(--secondary-background-color);
+  background-color: var(--primary-background-color);
 }
 
 footer {
@@ -87,4 +85,69 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.sign-in-modal-content {
+  border-radius: 5px;
+  width: 350px;
+  padding: 20px;
+  margin: 10% auto;
+  background-color: antiquewhite;
+}
+
+.sign-in-content-table {
+  margin: 0 30px;
+}
+
+.sign-in-close {
+  border: solid 1px black;
+  border-radius: 50%;
+}
+
+.sign-up-modal-content {
+  border-radius: 5px;
+  width: 350px;
+  padding: 20px;
+  margin: 10% auto;
+  background-color: antiquewhite;
+}
+
+.sign-up-close {
+  border: solid 1px black;
+  border-radius: 50%;
+}
+
+.content {
+  display: table-row;
+}
+
+.title {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+.colon {
+  display: table-cell;
+  padding: 10px;
+}
+
+.submit {
+  margin: 25px auto;
+  text-align: center;
+}
+
+.modal-bg {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+
+.hidden {
+  display: none;
 }

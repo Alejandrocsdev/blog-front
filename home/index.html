@@ -14,44 +14,43 @@
 
 <body>
   <header>
-    <nav>
+    <nav id="navigation">
       <!-- Home鍵 -->
       <a class="nav-logo" href="../home/index.html">
-        <img src="../public/images/logo/logo.svg" alt="logo" />
+        <img src="../public/images/logo/logo.svg" alt="logo">
       </a>
       <span class="nav-link">
         <!-- 暗黑模式 -->
         <i class="btn fa-solid fa-sun darkmode"></i>
         <!-- 登入 -->
-        <a href="#" class="sign-in">
-          <strong>Sign in</strong>
+        <a href="#">
+          <strong class="sign-in">Sign in</strong>
         </a>
         <!-- 註冊 -->
-        <a href="#" class="sign-up">
-          <strong>Sign up</strong>
+        <a href="#">
+          <strong class="sign-up">Sign up</strong>
         </a>
         <!-- 會員頭像 -->
         <span class="guest">
           <div class="dropdown">
             <button class="btn" id="nav_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="../public/images/guest/guest.png" alt="guest" />
+              <img src="../public/images/guest/guest.png" alt="guest">
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href="#">後台</a></li>
-              <li>
-                <a class="dropdown-item" href="../create/index.html">撰寫</a>
-              </li>
+              <li><a class="dropdown-item" href="../create/index.html">撰寫</a></li>
               <li><a class="dropdown-item" href="#">登出</a></li>
             </ul>
           </div>
         </span>
+        <!-- 登入切換(暫時) -->
         <button id="login-switch">登入</button>
       </span>
     </nav>
   </header>
   <main>
     <div class="main-wrap">
-      <!-- Search Bar -->
+      <!-- 搜尋欄 -->
       <form class="search-bar-container">
         <input type="search" name="search" value="" id="search" class="form-control search-input"
           placeholder="Keyword..." aria-label="Restaurant Name..." aria-describedby="search-button" />
@@ -59,12 +58,15 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
-      <!-- Article Preview -->
+      <!-- 文章預覽 -->
       <section class="article-preview-container">
-        <!-- display articles here -->
+        <!-- 渲染全部文章 -->
       </section>
     </div>
+    <!-- 分頁器 -->
+    <div class="pagination" id="pagination"></div>
   </main>
+  <div class="modal-bg hidden"></div>
   <footer>MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
