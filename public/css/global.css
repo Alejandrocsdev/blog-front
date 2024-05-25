@@ -6,20 +6,21 @@
   --secondary-background-color: #ebebeb;
   --tertiary-background-color: #c0c0c0;
   --text-color: #6b6b6b;
-}   
+}
 
 /* Dark Mode */
+
 .dark {
-  --primary-background-color: #353535;
-  --secondary-background-color: #494949;
-  /* 新增顏色 */
-  --tertiary-background-color:#343434;
-  --text-color: #cccccc;
+  --primary-background-color: ;
+  --secondary-background-color: ;
+  --tertiary-background-color: ;
+  --border-color: ;
+  --text-color: ;
 }
 
 * {
   box-sizing: border-box;
-  font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+  font-family: "Nunito", "Noto Sans TC", sans-serif;
 }
 
 body {
@@ -31,7 +32,7 @@ header {
   width: 100%;
   background-color: var(--secondary-background-color);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
-  position: fixed;
+  background-color: #fff;
 }
 
 nav {
@@ -43,6 +44,7 @@ nav {
 }
 
 /* 左 */
+
 .nav-logo img {
   height: 50px;
   width: 50px;
@@ -50,6 +52,7 @@ nav {
 }
 
 /* 右 */
+
 .nav-link {
   width: 30em;
   display: flex;
@@ -86,5 +89,4 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--text-color);
 }
