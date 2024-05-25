@@ -1,7 +1,8 @@
 'use strict'
 
 // HTML元素
-const commentAreas = document.querySelectorAll('.comment')
+// const logInComment = document.querySelector('.log-in-comment')
+// const logOutComment = document.querySelector('.log-out-comment')
 const commentBtn = document.querySelector('.comment-btn-container')
 const textArea = document.querySelector('#user-comment')
 const article = document.querySelector('article')
@@ -18,7 +19,7 @@ const id = cookie.get('articleId')
 ;(function init() {
   getArticle()
   // 監聽器: 登入狀態
-  nav.addEventListener('click', onLoginState)
+  // nav.addEventListener('click', onLoginState)
   // 監聽器: 留言區
   body.addEventListener('click', onTextarea)
 })()
@@ -71,16 +72,16 @@ function renderCategories(categories) {
 }
 
 // 監聽器函式: 登入狀態
-function onLoginState(event) {
-  const target = event.target
-  if (target.classList.contains('sign-in')) {
-    isLoggedIn = true
-    switchCommentArea()
-  } else if (target.classList.contains('sign-up')) {
-    isLoggedIn = false
-    switchCommentArea()
-  }
-}
+// function onLoginState(event) {
+//   const target = event.target
+//   if (target.classList.contains('sign-in')) {
+//     isLoggedIn = true
+//     switchCommentArea()
+//   } else if (target.classList.contains('sign-up')) {
+//     isLoggedIn = false
+//     switchCommentArea()
+//   }
+// }
 
 //監聽器函式: 留言區狀態
 function onTextarea(event) {
@@ -104,8 +105,12 @@ function onTextarea(event) {
 }
 
 // 函式: 留言區樣式轉換
-function switchCommentArea() {
-  commentAreas.forEach((comment) => {
-    comment.classList.toggle('hidden')
-  })
-}
+// function switchCommentArea() {
+//   if (isLoggedIn) {
+//     logInComment.classList.remove('hidden')
+//     logOutComment.classList.add('hidden')
+//   } else {
+//     logInComment.classList.add('hidden')
+//     logOutComment.classList.remove('hidden')
+//   }
+// }
