@@ -2,20 +2,18 @@
   --header-height: 60px;
   --footer-height: 60px;
   /* Light Mode */
-  --primary-background-color: #ffffff;
-  --secondary-background-color: #ebebeb;
-  --tertiary-background-color: #c0c0c0;
+  --primary-background-color: #E7E0DA;
+  --secondary-background-color: #D7CBC1;
+  --tertiary-background-color: #FFF8F0;
   --text-color: #6b6b6b;
 }
 
 /* Dark Mode */
-
 .dark {
-  --primary-background-color: ;
-  --secondary-background-color: ;
-  --tertiary-background-color: ;
-  --border-color: ;
-  --text-color: ;
+  --primary-background-color: #616161;
+  --secondary-background-color: #494949;
+  --tertiary-background-color: #8f8f8f;
+  --text-color: #ffffff;
 }
 
 * {
@@ -30,7 +28,7 @@ body {
 header {
   height: var(--header-height);
   width: 100%;
-  background-color: var(--secondary-background-color);
+  background-color: var(--primary-background-color);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
   background-color: #fff;
 }
@@ -80,7 +78,7 @@ nav {
 main {
   padding-top: var(--header-height);
   min-height: 100vh;
-  background-color: var(--primary-background-color);
+  background-color: var(--secondary-background-color);
 }
 
 footer {
