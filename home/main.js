@@ -31,17 +31,16 @@ axios.get(ARTICLE_URL).then((responses) => {
 function showArticles(articlesData) {
   let rawHTML = ''
   articlesData.forEach((article) => {
-    rawHTML += `
-            <div class="article-overview">
+    rawHTML += `<div class="article-overview">
             <div class="article-left">
               <div class="user">
                 <img src="${article.user.avatar}" alt="avatar" />
                 <a href="#" class="username">${article.user.username}</a>
-                <ul class="categories">
-                  <li><a class="category" href="#">${article.categories[0].category}</a></li>
-                  <li><a class="category" href="#">${article.categories[1]}</a></li>
-                  <li><a class="category" href="#">${article.categories[2]}</a></li>
-                </ul>
+                <ul class="categories">`
+
+    rawHTML += renderCategories(article.categories)
+
+    rawHTML += `</ul>
               </div>
               <a href="../article/index.html">
                 <h2 class="article-title" data-id="${article.id}">${article.title}</h2>
@@ -183,3 +182,11 @@ function updatePagination() {
 // 初始化
 updateContent()
 updatePagination()
+
+function renderCategories(categories) {
+  let rawHTML = ''
+  categories.forEach((e) => {
+    rawHTML += `<li><a class="category" href="#">${e.category}</a></li>`
+  })
+  return rawHTML
+}
