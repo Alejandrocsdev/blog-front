@@ -20,7 +20,7 @@ function showArticles(articlesData) {
                 <img src="${article.user.avatar}" alt="avatar" />
                 <a href="#" class="username">${article.user.username}</a>
                 <ul class="categories">
-                  <li><a class="category" href="#">${article.categories[0]}</a></li>
+                  <li><a class="category" href="#">${article.categories[0].category}</a></li>
                   <li><a class="category" href="#">${article.categories[1]}</a></li>
                   <li><a class="category" href="#">${article.categories[2]}</a></li>
                 </ul>
