@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
-  <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../public/css/fonts.css" />
   <link rel="stylesheet" href="../public/css/global.css" />
   <link rel="stylesheet" href="style.css" />
@@ -14,39 +13,35 @@
 
 <body>
   <header>
-    <nav id="navigation">
+    <div class="nav-left">
       <!-- Home鍵 -->
-      <a class="nav-logo" href="../home/index.html">
+      <a class="logo" href="../home/index.html">
         <img src="../public/images/logo/logo.svg" alt="logo">
       </a>
-      <span class="nav-link">
-        <!-- 暗黑模式 -->
-        <i class="btn fa-solid fa-sun darkmode"></i>
+    </div>
+    <div class="nav-right">
+      <!-- 暗黑模式 -->
+      <div class="mode"><i class="fa-solid"></i></div>
+      <div class="sign hidden">
         <!-- 登入 -->
-        <a href="#">
-          <strong class="sign-in">Sign in</strong>
-        </a>
+        <div class="sign-in">登入</div>
         <!-- 註冊 -->
-        <a href="#">
-          <strong class="sign-up">Sign up</strong>
-        </a>
-        <!-- 會員頭像 -->
-        <span class="guest">
-          <div class="dropdown">
-            <button class="btn" id="nav_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="../public/images/guest/guest.png" alt="guest">
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">後台</a></li>
-              <li><a class="dropdown-item" href="../create/index.html">撰寫</a></li>
-              <li><a class="dropdown-item" href="#">登出</a></li>
-            </ul>
-          </div>
-        </span>
-        <!-- 登入切換(暫時) -->
-        <button id="login-switch"></button>
-      </span>
-    </nav>
+        <div class="sign-up">註冊</div>
+      </div>
+      <!-- 會員頭像 -->
+      <div class="profile hidden">
+        <div class="profile-avatar">
+          <img src="../public/images/guest/guest.png">
+        </div>
+        <div class="dropdown-content">
+          <div class="link profile-link">後台</div>
+          <a class="link create-link" href="../create/index.html">撰寫</a>
+          <div class="link logout">登出</div>
+        </div>
+      </div>
+      <!-- 登入切換(暫時) -->
+      <div id="login-switch"></div>
+    </div>
   </header>
   <main>
     <div class="main-wrap">
@@ -70,7 +65,6 @@
   <footer>MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="../public/js/bootstrap.bundle.min.js"></script>
   <script src="../public/js/utils.js"></script>
   <script src="../public/js/global.js"></script>
   <script src="main.js"></script>

@@ -1,88 +1,102 @@
 'use strict'
 
-// HTML元素
+// <<<---BODY--->>>
 const body = document.body
-const nav = document.querySelector('#navigation')
+// <<<---HEADER--->>>
+// 主題模式
+const mode = document.querySelector('.mode i')
+// 登入 / 註冊
+const sign = document.querySelector('.sign')
 const signIn = document.querySelector('.sign-in')
 const signUp = document.querySelector('.sign-up')
-const guest = document.querySelector('.guest')
-const mode = document.querySelector('.darkmode')
-const modalBg = document.querySelector('.modal-bg')
-const logInComment = document.querySelector('.log-in-comment')
-const logOutComment = document.querySelector('.log-out-comment')
+// 會員頭像
+const profile = document.querySelector('.profile')
+// 臨時登入切換按鈕
 const loginSwitch = document.getElementById('login-switch')
+// 彈跳窗背景
+const modalBg = document.querySelector('.modal-bg')
+// <<<---ARTICLE頁面--->>>
+// 用戶留言區(登入中)
+const logInComment = document.querySelector('.log-in-comment')
+// 用戶留言區(未登入)
+const logOutComment = document.querySelector('.log-out-comment')
 
-// 變數
-let isLoggedIn = cookie.get('isLoggedIn') || false
+// 初始變數/cookie/storage
+// 主題模式
+if (!storage.get('theme')) storage.set('theme', 'light')
+let theme = storage.get('theme')
+console.log('主題模式: ', theme)
+// 登入狀態
+if (!cookie.get('isLoggedIn')) cookie.set('isLoggedIn', false)
+let isLoggedIn = cookie.get('isLoggedIn')
+console.log('登入狀態: ', isLoggedIn)
+// 當前路徑
+const pathname = window.location.pathname
 
 // 初始函式
 ;(function init() {
-  // 切換登入狀態(初始)
-  setLoginState()
-  // 切換登入/登出樣式
-  toggleLoginView()
-  // 切換暗黑模式圖示
-  mode.addEventListener('click', onDarkMode)
-  // 切換登入狀態(監聽)
-  loginSwitch.addEventListener('click', onSwitchState)
+  // 設定主題模式
+  setTheme()
+  // 設定登入樣式
+  setView()
+  // 切換主題模式
+  mode.addEventListener('click', onToggleTheme)
+  // 切換登入狀態
+  loginSwitch.addEventListener('click', onToggleView)
 })()
 
-// 監聽器函式: 切換暗黑模式圖示
-function onDarkMode(event) {
-  let target = event.target
-  target.classList.toggle('fa-sun')
-  target.classList.toggle('fa-moon')
-}
-
-// 切換登入/登出樣式
-function toggleLoginView() {
-  if (isLoggedIn) {
-    signIn.style.display = 'none'
-    signUp.style.display = 'none'
-    guest.style.display = 'block'
+// 設定主題模式
+function setTheme() {
+  if (theme === 'light') {
+    // light模式
+    mode.classList.toggle('fa-sun')
   } else {
-    signIn.style.display = 'block'
-    signUp.style.display = 'block'
-    guest.style.display = 'none'
+    // dark模式
+    mode.classList.toggle('fa-moon')
+    body.classList.toggle('dark')
   }
 }
 
-// 切換登入狀態(初始)
-function setLoginState() {
-  loginSwitch.textContent = isLoggedIn ? '登出' : '登入'
-  console.log('登入狀態: ', isLoggedIn)
-  const pathname = window.location.pathname
+// 設定登入樣式
+function setView() {
+  // article頁面樣式
   if (pathname === '/article/index.html') {
-    switchCommentArea()
+    isLoggedIn ? logInComment.classList.toggle('hidden') : logOutComment.classList.toggle('hidden')
   }
+  // header樣式
+  isLoggedIn ? sign.classList.toggle('hidden') : profile.classList.toggle('hidden')
+  // 臨時登入切換按鈕
+  loginSwitch.textContent = isLoggedIn ? '登入中' : '未登入'
 }
 
-// 切換登入狀態(監聽)
-function onSwitchState() {
-  loginSwitch.textContent = isLoggedIn ? '登入' : '登出'
+// 監聽器函式: 切換主題模式
+function onToggleTheme() {
+  // 儲存模式
+  theme = theme === 'light' ? 'dark' : 'light'
+  storage.set('theme', theme)
+  console.log('主題模式: ', theme)
+  // 切換模式
+  mode.classList.toggle('fa-sun')
+  mode.classList.toggle('fa-moon')
+  body.classList.toggle('dark')
+}
+
+// 監聽器函式: 切換登入樣式
+function onToggleView() {
+  // 儲存狀態
   isLoggedIn = isLoggedIn ? false : true
-  updateLoginView()
   cookie.set('isLoggedIn', isLoggedIn)
   console.log('登入狀態: ', isLoggedIn)
-}
-
-// 更新不同頁面登入樣式
-function updateLoginView() {
-  const pathname = window.location.pathname
+  // 切換article頁面樣式
   if (pathname === '/article/index.html') {
-    switchCommentArea()
+    logInComment.classList.toggle('hidden')
+    logOutComment.classList.toggle('hidden')
   }
-}
-
-// 切換留言區狀態(article頁面)
-function switchCommentArea() {
-  if (isLoggedIn) {
-    logInComment.classList.remove('hidden')
-    logOutComment.classList.add('hidden')
-  } else {
-    logInComment.classList.add('hidden')
-    logOutComment.classList.remove('hidden')
-  }
+  // 切換header樣式
+  sign.classList.toggle('hidden')
+  profile.classList.toggle('hidden')
+  // 切換臨時登入切換按鈕
+  loginSwitch.textContent = isLoggedIn ? '未登入' : '登入中'
 }
 
 //點擊signIn時，建立並顯示signInModal
