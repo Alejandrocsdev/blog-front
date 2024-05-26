@@ -45,7 +45,7 @@
   cursor: pointer;
 }
 
-.article-preview-container {
+.articles-container {
   width: 100%;
   margin-top: 1em;
   display: grid;
@@ -174,8 +174,13 @@
   text-align: center;
   border: 1px solid #ccc;
   margin: 6px;
+  cursor: pointer;
 }
 
 .pagination button.active {
   background-color: #898989;
+}
+
+.hidden {
+  display: none;
 }

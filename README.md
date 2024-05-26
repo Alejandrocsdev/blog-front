@@ -1,3 +1,21 @@
+# 後端SERVER
+
+- [Github連結](https://github.com/Alejandrocsdev/blog-back)
+
+- 本地開啟main分支
+
+- 第一次執行:
+
+```
+npm install
+```
+
+- 每次開啟SERVER執行:
+
+```
+npm run dev
+```
+
 # Directories
 
 ```

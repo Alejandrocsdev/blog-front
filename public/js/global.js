@@ -109,20 +109,21 @@ function onSignButton(event) {
   if (target.classList.contains('sign-in')) {
     modalForm.action = '/users/login'
     modalForm.innerHTML = createModal('登入')
+    modalBg.classList.toggle('hidden')
   } else if (target.classList.contains('sign-up')) {
     modalForm.action = '/users/register'
     modalForm.innerHTML = createModal('註冊')
+    modalBg.classList.toggle('hidden')
   }
-  modalBg.classList.toggle('hidden')
 }
 
 // 新增彈跳窗元素
 function createModal(type) {
   return `<h1 class="modal-name">註冊</h1>
   ${createInput('username', '帳號', 'text')}
-  ${type === '登入'? '' : createInput('email', '信箱', 'text')}
+  ${type === '登入' ? '' : createInput('email', '信箱', 'text')}
   ${createInput('password', '密碼', 'password')}
-  ${type === '登入'? '' : createInput('re-password', '確認密碼', 'password')}
+  ${type === '登入' ? '' : createInput('re-password', '確認密碼', 'password')}
   <button class="modal-submit" type="submit">提交</button>`
 }
 

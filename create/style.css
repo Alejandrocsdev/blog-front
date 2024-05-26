@@ -62,3 +62,7 @@
 .must {
   color: red;
 }
+
+.hidden {
+  display: none;
+}

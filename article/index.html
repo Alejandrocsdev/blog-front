@@ -21,15 +21,15 @@
     </div>
     <div class="nav-right">
       <!-- 暗黑模式 -->
-      <div class="mode"><i class="fa-solid fa-sun"></i></div>
-      <div class="sign">
+      <div class="mode"><i class="fa-solid"></i></div>
+      <div class="sign hidden">
         <!-- 登入 -->
         <div class="sign-in">登入</div>
         <!-- 註冊 -->
         <div class="sign-up">註冊</div>
       </div>
       <!-- 會員頭像 -->
-      <div class="profile">
+      <div class="profile hidden">
         <div class="profile-avatar">
           <img src="../public/images/guest/guest.png">
         </div>
@@ -50,26 +50,32 @@
         <!-- Render Article -->
       </article>
       <div class="comment-container">
-        <div class="add-comment-section">
-          <div class="user-account">
-            <img src="../public/images/guest/guest.png" alt="user-avatar" class="user-avatar">
-            <label for="user-comment">Guest</label>
-          </div>
-          <div class="comment-area ">
-            <span class="log-out-comment hidden">留言請登入</span>
-            <div class="log-in-comment hidden">
-              <textarea name="user-comment" id="user-comment" class="text-area "></textarea>
-              <div class="comment-btn-container hidden">
-                <button class="comment-cancel">取消</button>
-                <input type="submit" value="確定">
-              </div>
+        <div class="user-info">
+          <img class="comment-avatar" src="../public/images/guest/guest.png">
+          <div class="comment-username">Guest</div>
+        </div>
+        <div class="comment-area">
+          <span class="log-out-comment hidden">留言請登入</span>
+          <div class="log-in-comment hidden">
+            <textarea class="user-comment" name="comment"></textarea>
+            <div class="comment-btn-container hidden">
+              <button class="comment-cancel">取消</button>
+              <button class="comment-submit" type="submit">確定</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </main>
-  <div class="modal-bg hidden"></div>
+  <!-- 登入/註冊彈跳窗 -->
+  <div class="modal-bg hidden">
+    <div class="modal">
+      <div class="modal-close">X</div>
+      <form class="modal-form" method="post">
+        <!-- 渲染登入/註冊輸入框 -->
+      </form>
+    </div>
+  </div>
   <footer>MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

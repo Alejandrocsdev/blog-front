@@ -1,10 +1,10 @@
 'use strict'
 
 // API
-const ARTICLE_URL = BASE_URL + '/articles'
+const ARTICLES_URL = `${BASE_URL}/articles`
 
 // HTML元素
-const articlePreviewContainer = document.querySelector('.article-preview-container')
+const articlesContainer = document.querySelector('.articles-container')
 const pagination = document.querySelector('.pagination')
 
 // 儲存全部文章
@@ -22,14 +22,15 @@ let total = 10
   getArticles()
   // 渲染分頁器
   updatePagination()
+  // TODO: renderPaginator()
   // 文章標題 => 文章細節
-  articlePreviewContainer.addEventListener('click', onTitleRedirect)
+  articlesContainer.addEventListener('click', onTitleRedirect)
 })()
 
 // API: 取得文章資料
 function getArticles() {
   axios
-    .get(ARTICLE_URL)
+    .get(ARTICLES_URL)
     .then((responses) => {
       const data = responses.data
       const main = data.main
@@ -71,7 +72,7 @@ function renderArticles(articles) {
     </div>
   </div>`
   })
-  articlePreviewContainer.innerHTML = rawHTML
+  articlesContainer.innerHTML = rawHTML
 }
 
 // 渲染單篇文章全部分類

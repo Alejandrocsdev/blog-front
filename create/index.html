@@ -21,15 +21,15 @@
     </div>
     <div class="nav-right">
       <!-- 暗黑模式 -->
-      <div class="mode"><i class="fa-solid fa-sun"></i></div>
-      <div class="sign">
+      <div class="mode"><i class="fa-solid"></i></div>
+      <div class="sign hidden">
         <!-- 登入 -->
         <div class="sign-in">登入</div>
         <!-- 註冊 -->
         <div class="sign-up">註冊</div>
       </div>
       <!-- 會員頭像 -->
-      <div class="profile">
+      <div class="profile hidden">
         <div class="profile-avatar">
           <img src="../public/images/guest/guest.png">
         </div>
@@ -74,7 +74,15 @@
       </div>
 
   </main>
-  <div class="modal-bg hidden"></div>
+  <!-- 登入/註冊彈跳窗 -->
+  <div class="modal-bg hidden">
+    <div class="modal">
+      <div class="modal-close">X</div>
+      <form class="modal-form" method="post">
+        <!-- 渲染登入/註冊輸入框 -->
+      </form>
+    </div>
+  </div>
   <footer>MIT licensed | Copyright &copy; 2024</footer>
   <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
