@@ -7,14 +7,14 @@ const body = document.body
 const mode = document.querySelector('.mode i')
 // 登入 / 註冊
 const sign = document.querySelector('.sign')
-const signIn = document.querySelector('.sign-in')
-const signUp = document.querySelector('.sign-up')
 // 會員頭像
 const profile = document.querySelector('.profile')
 // 臨時登入切換按鈕
 const loginSwitch = document.getElementById('login-switch')
 // 彈跳窗背景
 const modalBg = document.querySelector('.modal-bg')
+const modalClose = modalBg.querySelector('.modal-close')
+const modalForm = modalBg.querySelector('.modal-form')
 // <<<---ARTICLE頁面--->>>
 // 用戶留言區(登入中)
 const logInComment = document.querySelector('.log-in-comment')
@@ -43,6 +43,10 @@ const pathname = window.location.pathname
   mode.addEventListener('click', onToggleTheme)
   // 切換登入狀態
   loginSwitch.addEventListener('click', onToggleView)
+  // 開啟: 彈跳窗(登入 & 註冊)
+  sign.addEventListener('click', onSignButton)
+  // 關閉: 彈跳窗(登入 & 註冊)
+  modalClose.addEventListener('click', () => modalBg.classList.toggle('hidden'))
 })()
 
 // 設定主題模式
@@ -99,78 +103,34 @@ function onToggleView() {
   loginSwitch.textContent = isLoggedIn ? '未登入' : '登入中'
 }
 
-//點擊signIn時，建立並顯示signInModal
-signIn.addEventListener('click', function () {
-  modalBg.innerHTML = createSignInModal()
+// 監聽器函式: 彈跳窗(登入 & 註冊)
+function onSignButton(event) {
+  const target = event.target
+  if (target.classList.contains('sign-in')) {
+    modalForm.action = '/users/login'
+    modalForm.innerHTML = createModal('登入')
+  } else if (target.classList.contains('sign-up')) {
+    modalForm.action = '/users/register'
+    modalForm.innerHTML = createModal('註冊')
+  }
   modalBg.classList.toggle('hidden')
-  const modalClose = modalBg.querySelector('.modal-close')
-  modalClose.addEventListener('click', () => modalBg.classList.toggle('hidden'))
-})
-
-// 點擊signUp時，建立並顯示signUpModal
-signUp.addEventListener('click', function () {
-  modalBg.innerHTML = createSignUpModal()
-  modalBg.classList.toggle('hidden')
-  const modalClose = modalBg.querySelector('.modal-close')
-  modalClose.addEventListener('click', () => modalBg.classList.toggle('hidden'))
-})
-
-// 建立signInModal
-function createSignInModal() {
-  return `<div id="signInModal" class="sign-in-modal-content">
-  <div>
-    <button class="modal-close">X</button>
-  </div>
-  <h3 class="sign-up">登入</h3>      
-  <div class="sign-in-content-table">
-    <div class="content">
-      <div class="title">帳號</div>
-      <div class="colon">:</div>
-      <input type="text">
-    </div>
-    <div class="content">
-      <div class="title">密碼</div>
-      <div class="colon">:</div>
-      <input type="password">
-    </div>
-  </div>    
-  <div class="submit">
-    <button>提交</button>
-  </div>
-</div>`
 }
 
-// 建立signUpModal
-function createSignUpModal() {
-  return `<div id="signUpModal" class="sign-up-modal-content">
-  <div>
-    <button class="modal-close">X</button>
-  </div>
-  <h3 class="sign-up">註冊</h3>
-  <div class="sign-up-content-table">
-    <div class="content">
-      <div class="title">帳號</div>
-      <div class="colon">:</div>
-      <input type="text">
-    </div>
-    <div class="content">
-      <div class="title">信箱</div>
-      <div class="colon">:</div>
-      <input type="text">
-    </div>
-    <div class="content">
-      <div class="title">密碼</div>
-      <div class="colon">:</div>
-      <input type="password">
-    </div>
-    <div class="content">
-      <div class="title">確認密碼</div>
-      <div class="colon">:</div>
-      <input type="password">
-    </div>
-  </div>
-  <div class="submit">
-    <button>提交</button>
-  </div>
-</div>`
+// 新增彈跳窗元素
+function createModal(type) {
+  return `<h1 class="modal-name">註冊</h1>
+  ${createInput('username', '帳號', 'text')}
+  ${type === '登入'? '' : createInput('email', '信箱', 'text')}
+  ${createInput('password', '密碼', 'password')}
+  ${type === '登入'? '' : createInput('re-password', '確認密碼', 'password')}
+  <button class="modal-submit" type="submit">提交</button>`
+}
+
+// 新增輸入框元素
+function createInput(attr, label, type) {
+  return `<div>
+    <label for="${attr}">${label}</label>
+    <span class="colon">:</span>
+    <input id="${attr}" name="${attr}" type="${type}">
+  </div>`
 }
