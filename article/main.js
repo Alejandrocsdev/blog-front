@@ -9,10 +9,15 @@ const textArea = document.querySelector('.user-comment')
 const articleContainer = document.querySelector('article')
 const commentHistory = document.querySelector(".comment-history-container");
 
+
 // 儲存單篇文章
 const article = []
-// 處存歷史留言
-const comments= []
+// 儲存留言總數
+let commentAmount = ''
+// 儲存最後一則留言
+let lastComment = null
+let offset = 0
+let size = 2
 
 // 留言區狀態
 let isTextareaActive = false
@@ -26,6 +31,7 @@ console.log('文章ID: ', articleId)
   // 取得文章資料
   getArticle()
   // 取得留言資料
+  getCommentAmount();
   getComment();
   // 監聽器: 留言區
   body.addEventListener('click', onTextarea)
@@ -48,22 +54,40 @@ function getArticle() {
     })
 }
 
+// API: 取得留言總數
+function getCommentAmount() {
+  axios
+    .get(`${BASE_URL}/comments/${articleId}`)
+    .then((response) => {
+      const amount = response.data.main.length
+      console.log('留言總數: ' , amount )
+      commentAmount = amount
+    })
+}
+
 // API: 取得留言資料
 function getComment() {
     axios
-      .get(`${BASE_URL}/comments/${articleId}`)
+      .get(`${BASE_URL}/comments/${articleId}?offset=${offset}&size=${size}`)
       .then((response) => {
         const data = response.data.main
-        comments.push(data);
         console.log('回傳留言資料: ', data);
-        console.log('儲存留言資料: ', comments);
         // 渲染留言
-        renderComments(comments);
+        renderComments(data);
+        //更新最後一則留言
+        lastComment = commentHistory.lastElementChild
+        console.log('最後一則留言: ', lastComment)
+        //若最後一則留言不為null，且起始資料不超過留言總數
+        if(lastComment && offset < commentAmount-size ){
+          // 使用觀察最後一則留言，到達臨界值則新增2筆留言
+          observer.observe(lastComment)
+        }
       })
       .catch((error) => {
         console.log(error)
       })
 } 
+
 
 // 渲染單篇文章
 function renderArticle(article) {
@@ -95,7 +119,7 @@ function renderCategories(categories) {
 // 渲染歷史留言
 function renderComments(comments) {
   let rawHTML = ''
-  comments[0].forEach((commentInfo)=> {
+  comments.forEach((commentInfo)=> {
       rawHTML += `
       <div class="comment-container ${commentInfo.id}">
           <div class="user-info ${commentInfo.user.id}">
@@ -107,7 +131,8 @@ function renderComments(comments) {
         </div>
       </div>`
   })
-  commentHistory.innerHTML = rawHTML
+  // 因設置無限下滑機制，拿到新的留言資料後會新增HTML
+  commentHistory.innerHTML += rawHTML
 }
 
 //監聽器函式: 留言區狀態
@@ -129,3 +154,28 @@ function onTextarea(event) {
     commentBtn.classList.add('hidden')
   }
 }
+
+
+
+// 無限滾動: Intersection Observer 函式
+
+const option = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 1
+}
+
+// 當 observer 被執行一次，取得新的筆留言
+const observer = new IntersectionObserver (
+  function (entires) {
+    entires.forEach((entry) => {
+      if(entry.isIntersecting){
+        offset += 2
+        //獲取留言資料並渲染
+        getComment()
+        // 移除觀測舊的元素，觀測新的元素
+        observer.unobserve(entry.target);
+      }
+    })
+  }, option )
+  
