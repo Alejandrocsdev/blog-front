@@ -3,12 +3,14 @@
 // API
 const ARTICLES_URL = `${BASE_URL}/articles`
 
+
+
 // HTML元素
 const articlesContainer = document.querySelector('.articles-container')
 const pagination = document.querySelector('.pagination')
 
 // 儲存全部文章
-const articles = []
+let articles = []
 // 每頁顯示的資料筆數
 let size = 1
 // 所在頁碼
@@ -19,7 +21,7 @@ let total = 10
 // 初始函式
 ;(function init() {
   // 取得文章資料
-  getArticles()
+  getArticles(ARTICLES_URL)
   // 渲染分頁器
   updatePagination()
   // TODO: renderPaginator()
@@ -28,24 +30,28 @@ let total = 10
 })()
 
 // API: 取得文章資料
-function getArticles() {
+function getArticles(URL) {
+
   axios
-    .get(ARTICLES_URL)
+    .get(URL)
     .then((responses) => {
       const data = responses.data
       const main = data.main
       // 儲存全部文章
+      articles = []
       articles.push(...main)
-      console.log('回傳資料: ', data)
-      console.log('主體資料: ', main)
-      console.log('儲存資料: ', articles)
+      // console.log('回傳資料: ', data)
+      // console.log('主體資料: ', main)
+      // console.log('儲存資料: ', articles)
       // 渲染全部文章
       renderArticles(articles)
     })
     .catch((error) => {
       console.log(error)
     })
+
 }
+
 
 // 渲染全部文章
 function renderArticles(articles) {
@@ -55,7 +61,7 @@ function renderArticles(articles) {
     <div class="article-left">
       <div class="user">
         <img src="${article.user.avatar}" alt="avatar">
-        <a href="#" class="username">${article.user.username}</a>
+        <a href="#" class="username" data-text="${article.user.username}">${article.user.username}</a>
         <ul class="categories">
           ${renderCategories(article.categories)}
         </ul>
@@ -73,13 +79,21 @@ function renderArticles(articles) {
   </div>`
   })
   articlesContainer.innerHTML = rawHTML
+  
+
+
+
+
+
+
+
 }
 
 // 渲染單篇文章全部分類
 function renderCategories(categories) {
   let rawHTML = ''
   categories.forEach((e) => {
-    rawHTML += `<li><a class="category" href="#">${e.category}</a></li>`
+    rawHTML += `<li><a class="category" data-text="${e.category}" href="#">${e.category}</a></li>`
   })
   return rawHTML
 }
@@ -182,3 +196,35 @@ function updatePagination() {
   })
   pagination.appendChild(lastPageButton)
 }
+
+
+//filter
+  const usercontent = document.querySelector('.main-wrap')
+  let offset = 0
+  size = 10
+  let keyword = ''
+  let filter = ''
+  let API_URL =`${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+
+//設置filter監聽器
+  usercontent.addEventListener("click", function filterArticle(event) {
+    let target = event.target;
+//filter categories
+    if (target.matches('.category')) {
+      filter = 'categories'
+      keyword = target.dataset.text
+      API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+      getArticles(API_URL)
+//filter user
+    } else if (target.matches('.username'))  {
+      filter = 'user'
+      keyword = target.dataset.text
+      API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+      getArticles(API_URL)
+    }
+    })
+
+
+  
+
+
