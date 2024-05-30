@@ -1,57 +1,63 @@
-"use strict";
+'use strict'
 
 // API
-const ARTICLES_URL = `${BASE_URL}/articles`;
+const ARTICLES_URL = `${BASE_URL}/articles`
 
 // HTML元素
-const articlesContainer = document.querySelector(".articles-container");
-const pagination = document.querySelector(".pagination");
-const searchForm = document.querySelector(".search-bar-container");
-const searchInput = document.querySelector("#search");
+const articlesContainer = document.querySelector('.articles-container')
+const pagination = document.querySelector('.pagination')
+const searchForm = document.querySelector('.search-bar-container')
+const searchInput = document.querySelector('#search')
 
 // 儲存全部文章
-const articles = [];
+const articles = []
 // 每頁顯示的資料筆數
-let size = 1;
+let size = 1
 // 所在頁碼
-let currentPage = 1;
+let currentPage = 1
 // 總頁數
-let total = 10;
+let total = 10
+// 搜尋關鍵字
+let keyword = cookie.get('keyword') || ''
 
 // 初始函式
-(function init() {
+;(function init() {
   // 取得文章資料
-  getArticles();
+  getArticles()
   // 渲染分頁器
-  updatePagination();
+  updatePagination()
   // TODO: renderPaginator()
   // 文章標題 => 文章細節
-  articlesContainer.addEventListener("click", onTitleRedirect);
-})();
+  articlesContainer.addEventListener('click', onTitleRedirect)
+  // 搜尋關鍵字
+  searchForm.addEventListener('submit', onSearch)
+})()
 
 // API: 取得文章資料
 function getArticles() {
   axios
-    .get(ARTICLES_URL)
+    .get(ARTICLES_URL, { params: { keyword } })
     .then((responses) => {
-      const data = responses.data;
-      const main = data.main;
-      // 儲存全部文章
-      articles.push(...main);
-      console.log("回傳資料: ", data);
-      console.log("主體資料: ", main);
-      console.log("儲存資料: ", articles);
+      const data = responses.data
+      const main = data.main
+      // 刪除文章變數
+      articles.length = 0
+      // 儲存文章
+      articles.push(...main)
+      console.log('回傳資料: ', data)
+      console.log('主體資料: ', main)
+      console.log('儲存資料: ', articles)
       // 渲染全部文章
-      renderArticles(articles);
+      renderArticles(articles)
     })
     .catch((error) => {
-      console.log(error);
-    });
+      console.log(error)
+    })
 }
 
 // 渲染全部文章
 function renderArticles(articles) {
-  let rawHTML = "";
+  let rawHTML = ''
   articles.forEach((article) => {
     rawHTML += `<div class="article-overview">
     <div class="article-left">
@@ -72,138 +78,125 @@ function renderArticles(articles) {
     <div class="article-right">
       <img class="article-img" src="${article.picture}" alt="article-image">
     </div>
-  </div>`;
-  });
-  articlesContainer.innerHTML = rawHTML;
+  </div>`
+  })
+  articlesContainer.innerHTML = rawHTML
 }
 
 // 渲染單篇文章全部分類
 function renderCategories(categories) {
-  let rawHTML = "";
+  let rawHTML = ''
   categories.forEach((e) => {
-    rawHTML += `<li><a class="category" href="#">${e.category}</a></li>`;
-  });
-  return rawHTML;
+    rawHTML += `<li><a class="category" href="#">${e.category}</a></li>`
+  })
+  return rawHTML
 }
 
 // 監聽器函式: 文章標題 => 文章細節
 function onTitleRedirect(event) {
-  const target = event.target;
-  if (target.classList.contains("article-title")) {
-    const articleId = Number(target.dataset.id);
-    cookie.set("articleId", articleId);
+  const target = event.target
+  if (target.classList.contains('article-title')) {
+    const articleId = Number(target.dataset.id)
+    cookie.set('articleId', articleId)
   }
+}
+
+// 監聽器函式: 搜尋關鍵字
+async function onSearch(event) {
+  // 阻止瀏覽器的默認行為
+  event.preventDefault()
+  // 更新關鍵字變數
+  keyword = searchInput.value.trim()
+  // 取得符合關鍵字文章
+  await getArticles()
 }
 
 // 更新頁碼按鈕(建立.更新按鈕)
 function updatePagination() {
-  pagination.innerHTML = "";
+  pagination.innerHTML = ''
 
   // *設定分頁按鈕顯示範圍*
-  let startPage = 1; // 分頁按鈕顯示的起始頁碼
-  let endPage = 1; // 分頁按鈕顯示的最後頁碼
+  let startPage = 1 // 分頁按鈕顯示的起始頁碼
+  let endPage = 1 // 分頁按鈕顯示的最後頁碼
   //總頁數<5時，頁碼顯示 "1~總頁數"
   if (total <= 5) {
-    startPage = 1;
-    endPage = total;
+    startPage = 1
+    endPage = total
   } else {
     //總頁數>5時，
     //所在頁碼在3以下時，頁碼顯示1-5
     if (currentPage <= 3) {
-      startPage = 1;
-      endPage = 5;
+      startPage = 1
+      endPage = 5
       //所在頁碼+2會大於等於總頁碼時
     } else if (currentPage + 2 >= total) {
-      startPage = total - 4;
-      endPage = total;
+      startPage = total - 4
+      endPage = total
     } else {
-      startPage = currentPage - 2;
-      endPage = currentPage + 2;
+      startPage = currentPage - 2
+      endPage = currentPage + 2
     }
   }
 
   // *建立切換到第一頁的按鈕*
-  const firstPageButton = document.createElement("button");
-  firstPageButton.textContent = "<<";
-  firstPageButton.addEventListener("click", () => {
+  const firstPageButton = document.createElement('button')
+  firstPageButton.textContent = '<<'
+  firstPageButton.addEventListener('click', () => {
     //點擊時若所在頁碼不在第一頁，直接到第一頁
     if (currentPage !== 1) {
-      currentPage = 1;
-      updatePagination();
+      currentPage = 1
+      updatePagination()
     }
-  });
-  pagination.appendChild(firstPageButton);
+  })
+  pagination.appendChild(firstPageButton)
 
   //*建立上一頁按鈕*
-  const previousBtn = document.createElement("button");
-  previousBtn.textContent = "<";
-  previousBtn.addEventListener("click", () => {
+  const previousBtn = document.createElement('button')
+  previousBtn.textContent = '<'
+  previousBtn.addEventListener('click', () => {
     //如果所在頁碼>1，就可以往上一頁
     if (currentPage > 1) {
-      currentPage--;
-      updatePagination();
+      currentPage--
+      updatePagination()
     }
-  });
-  pagination.appendChild(previousBtn);
+  })
+  pagination.appendChild(previousBtn)
 
   //*建立分頁按鈕*
   for (let page = startPage; page <= endPage; page++) {
-    const pageButton = document.createElement("button");
-    pageButton.textContent = page;
+    const pageButton = document.createElement('button')
+    pageButton.textContent = page
     //如果page和所在頁碼一樣時，加上active
     if (page === currentPage) {
-      pageButton.classList.add("active");
+      pageButton.classList.add('active')
     }
-    pageButton.addEventListener("click", () => {
-      currentPage = page;
-      updatePagination();
-    });
-    pagination.appendChild(pageButton);
+    pageButton.addEventListener('click', () => {
+      currentPage = page
+      updatePagination()
+    })
+    pagination.appendChild(pageButton)
   }
 
   //*建立下一頁按鈕*
-  const nextButton = document.createElement("button");
-  nextButton.textContent = ">";
-  nextButton.addEventListener("click", () => {
+  const nextButton = document.createElement('button')
+  nextButton.textContent = '>'
+  nextButton.addEventListener('click', () => {
     //如果所在頁碼<總頁數>，就往下一頁
     if (currentPage < total) {
-      currentPage++;
-      updatePagination();
+      currentPage++
+      updatePagination()
     }
-  });
-  pagination.appendChild(nextButton);
+  })
+  pagination.appendChild(nextButton)
 
   // *建立切換到最後一頁的按鈕*
-  const lastPageButton = document.createElement("button");
-  lastPageButton.textContent = ">>";
-  lastPageButton.addEventListener("click", () => {
+  const lastPageButton = document.createElement('button')
+  lastPageButton.textContent = '>>'
+  lastPageButton.addEventListener('click', () => {
     if (currentPage !== total) {
-      currentPage = total;
-      updatePagination();
+      currentPage = total
+      updatePagination()
     }
-  });
-  pagination.appendChild(lastPageButton);
-}
-
-// 表單搜尋事件
-searchForm.addEventListener("submit", onSearchFormSubmmited);
-// 搜尋函式
-function onSearchFormSubmmited(event) {
-  // 阻止瀏覽器的默認行為
-  event.preventDefault();
-  const matchedArticles = [];
-  const keyword = searchInput.value.trim();
-  axios
-    .get(ARTICLES_URL, {
-      params: {
-        keyword,
-      },
-    })
-    .then((responses) => {
-      matchedArticles.push(...responses.data.main);
-      renderArticles(matchedArticles);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  })
+  pagination.appendChild(lastPageButton)
 }
