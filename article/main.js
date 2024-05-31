@@ -17,9 +17,10 @@ console.log('留言區狀態: ', isTextareaActive)
 const articleId = cookie.get('articleId')
 console.log('文章ID: ', articleId)
 
+
 // filter
 const filterApi ={offset: 0,size: 10,keyword: '',filter: ''}
-let API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+let API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
 
 // 初始函式
 ;(function init() {
@@ -116,7 +117,7 @@ function filterArticle(event) {
 
 //更新API_URL
 function updateApiUrl() {
-  API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+  API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
 }
   
 

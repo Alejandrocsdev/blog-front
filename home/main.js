@@ -1,7 +1,7 @@
 'use strict'
 
 // API
-const ARTICLES_URL = `${BASE_URL}/articles`
+const ARTICLE_URL = `${BASE_URL}/articles`
 
 // HTML元素
 const articlesContainer = document.querySelector('.articles-container')
@@ -19,7 +19,7 @@ let total = 10
 
 // filter
 const filterApi ={offset: 0,size: 10,keyword: '',filter: ''}
-let API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+let API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
 
 // 初始函式
 ;(function init() {
