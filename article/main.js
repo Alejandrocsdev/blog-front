@@ -12,8 +12,6 @@ const commentHistory = document.querySelector(".comment-history-container");
 
 // 儲存單篇文章
 const article = []
-// 儲存留言總數
-let commentAmount = ''
 // 儲存最後一則留言
 let lastComment = null
 let offset = 0
@@ -26,12 +24,32 @@ console.log('留言區狀態: ', isTextareaActive)
 const articleId = cookie.get('articleId')
 console.log('文章ID: ', articleId)
 
+// 無限滾動: Intersection Observer 函式
+const option = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 1
+}
+// 當 observer 被執行一次，取得新的筆留言
+const observer = new IntersectionObserver (
+  function (entires) {
+    entires.forEach((entry) => {
+      if(entry.isIntersecting){
+        offset += 2
+        //獲取留言資料並渲染
+        getComment()
+        // 移除觀測舊的元素，觀測新的元素
+        observer.unobserve(entry.target);
+      }
+    })
+  }, option )
+  
+
 // 初始函式
 ;(function init() {
   // 取得文章資料
   getArticle()
   // 取得留言資料
-  getCommentAmount();
   getComment();
   // 監聽器: 留言區
   body.addEventListener('click', onTextarea)
@@ -54,33 +72,24 @@ function getArticle() {
     })
 }
 
-// API: 取得留言總數
-function getCommentAmount() {
-  axios
-    .get(`${BASE_URL}/comments/${articleId}`)
-    .then((response) => {
-      const amount = response.data.main.length
-      console.log('留言總數: ' , amount )
-      commentAmount = amount
-    })
-}
 
 // API: 取得留言資料
 function getComment() {
     axios
       .get(`${BASE_URL}/comments/${articleId}?offset=${offset}&size=${size}`)
       .then((response) => {
-        const data = response.data.main
-        console.log('回傳留言資料: ', data);
+        const data = response.data
+        console.log(data.total)
+        console.log('回傳留言資料: ', data.main);
         // 渲染留言
-        renderComments(data);
+        renderComments(data.main);
         //更新最後一則留言
         lastComment = commentHistory.lastElementChild
         console.log('最後一則留言: ', lastComment)
         //若最後一則留言不為null，且起始資料不超過留言總數
-        if(lastComment && offset < commentAmount-size ){
+        if (lastComment && offset < data.total-size) {
           // 使用觀察最後一則留言，到達臨界值則新增2筆留言
-          observer.observe(lastComment)
+          observer.observe(lastComment);
         }
       })
       .catch((error) => {
@@ -157,25 +166,3 @@ function onTextarea(event) {
 
 
 
-// 無限滾動: Intersection Observer 函式
-
-const option = {
-  root: null,
-  rootMargin: "0px",
-  threshold: 1
-}
-
-// 當 observer 被執行一次，取得新的筆留言
-const observer = new IntersectionObserver (
-  function (entires) {
-    entires.forEach((entry) => {
-      if(entry.isIntersecting){
-        offset += 2
-        //獲取留言資料並渲染
-        getComment()
-        // 移除觀測舊的元素，觀測新的元素
-        observer.unobserve(entry.target);
-      }
-    })
-  }, option )
-  
