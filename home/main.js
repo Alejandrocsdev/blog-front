@@ -1,7 +1,6 @@
 'use strict'
 
-// API
-const ARTICLE_URL = `${BASE_URL}/articles`
+
 
 // HTML元素
 const articlesContainer = document.querySelector('.articles-container')
@@ -17,14 +16,25 @@ let currentPage = 1
 // 總頁數
 let total = 10
 
-// filter
-const filterApi ={offset: 0,size: 10,keyword: '',filter: ''}
-let API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+
+
+
 
 // 初始函式
 ;(function init() {
+
   // 取得文章資料
-  getArticles(ARTICLES_URL)
+    if (storage.get('API_URL')) {
+      API_URL = storage.get('API_URL')
+      console.log(API_URL)  
+      getArticles(API_URL)
+      localStorage.removeItem('API_URL')
+
+    } else {
+      console.log('no...API_URL...home')
+    
+      getArticles(ARTICLE_URL)
+    } 
   // 渲染分頁器
   updatePagination()
   // TODO: renderPaginator()
@@ -46,9 +56,9 @@ function getArticles(URL) {
       // 儲存全部文章
       articles = []
       articles.push(...main)
-      // console.log('回傳資料: ', data)
-      // console.log('主體資料: ', main)
-      // console.log('儲存資料: ', articles)
+      console.log('回傳資料: ', data)
+      console.log('主體資料: ', main)
+      console.log('儲存資料: ', articles)
       // 渲染全部文章
       renderArticles(articles)
     })
@@ -205,20 +215,20 @@ function filterArticle(event) {
   if (target.matches('.category')) {
     filterApi.filter = 'categories'
     filterApi.keyword = target.dataset.text
-    updateApiUrl()
-    getArticles(API_URL)
+    renderFilter()
 //filter user
   } else if (target.matches('.username'))  {
     filterApi.filter = 'user'
     filterApi.keyword = target.dataset.text
-    updateApiUrl()
-    getArticles(API_URL)
+    renderFilter()
   }
   }
 
-//更新API_URL
-function updateApiUrl() {
-  API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+//整合filterArticle相同程序
+function renderFilter() {
+  
+  API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+  getArticles(API_URL)
 }
   
 

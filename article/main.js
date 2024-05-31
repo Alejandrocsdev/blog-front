@@ -1,7 +1,6 @@
 'use strict'
 
-// API
-const ARTICLE_URL = `${BASE_URL}/articles`
+
 
 // HTML元素
 const commentBtn = document.querySelector('.comment-btn-container')
@@ -18,14 +17,12 @@ const articleId = cookie.get('articleId')
 console.log('文章ID: ', articleId)
 
 
-// filter
-const filterApi ={offset: 0,size: 10,keyword: '',filter: ''}
-let API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+
 
 // 初始函式
 ;(function init() {
   // 取得文章資料
-  getArticle()
+  getArticle(`${ARTICLE_URL}/${articleId}`)
   // 監聽器: 留言區
   body.addEventListener('click', onTextarea)
 })()
@@ -34,16 +31,24 @@ let API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&k
 articleContainer.addEventListener("click",filterArticle )
 
 // API: 取得文章資料
-function getArticle() {
+function getArticle(URL) {
   axios
-    .get(`${ARTICLE_URL}/${articleId}`)
+    .get(URL)
     .then((response) => {
       const data = response.data
       article.push(data)
       console.log('回傳資料: ', data)
       console.log('儲存資料: ', article)
-      // 渲染單篇文章
-      renderArticle(article[0])
+      if (!storage.get('API_URL')) {
+        console.log('渲染單篇文章')
+        // 渲染單篇文章
+        renderArticle(article[0])
+      }else {
+        // 跳轉至首頁
+        console.log('跳轉至首頁')
+        window.location.href = 'http://127.0.0.1:5500/home/index.html#';
+
+      }
     })
     .catch((error) => {
       console.log(error)
@@ -56,7 +61,7 @@ function renderArticle(article) {
   let rawHTML = `<h2 class="title">${article.title}</h2>
   <div class="user">
     <img src="${article.user.avatar}">
-    <a href="#" class="username">${article.user.username}</a>
+    <a href="#" class="username" data-text="${article.user.username}">${article.user.username}</a>
     <ul class="categories">
       ${renderCategories(categories)}
     </ul>
@@ -72,7 +77,7 @@ function renderArticle(article) {
 function renderCategories(categories) {
   let rawHTML = ''
   categories.forEach((e) => {
-    rawHTML += `<li><a class="category" href="#">${e.category}</a></li>`
+    rawHTML += `<li><a class="category" data-text="${e.category}" href="#">${e.category}</a></li>`
   })
   return rawHTML
 }
@@ -104,20 +109,26 @@ function filterArticle(event) {
   if (target.matches('.category')) {
     filterApi.filter = 'categories'
     filterApi.keyword = target.dataset.text
-    updateApiUrl()
-    getArticles(API_URL)
+    renderFilter()
+
 //filter user
   } else if (target.matches('.username'))  {
     filterApi.filter = 'user'
+    console.log()
     filterApi.keyword = target.dataset.text
-    updateApiUrl()
-    getArticles(API_URL)
+    renderFilter()
+
   }
   }
 
-//更新API_URL
-function updateApiUrl() {
+//整合filterArticle相同程序
+function renderFilter() {
+
   API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+  storage.set('API_URL', API_URL)
+  getArticle(API_URL)
+  console.log('renderFilter有執行')
+
 }
   
 
