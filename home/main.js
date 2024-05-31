@@ -16,13 +16,10 @@ let size = 1
 let currentPage = 1
 // 總頁數
 let total = 10
-//filter
-let offset = 0
-let keyword = ''
-let filter = ''
-let API_URL =`${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
 
-
+// filter
+const filterApi ={offset: 0,size: 10,keyword: '',filter: ''}
+let API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
 
 // 初始函式
 ;(function init() {
@@ -201,26 +198,28 @@ function updatePagination() {
 
 
 
-size = 10
 //filter監聽器函式
 function filterArticle(event) {
   let target = event.target;
 //filter categories
   if (target.matches('.category')) {
-    filter = 'categories'
-    keyword = target.dataset.text
-    API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+    filterApi.filter = 'categories'
+    filterApi.keyword = target.dataset.text
+    updateApiUrl()
     getArticles(API_URL)
 //filter user
   } else if (target.matches('.username'))  {
-    filter = 'user'
-    keyword = target.dataset.text
-    API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+    filterApi.filter = 'user'
+    filterApi.keyword = target.dataset.text
+    updateApiUrl()
     getArticles(API_URL)
   }
   }
 
-
+//更新API_URL
+function updateApiUrl() {
+  API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+}
   
 
 

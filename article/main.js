@@ -17,6 +17,10 @@ console.log('留言區狀態: ', isTextareaActive)
 const articleId = cookie.get('articleId')
 console.log('文章ID: ', articleId)
 
+// filter
+const filterApi ={offset: 0,size: 10,keyword: '',filter: ''}
+let API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+
 // 初始函式
 ;(function init() {
   // 取得文章資料
@@ -24,6 +28,9 @@ console.log('文章ID: ', articleId)
   // 監聽器: 留言區
   body.addEventListener('click', onTextarea)
 })()
+
+//監聽器
+articleContainer.addEventListener("click",filterArticle )
 
 // API: 取得文章資料
 function getArticle() {
@@ -88,3 +95,28 @@ function onTextarea(event) {
     commentBtn.classList.add('hidden')
   }
 }
+
+//filter監聽器函式
+function filterArticle(event) {
+  let target = event.target;
+//filter categories
+  if (target.matches('.category')) {
+    filterApi.filter = 'categories'
+    filterApi.keyword = target.dataset.text
+    updateApiUrl()
+    getArticles(API_URL)
+//filter user
+  } else if (target.matches('.username'))  {
+    filterApi.filter = 'user'
+    filterApi.keyword = target.dataset.text
+    updateApiUrl()
+    getArticles(API_URL)
+  }
+  }
+
+//更新API_URL
+function updateApiUrl() {
+  API_URL =`${ARTICLES_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
+}
+  
+
