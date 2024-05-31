@@ -3,11 +3,10 @@
 // API
 const ARTICLES_URL = `${BASE_URL}/articles`
 
-
-
 // HTML元素
 const articlesContainer = document.querySelector('.articles-container')
 const pagination = document.querySelector('.pagination')
+const usercontent = document.querySelector('.main-wrap')
 
 // 儲存全部文章
 let articles = []
@@ -17,6 +16,13 @@ let size = 1
 let currentPage = 1
 // 總頁數
 let total = 10
+//filter
+let offset = 0
+let keyword = ''
+let filter = ''
+let API_URL =`${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+
+
 
 // 初始函式
 ;(function init() {
@@ -28,6 +34,9 @@ let total = 10
   // 文章標題 => 文章細節
   articlesContainer.addEventListener('click', onTitleRedirect)
 })()
+
+//監聽器
+usercontent.addEventListener("click",filterArticle )
 
 // API: 取得文章資料
 function getArticles(URL) {
@@ -79,13 +88,6 @@ function renderArticles(articles) {
   </div>`
   })
   articlesContainer.innerHTML = rawHTML
-  
-
-
-
-
-
-
 
 }
 
@@ -198,31 +200,25 @@ function updatePagination() {
 }
 
 
-//filter
-  const usercontent = document.querySelector('.main-wrap')
-  let offset = 0
-  size = 10
-  let keyword = ''
-  let filter = ''
-  let API_URL =`${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
 
-//設置filter監聽器
-  usercontent.addEventListener("click", function filterArticle(event) {
-    let target = event.target;
+size = 10
+//filter監聽器函式
+function filterArticle(event) {
+  let target = event.target;
 //filter categories
-    if (target.matches('.category')) {
-      filter = 'categories'
-      keyword = target.dataset.text
-      API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
-      getArticles(API_URL)
+  if (target.matches('.category')) {
+    filter = 'categories'
+    keyword = target.dataset.text
+    API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+    getArticles(API_URL)
 //filter user
-    } else if (target.matches('.username'))  {
-      filter = 'user'
-      keyword = target.dataset.text
-      API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
-      getArticles(API_URL)
-    }
-    })
+  } else if (target.matches('.username'))  {
+    filter = 'user'
+    keyword = target.dataset.text
+    API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
+    getArticles(API_URL)
+  }
+  }
 
 
   
