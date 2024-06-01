@@ -3,55 +3,64 @@
 // API
 const ARTICLES_URL = `${BASE_URL}/articles`
 
-
-
 // HTML元素
 const articlesContainer = document.querySelector('.articles-container')
 const pagination = document.querySelector('.pagination')
+const searchForm = document.querySelector('.search-bar-container')
+const searchInput = document.querySelector('#search')
+const userContent = document.querySelector('.main-wrap')
 
 // 儲存全部文章
-let articles = []
+const articles = []
+// 省略比數
+let offset = 0
 // 每頁顯示的資料筆數
-let size = 1
+const size = 10
 // 所在頁碼
 let currentPage = 1
 // 總頁數
 let total = 10
+// 搜尋關鍵字
+let keyword = cookie.get('keyword') || ''
+// 篩選類別
+let filter = cookie.get('filter') || ''
 
 // 初始函式
 ;(function init() {
   // 取得文章資料
-  getArticles(ARTICLES_URL)
+  getArticles()
   // 渲染分頁器
   updatePagination()
   // TODO: renderPaginator()
   // 文章標題 => 文章細節
   articlesContainer.addEventListener('click', onTitleRedirect)
+  // 搜尋關鍵字
+  searchForm.addEventListener('submit', onSearch)
+  // 篩選類別
+  userContent.addEventListener('click', onFilter)
 })()
 
 // API: 取得文章資料
-function getArticles(URL) {
-
+function getArticles() {
   axios
-    .get(URL)
+    .get(ARTICLES_URL, { params: { offset, size, keyword, filter } })
     .then((responses) => {
       const data = responses.data
       const main = data.main
-      // 儲存全部文章
-      articles = []
+      // 刪除文章變數
+      articles.length = 0
+      // 儲存文章
       articles.push(...main)
-      // console.log('回傳資料: ', data)
-      // console.log('主體資料: ', main)
-      // console.log('儲存資料: ', articles)
+      console.log('回傳資料: ', data)
+      console.log('主體資料: ', main)
+      console.log('儲存資料: ', articles)
       // 渲染全部文章
       renderArticles(articles)
     })
     .catch((error) => {
       console.log(error)
     })
-
 }
-
 
 // 渲染全部文章
 function renderArticles(articles) {
@@ -61,7 +70,7 @@ function renderArticles(articles) {
     <div class="article-left">
       <div class="user">
         <img src="${article.user.avatar}" alt="avatar">
-        <a href="#" class="username" data-text="${article.user.username}">${article.user.username}</a>
+        <a href="#" class="username">${article.user.username}</a>
         <ul class="categories">
           ${renderCategories(article.categories)}
         </ul>
@@ -79,21 +88,13 @@ function renderArticles(articles) {
   </div>`
   })
   articlesContainer.innerHTML = rawHTML
-  
-
-
-
-
-
-
-
 }
 
 // 渲染單篇文章全部分類
 function renderCategories(categories) {
   let rawHTML = ''
   categories.forEach((e) => {
-    rawHTML += `<li><a class="category" data-text="${e.category}" href="#">${e.category}</a></li>`
+    rawHTML += `<li class="category">${e.category}</li>`
   })
   return rawHTML
 }
@@ -105,6 +106,33 @@ function onTitleRedirect(event) {
     const articleId = Number(target.dataset.id)
     cookie.set('articleId', articleId)
   }
+}
+
+// 監聽器函式: 搜尋關鍵字
+async function onSearch(event) {
+  // 阻止瀏覽器的默認行為
+  event.preventDefault()
+  // 更新關鍵字變數
+  keyword = searchInput.value.trim()
+  // 取得符合關鍵字文章
+  await getArticles()
+}
+
+// 監聽器函式: 篩選類別
+async function onFilter(event) {
+  const target = event.target
+  // 篩選分類
+  if (target.matches('.category')) {
+    filter = 'categories'
+    keyword = target.textContent
+  } 
+  // 篩選用戶
+  else if (target.matches('.username')) {
+    filter = 'user'
+    keyword = target.textContent
+  }
+  // 取得符合篩選條件文章
+  await getArticles()
 }
 
 // 更新頁碼按鈕(建立.更新按鈕)
@@ -196,35 +224,3 @@ function updatePagination() {
   })
   pagination.appendChild(lastPageButton)
 }
-
-
-//filter
-  const usercontent = document.querySelector('.main-wrap')
-  let offset = 0
-  size = 10
-  let keyword = ''
-  let filter = ''
-  let API_URL =`${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
-
-//設置filter監聽器
-  usercontent.addEventListener("click", function filterArticle(event) {
-    let target = event.target;
-//filter categories
-    if (target.matches('.category')) {
-      filter = 'categories'
-      keyword = target.dataset.text
-      API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
-      getArticles(API_URL)
-//filter user
-    } else if (target.matches('.username'))  {
-      filter = 'user'
-      keyword = target.dataset.text
-      API_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}&keyword=${keyword}&filter=${filter}`
-      getArticles(API_URL)
-    }
-    })
-
-
-  
-
-
