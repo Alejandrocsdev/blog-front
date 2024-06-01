@@ -35,6 +35,8 @@ const observer = observerInit()
   getComments()
   // 監聽器: 留言區
   body.addEventListener('click', onTextarea)
+  // 監聽器: 篩選類別
+  articleContainer.addEventListener('click', onFilter)
 })()
 
 // API: 取得文章資料
@@ -170,4 +172,20 @@ function onTextarea(event) {
     textArea.classList.remove('textarea-clicked')
     commentBtn.classList.add('hidden')
   }
+}
+
+// 監聽器函式: 篩選類別
+function onFilter(event) {
+  const target = event.target
+  // 篩選分類
+  if (target.matches('.category')) {
+    cookie.set('filter', 'categories')
+  }
+  // 篩選用戶
+  else if (target.matches('.username')) {
+    cookie.set('filter', 'user')
+  }
+  cookie.set('keyword', target.textContent)
+  // 導向HOME頁面
+  window.location.href = '/home/index.html'
 }
