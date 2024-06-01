@@ -373,6 +373,13 @@ npm run dev
 }
 ```
 
+### `測試資料`
+
+```
+帳號: root
+密碼: 12345
+```
+
 ### `用戶登入`
 
 **URL :** `BASE_URL/users/login`
