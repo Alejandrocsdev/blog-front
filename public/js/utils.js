@@ -1,13 +1,5 @@
 // 起始網址
 const BASE_URL = 'http://localhost:5000/v1'
-// API
-const ARTICLE_URL = `${BASE_URL}/articles`
-
-
-// filter
-const filterApi ={offset: 0,size: 10,keyword: '',filter: ''}
-let API_URL =`${ARTICLE_URL}?offset=${filterApi.offset}&size=${filterApi.size}&keyword=${filterApi.keyword}&filter=${filterApi.filter}`
-
 
 // Local Storage
 class Storage {
