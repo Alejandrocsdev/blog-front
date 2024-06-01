@@ -8,17 +8,22 @@ const articlesContainer = document.querySelector('.articles-container')
 const pagination = document.querySelector('.pagination')
 const searchForm = document.querySelector('.search-bar-container')
 const searchInput = document.querySelector('#search')
+const userContent = document.querySelector('.main-wrap')
 
 // 儲存全部文章
 const articles = []
+// 省略比數
+let offset = 0
 // 每頁顯示的資料筆數
-let size = 1
+const size = 10
 // 所在頁碼
 let currentPage = 1
 // 總頁數
 let total = 10
 // 搜尋關鍵字
 let keyword = cookie.get('keyword') || ''
+// 篩選類別
+let filter = cookie.get('filter') || ''
 
 // 初始函式
 ;(function init() {
@@ -31,12 +36,14 @@ let keyword = cookie.get('keyword') || ''
   articlesContainer.addEventListener('click', onTitleRedirect)
   // 搜尋關鍵字
   searchForm.addEventListener('submit', onSearch)
+  // 篩選類別
+  userContent.addEventListener('click', onFilter)
 })()
 
 // API: 取得文章資料
 function getArticles() {
   axios
-    .get(ARTICLES_URL, { params: { keyword } })
+    .get(ARTICLES_URL, { params: { offset, size, keyword, filter } })
     .then((responses) => {
       const data = responses.data
       const main = data.main
@@ -87,7 +94,7 @@ function renderArticles(articles) {
 function renderCategories(categories) {
   let rawHTML = ''
   categories.forEach((e) => {
-    rawHTML += `<li><a class="category" href="#">${e.category}</a></li>`
+    rawHTML += `<li class="category">${e.category}</li>`
   })
   return rawHTML
 }
@@ -108,6 +115,23 @@ async function onSearch(event) {
   // 更新關鍵字變數
   keyword = searchInput.value.trim()
   // 取得符合關鍵字文章
+  await getArticles()
+}
+
+// 監聽器函式: 篩選類別
+async function onFilter(event) {
+  const target = event.target
+  // 篩選分類
+  if (target.matches('.category')) {
+    filter = 'categories'
+    keyword = target.textContent
+  } 
+  // 篩選用戶
+  else if (target.matches('.username')) {
+    filter = 'user'
+    keyword = target.textContent
+  }
+  // 取得符合篩選條件文章
   await getArticles()
 }
 
