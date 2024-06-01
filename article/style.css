@@ -89,7 +89,7 @@ body main article div.article-content {
 
 .comment-container {
   width: 730px;
-  margin: 0 auto;
+  margin: 1rem auto;
   padding: 20px 20px;
   background: var(--secondary-background-color);
   border-radius: 5px;
@@ -104,6 +104,7 @@ body main article div.article-content {
 .comment-avatar {
   width: 3rem;
   margin-right: 10px;
+  border-radius: 50%;
 }
 
 .comment-username {
