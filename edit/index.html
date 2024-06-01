@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../public/images/logo/logo.svg" />
+  <link rel="stylesheet" href="../public/css/fonts.css">
+  <link rel="stylesheet" href="../public/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Blog</title>
+</head>
+
+<body>
+  <header>
+    <div class="nav-left">
+      <!-- Home鍵 -->
+      <a class="logo" href="../home/index.html">
+        <img src="../public/images/logo/logo.svg" alt="logo">
+      </a>
+    </div>
+    <div class="nav-right">
+      <!-- 暗黑模式 -->
+      <div class="mode"><i class="fa-solid"></i></div>
+      <div class="sign hidden">
+        <!-- 登入 -->
+        <div class="sign-in">登入</div>
+        <!-- 註冊 -->
+        <div class="sign-up">註冊</div>
+      </div>
+      <!-- 會員頭像 -->
+      <div class="profile hidden">
+        <div class="profile-avatar">
+          <img src="../public/images/guest/guest.png">
+        </div>
+        <div class="dropdown-content">
+          <a class="link profile-link" href="../profile/index.html">後台</a>
+          <a class="link create-link" href="../create/index.html">撰寫</a>
+          <div class="link logout">登出</div>
+        </div>
+      </div>
+      <!-- 登入切換(暫時) -->
+      <div id="login-switch"></div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <!--title  -->
+      <div class="title">
+        <div>文章標題<span class="must"> *</span>：</div>
+        <input class="input-title" placeholder="">
+      </div>
+
+      <!-- category -->
+      <div class="categories">
+        <div>文章類別<span class="must"> *</span>：</div>
+        <select class="dropdown">
+          <option class="category">無分類</option>
+          <option class="category">test1</option>
+          <option class="category">test2</option>
+        </select>
+      </div>
+
+      <!-- content -->
+      <div class="content">
+        <div>文章內容<span class="must"> *</span>：</div>
+        <textarea class="input-content" placeholder="請輸入內容"></textarea>
+      </div>
+
+      <!-- button -->
+      <div class="button-container">
+        <button class="cancel-btn">Cancel</button>
+        <button class="submit-btn">Submit</button>
+      </div>
+
+  </main>
+  <!-- 登入/註冊彈跳窗 -->
+  <div class="modal-bg hidden">
+    <div class="modal">
+      <div class="modal-close">X</div>
+      <form class="modal-form" method="post">
+        <!-- 渲染登入/註冊輸入框 -->
+      </form>
+    </div>
+  </div>
+  <footer>MIT licensed | Copyright &copy; 2024</footer>
+  <script src="https://kit.fontawesome.com/6fb9682f78.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../public/js/utils.js"></script>
+  <script src="../public/js/global.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>

@@ -193,6 +193,109 @@ npm run dev
 ]
 ```
 
+### `用戶全部文章`
+
+**URL :** `BASE_URL/users/:id/articles`
+
+**Request :** `GET`
+
+**Body :**
+
+**Headers :** `Authorization: `Bearer ${token}`
+
+**Response :**
+
+```
+[
+  {
+    id: XX,
+    title: 'XXXXXX',
+    picture: 'XXXXXX',
+    content: 'XXXXXX',
+    user: XX,
+    categories: XX
+  }
+]
+```
+
+### `新增文章`
+
+**URL :** `BASE_URL/articles/:id`
+
+**Request :** `POST`
+
+**Body :**
+
+**Headers :** `Authorization: `Bearer ${token}`
+
+**Response :**
+
+```
+{
+  message: '新增成功',
+  article: { 
+              id: XX,
+              title: 'XXXXXX',
+              picture: 'XXXXXX',
+              content: 'XXXXXX',
+              user: XX,
+              categories: XX
+            }
+}
+```
+
+### `編輯文章`
+
+**URL :** `BASE_URL/articles/:id`
+
+**Request :** `PUT`
+
+**Body :**
+
+**Headers :** `Authorization: `Bearer ${token}`
+
+**Response :**
+
+```
+{
+  message: '編輯成功',
+  article: { 
+              id: XX,
+              title: 'XXXXXX',
+              picture: 'XXXXXX',
+              content: 'XXXXXX',
+              user: XX,
+              categories: XX
+            }
+}
+```
+
+### `刪除文章`
+
+**URL :** `BASE_URL/articles/:id`
+
+**Request :** `DELETE`
+
+**Body :**
+
+**Headers :** `Authorization: `Bearer ${token}`
+
+**Response :**
+
+```
+{
+  message: '刪除成功',
+  article: { 
+              id: XX,
+              title: 'XXXXXX',
+              picture: 'XXXXXX',
+              content: 'XXXXXX',
+              user: XX,
+              categories: XX
+            }
+}
+```
+
 ## Comments
 
 ### `單篇文章全部留言`
@@ -229,6 +332,29 @@ npm run dev
 }
 ```
 
+### `新增留言`
+
+**URL :** `BASE_URL/comments/:id`
+
+**Request :** `POST`
+
+**Body :**
+
+**Headers :** `Authorization: `Bearer ${token}`
+
+**Response :**
+
+```
+{
+  message: '新增成功',
+  comment: { 
+              id: XX,
+              article_id: XX,
+              comment: "XXXXXX",
+            }
+}
+```
+
 ## Users
 
 ### `用戶註冊`
@@ -255,8 +381,6 @@ npm run dev
 
 **Body :** `{ username, password }`
 
-**Headers :** `Authorization: `Bearer ${token}`
-
 **Response :**
 
 ```
@@ -269,7 +393,6 @@ npm run dev
           username: 'XXXXXX',
           email: 'XXXXXX'
         }
-      
 }
 ```
 
@@ -295,6 +418,30 @@ npm run dev
           username: 'XXXXXX',
           email: 'XXXXXX'
         }
-      
+}
+```
+
+### `用戶頭像更新`
+
+**URL :** `BASE_URL/users/:id/upload`
+
+**Request :** `PATCH`
+
+**Body :**
+
+**Headers :** `Authorization: `Bearer ${token}`
+
+**Response :**
+
+```
+{
+  message: '會員頭像更新成功',
+  file: XXXXXXX
+  user: { 
+          id: XX, 
+          avatar: 'XXXXXX', 
+          username: 'XXXXXX',
+          email: 'XXXXXX'
+        }
 }
 ```
