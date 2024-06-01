@@ -100,7 +100,7 @@ function onToggleView() {
   sign.classList.toggle('hidden')
   profile.classList.toggle('hidden')
   // 切換臨時登入切換按鈕
-  loginSwitch.textContent = isLoggedIn ? '未登入' : '登入中'
+  loginSwitch.textContent = isLoggedIn ? '登入中' : '未登入'
 }
 
 // 監聽器函式: 彈跳窗(登入 & 註冊)
