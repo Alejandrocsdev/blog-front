@@ -144,7 +144,7 @@ function renderComments(comments) {
             <div class="comment-username">${commentInfo.user.username}</div>
           </div>
          <div class="comment-area">
-          <span>${e.comment}</span>
+          <span>${commentInfo.comment}</span>
         </div>
       </div>`
   })
