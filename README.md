@@ -255,11 +255,39 @@ npm run dev
 
 **Body :** `{ username, password }`
 
+**Headers :** `Authorization: `Bearer ${token}`
+
 **Response :**
 
 ```
 {
   message: '登入成功',
+  token: 'XXXXXX',
+  user: { 
+          id: XX, 
+          avatar: 'XXXXXX', 
+          username: 'XXXXXX',
+          email: 'XXXXXX'
+        }
+      
+}
+```
+
+### `用戶登出`
+
+**URL :** `BASE_URL/users/logout`
+
+**Request :** `POST`
+
+**Body :**
+
+**Headers :** `Authorization: `Bearer ${token}`
+
+**Response :**
+
+```
+{
+  message: '登出成功',
   token: 'XXXXXX',
   user: { 
           id: XX, 
