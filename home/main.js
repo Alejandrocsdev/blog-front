@@ -125,7 +125,7 @@ async function onFilter(event) {
   if (target.matches('.category')) {
     filter = 'categories'
     keyword = target.textContent
-  } 
+  }
   // 篩選用戶
   else if (target.matches('.username')) {
     filter = 'user'
