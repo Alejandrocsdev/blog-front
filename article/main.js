@@ -45,8 +45,8 @@ function getArticle() {
       const data = response.data
       // 儲存單篇文章
       article.push(data)
-      console.log('回傳資料: ', data)
-      console.log('儲存資料: ', article)
+      console.log('回傳文章資料: ', data)
+      console.log('儲存文章資料: ', article)
       // 渲染單篇文章
       renderArticle(article[0])
     })
@@ -144,7 +144,7 @@ function renderComments(comments) {
             <div class="comment-username">${commentInfo.user.username}</div>
           </div>
          <div class="comment-area">
-          <span>${commentInfo.comment}</span>
+          <span>${e.comment}</span>
         </div>
       </div>`
   })
