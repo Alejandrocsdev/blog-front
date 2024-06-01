@@ -6,6 +6,8 @@ const ARTICLES_URL = `${BASE_URL}/articles`
 // HTML元素
 const articlesContainer = document.querySelector('.articles-container')
 const pagination = document.querySelector('.pagination')
+const searchForm = document.querySelector('.search-bar-container')
+const searchInput = document.querySelector('#search')
 
 // 儲存全部文章
 const articles = []
@@ -15,6 +17,8 @@ let size = 1
 let currentPage = 1
 // 總頁數
 let total = 10
+// 搜尋關鍵字
+let keyword = cookie.get('keyword') || ''
 
 // 初始函式
 ;(function init() {
@@ -25,16 +29,20 @@ let total = 10
   // TODO: renderPaginator()
   // 文章標題 => 文章細節
   articlesContainer.addEventListener('click', onTitleRedirect)
+  // 搜尋關鍵字
+  searchForm.addEventListener('submit', onSearch)
 })()
 
 // API: 取得文章資料
 function getArticles() {
   axios
-    .get(ARTICLES_URL)
+    .get(ARTICLES_URL, { params: { keyword } })
     .then((responses) => {
       const data = responses.data
       const main = data.main
-      // 儲存全部文章
+      // 刪除文章變數
+      articles.length = 0
+      // 儲存文章
       articles.push(...main)
       console.log('回傳資料: ', data)
       console.log('主體資料: ', main)
@@ -91,6 +99,16 @@ function onTitleRedirect(event) {
     const articleId = Number(target.dataset.id)
     cookie.set('articleId', articleId)
   }
+}
+
+// 監聽器函式: 搜尋關鍵字
+async function onSearch(event) {
+  // 阻止瀏覽器的默認行為
+  event.preventDefault()
+  // 更新關鍵字變數
+  keyword = searchInput.value.trim()
+  // 取得符合關鍵字文章
+  await getArticles()
 }
 
 // 更新頁碼按鈕(建立.更新按鈕)
