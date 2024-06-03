@@ -5,7 +5,12 @@ const ARTICLES_URL = `${BASE_URL}/articles`
 
 // HTML元素
 const articlesContainer = document.querySelector('.articles-container')
-const pagination = document.querySelector('.pagination')
+// const pagination = document.querySelector('.pagination')
+const allPageBtn = document.querySelector('.page-button-container')
+const firstPageBtn = document.querySelector('.first-page')
+const previousPageBtn = document.querySelector('.previous-page')
+const nextPageBtn = document.querySelector('.next-page')
+const lastPageBtn = document.querySelector('.last-page')
 const searchForm = document.querySelector('.search-bar-container')
 const searchInput = document.querySelector('#search')
 const userContent = document.querySelector('.main-wrap')
@@ -14,12 +19,18 @@ const userContent = document.querySelector('.main-wrap')
 const articles = []
 // 省略比數
 let offset = 0
-// 每頁顯示的資料筆數
-const size = 10
+//每頁顯示頁數
+let size = 5
 // 所在頁碼
 let currentPage = 1
-// 總頁數
-let total = 10
+// 總文章數
+let totalArticle
+// 開始頁碼
+let startPage
+// 結束頁碼
+let endPage
+// 計算後的總頁數
+let totalPage
 // 搜尋關鍵字
 let keyword = cookie.get('keyword') || ''
 // 篩選類別
@@ -27,39 +38,64 @@ let filter = cookie.get('filter') || ''
 
 // 初始函式
 ;(function init() {
-  // 取得文章資料
-  getArticles()
+   // 取得文章資料
+  getArticles()  
   // 渲染分頁器
-  updatePagination()
-  // TODO: renderPaginator()
+  renderPaginator()
   // 文章標題 => 文章細節
   articlesContainer.addEventListener('click', onTitleRedirect)
   // 搜尋關鍵字
   searchForm.addEventListener('submit', onSearch)
   // 篩選類別
   userContent.addEventListener('click', onFilter)
+  // 移動到第一頁
+  firstPageBtn.addEventListener('click', firstPage)
+  // 前一頁
+  previousPageBtn.addEventListener('click', previousPage)
+  // 下一頁
+  nextPageBtn.addEventListener('click', nextPage)
+  // 移動到最後一頁
+  lastPageBtn.addEventListener('click', lastPage)
 })()
 
 // API: 取得文章資料
 function getArticles() {
-  axios
-    .get(ARTICLES_URL, { params: { offset, size, keyword, filter } })
-    .then((responses) => {
-      const data = responses.data
-      const main = data.main
-      // 刪除文章變數
-      articles.length = 0
-      // 儲存文章
-      articles.push(...main)
-      console.log('回傳資料: ', data)
-      console.log('主體資料: ', main)
-      console.log('儲存資料: ', articles)
-      // 渲染全部文章
-      renderArticles(articles)
+  // 清空
+  articles.length = 0;
+  // 代表從第X筆資料開始
+  let offset = (currentPage - 1) * size; 
+  const PAGINATION_URL = `${ARTICLES_URL}?offset=${offset}&size=${size}`  
+
+  // 從後端拿文章總數
+   axios.get(ARTICLES_URL)
+    .then((response) => {
+      const totalArticles = parseInt(response.data.total);
+      // 總頁數=取得的文章總數/每頁顯示頁數
+      totalPage = Math.ceil(totalArticles / size);
+      // console.log("totalPage" +totalPage)
+
+  // 根據總文章總數重新計算總頁數後，再從分頁取得文章
+    axios.get(PAGINATION_URL)
+      .then((response) => {
+       const data = response.data;
+       const main = data.main;
+  // 儲存全部文章
+       articles.push(...main);
+       console.log('儲存資料: ', articles);
+
+   // 清空文章容器，然後再渲染全部文章
+       articlesContainer.innerHTML = '';
+       renderArticles(articles);  
+       renderPaginator();
+       })
+
+      .catch((error) => {
+       console.log(error);
+       });
     })
-    .catch((error) => {
-      console.log(error)
-    })
+      .catch((error) => {
+       console.log(error);
+    });
 }
 
 // 渲染全部文章
@@ -135,92 +171,82 @@ async function onFilter(event) {
   await getArticles()
 }
 
-// 更新頁碼按鈕(建立.更新按鈕)
-function updatePagination() {
-  pagination.innerHTML = ''
+// 監聽器函式: 直達第一頁
+function firstPage(){
+    if (currentPage !== 1) {
+      currentPage = 1      
+      getArticles();
+      renderPaginator()
+    }
+}
 
-  // *設定分頁按鈕顯示範圍*
-  let startPage = 1 // 分頁按鈕顯示的起始頁碼
-  let endPage = 1 // 分頁按鈕顯示的最後頁碼
+// 監聽器函式: 往前一頁
+function previousPage(){
+    if (currentPage > 1) {
+      currentPage--
+      getArticles();
+      renderPaginator()
+    }
+}
+
+// 監聽器函式: 往下一頁
+function nextPage(){
+    if (currentPage < totalPage) {
+      currentPage++;
+      getArticles();
+      renderPaginator();
+    }
+}
+
+// 監聽器函式: 直達最後一頁
+function lastPage(){
+    if (currentPage !== totalPage) {
+      currentPage = totalPage;
+      getArticles();
+      renderPaginator();
+    }
+}
+
+// 更新頁碼按鈕
+function updatePagination() { 
   //總頁數<5時，頁碼顯示 "1~總頁數"
-  if (total <= 5) {
+  if (totalPage <= 5) {
     startPage = 1
-    endPage = total
+    endPage = totalPage
+    
   } else {
-    //總頁數>5時，
-    //所在頁碼在3以下時，頁碼顯示1-5
+  //總頁數>5時，所在頁碼在3以下時，頁碼顯示1-5
     if (currentPage <= 3) {
       startPage = 1
       endPage = 5
-      //所在頁碼+2會大於等於總頁碼時
-    } else if (currentPage + 2 >= total) {
-      startPage = total - 4
-      endPage = total
+  //所在頁碼+2會大於等於總頁碼時
+    } else if (currentPage + 2 >= totalPage) {
+      startPage = totalPage - 4
+      endPage = totalPage
     } else {
       startPage = currentPage - 2
       endPage = currentPage + 2
-    }
+    }    
+    }    
   }
 
-  // *建立切換到第一頁的按鈕*
-  const firstPageButton = document.createElement('button')
-  firstPageButton.textContent = '<<'
-  firstPageButton.addEventListener('click', () => {
-    //點擊時若所在頁碼不在第一頁，直接到第一頁
-    if (currentPage !== 1) {
-      currentPage = 1
-      updatePagination()
-    }
-  })
-  pagination.appendChild(firstPageButton)
-
-  //*建立上一頁按鈕*
-  const previousBtn = document.createElement('button')
-  previousBtn.textContent = '<'
-  previousBtn.addEventListener('click', () => {
-    //如果所在頁碼>1，就可以往上一頁
-    if (currentPage > 1) {
-      currentPage--
-      updatePagination()
-    }
-  })
-  pagination.appendChild(previousBtn)
-
-  //*建立分頁按鈕*
-  for (let page = startPage; page <= endPage; page++) {
-    const pageButton = document.createElement('button')
-    pageButton.textContent = page
-    //如果page和所在頁碼一樣時，加上active
-    if (page === currentPage) {
-      pageButton.classList.add('active')
-    }
-    pageButton.addEventListener('click', () => {
-      currentPage = page
-      updatePagination()
-    })
-    pagination.appendChild(pageButton)
-  }
-
-  //*建立下一頁按鈕*
-  const nextButton = document.createElement('button')
-  nextButton.textContent = '>'
-  nextButton.addEventListener('click', () => {
-    //如果所在頁碼<總頁數>，就往下一頁
-    if (currentPage < total) {
-      currentPage++
-      updatePagination()
-    }
-  })
-  pagination.appendChild(nextButton)
-
-  // *建立切換到最後一頁的按鈕*
-  const lastPageButton = document.createElement('button')
-  lastPageButton.textContent = '>>'
-  lastPageButton.addEventListener('click', () => {
-    if (currentPage !== total) {
-      currentPage = total
-      updatePagination()
-    }
-  })
-  pagination.appendChild(lastPageButton)
+//渲染頁碼
+function renderPaginator(){   
+  let rawHTML = ''
+   updatePagination()
+   //動態產生頁碼
+   for (let page = startPage; page <= endPage; page++) {
+    rawHTML += `<button class="page-button ${page === currentPage ? 'active' : ''}" data-page="${page}">${page}</button>`;
+  }  
+  allPageBtn.innerHTML = rawHTML;
+  
+  //監聽按鈕，點擊時跳至該頁面並渲染取得的文章
+  const pageButtons = document.querySelectorAll('.page-button');
+  pageButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      currentPage = Number(button.dataset.page); 
+      getArticles() 
+      renderPaginator();
+    });
+  });
 }

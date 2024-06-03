@@ -156,12 +156,12 @@
   height: 100%;
 }
 
-.pagination {
+.pagination-container {
   display: flex;
   justify-content: center;
 }
 
-.pagination button {
+.pagination-container button {
   display: inline-block;
   width: 35px;
   height: 35px;
@@ -169,10 +169,13 @@
   border: 1px solid #ccc;
   margin: 6px;
   cursor: pointer;
+  background: var(--tertiary-background-color)
 }
 
-.pagination button.active {
-  background-color: #898989;
+/* 目前頁碼變色，點擊時變色 */
+.page-button.active,
+.pagination-container button:active {
+  background-color: #616161;
 }
 
 .hidden {
