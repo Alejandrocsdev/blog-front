@@ -185,7 +185,6 @@ function loginRequest(body) {
       cookie.set('token', token)
       cookie.set('user', user)
       cookie.set('isLoggedIn', true)
-      console.log('skjcbaksjcnkjlnc', cookie.get('isLoggedIn'))
       console.log('登入憑證', token)
       console.log('會員資料', user)
       console.log('登入狀態', true)
