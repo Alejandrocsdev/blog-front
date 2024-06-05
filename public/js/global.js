@@ -7,6 +7,8 @@ const body = document.body
 // <<<---HEADER--->>>
 // 主題模式
 const mode = document.querySelector('.mode i')
+// homr鍵
+const logo = document.querySelector('.logo')
 // 登入 / 註冊
 const sign = document.querySelector('.sign')
 // 會員頭像
@@ -55,6 +57,8 @@ const pathname = window.location.pathname
   modalForm.addEventListener('submit', onModalSubmit)
   // 監聽器: 會員選單
   profile.addEventListener('click', onLogout)
+  // 監聽器: Home鍵
+  logo.addEventListener('click', onRedirectHome)
 })()
 
 // 設定主題模式
@@ -112,6 +116,20 @@ function onSigningModal(event) {
     modalBg.classList.toggle('hidden')
     console.log('視窗類別: ', modalType)
   }
+}
+
+// #監聽器函式: Home鍵
+function onRedirectHome() {
+  // 當下路徑
+  const currentPath = window.location.href
+  const fileName = currentPath.split('/').slice(-1)[0]
+
+  // 從cookie移除keyword & filter
+  cookie.remove('keyword')
+  cookie.remove('filter')
+
+  // 導向home頁面
+  window.location.href = '../home/index.html'
 }
 
 // #監聽器函式: 登入/註冊 彈跳窗 提交表單
