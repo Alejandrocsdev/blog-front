@@ -13,6 +13,7 @@ const logo = document.querySelector('.logo')
 const sign = document.querySelector('.sign')
 // 會員頭像
 const profile = document.querySelector('.profile')
+const avatar = document.querySelector('#avatar')
 // 彈跳窗背景
 const modalBg = document.querySelector('.modal-bg')
 const modalClose = modalBg.querySelector('.modal-close')
@@ -80,7 +81,16 @@ function setView() {
     isLoggedIn ? logInComment.classList.toggle('hidden') : logOutComment.classList.toggle('hidden')
   }
   // header樣式
-  isLoggedIn ? profile.classList.toggle('hidden') : sign.classList.toggle('hidden')
+  if (isLoggedIn) {
+    if (user.avatar) {
+      avatar.src = user.avatar// 設置用戶頭像
+    }
+    profile.classList.toggle('hidden');
+
+  } else {
+    sign.classList.toggle('hidden');
+  }
+  
 }
 
 // 監聽器函式: 切換主題模式
@@ -105,6 +115,8 @@ function onToggleView() {
   // 切換header樣式
   sign.classList.toggle('hidden')
   profile.classList.toggle('hidden')
+  avatar.src = user.avatar; // 設置用戶頭像
+
 }
 // 監聽器函式: 開啟: 彈跳窗(登入 & 註冊)
 function onSigningModal(event) {
@@ -206,7 +218,7 @@ function loginRequest(body) {
       console.log('登入憑證', token)
       console.log('會員資料', user)
       console.log('登入狀態', true)
-      console.log('註冊成功')
+      console.log('登入成功')
       // 切換到頁面
       modalBg.classList.toggle('hidden')
       // 切換登入樣式
