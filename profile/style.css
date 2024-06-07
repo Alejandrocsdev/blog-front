@@ -34,7 +34,7 @@
   line-height: 2rem;
 }
 
-.other-user {
+.user-articles {
 background-color: var(--primary-background-color);
 margin: 0;
 padding: 2rem;
@@ -43,14 +43,14 @@ grid-template-columns: 2 1fr;
 grid-gap: 2rem;
 }
 
-.other-user li{
+.user-articles li{
   padding: 1rem 0;
   background-color: var(--tertiary-background-color);
   color: var( --text-color);
   text-align: center;  border: 1px solid #000000;
 }
 
-.other-user a{
+.user-articles a{
   width: 100%;
   display: inline-table;
   color: var( --text-color);
