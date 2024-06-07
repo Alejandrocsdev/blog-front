@@ -12,20 +12,20 @@ const email = document.querySelector('.user-email')
 
 let id = user.id
 
+
 // 初始函式
 ;(function init() {
-  
 getUserdata()
+fileUploader.addEventListener('change', onSubmit)
 
 })()
 
 
 // 設置user資料
 function getUserdata() {
- 
+  user = cookie.get('user') || ''
   if (user.avatar) {
   //頭像設置
-  user = cookie.get('user')
   userAvatar.src = user.avatar
   avatar.src =  user.avatar
   }
@@ -36,55 +36,41 @@ email.textContent = user.email
 }
 
 
-//監聽器-及時更改頭像
-fileUploader.addEventListener('change', (e) => {
-  // get file object
-  const file = e.target.files[0]
-  console.log(file)
-
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = function(e) {
-          userAvatar.src = e.target.result
-          avatar.src = e.target.result
-      }
-      reader.readAsDataURL(file)
-      uploadImage()
-
-
-  }
-})
 
 //上傳頭像至後端
-function uploadImage() {
+function onSubmit() {
   const file = fileUploader.files[0]
 
     if (file) {
       let form = new FormData()
       form.append('file', file)
-// fetchAPI
-      fetch(`${BASE_URL}/users/${id}/upload`, {
-        method: 'PATCH',
+
+      axios
+      .patch(`${BASE_URL}/users/${id}/upload`, form, {
+        
         headers: {
                 'Authorization': `Bearer ${token}`
-        },
-        body: form,
+        }
+        
       })
-      .then(response => response.json())
+
       .then(data => {
+
           console.log('Success:', data)
-          alert('Image uploaded successfully!')
+          alert('圖片上傳成功!')
+
+          cookie.set('user', data.data.user)
+          getUserdata()
+
       })
       .catch(error => {
           console.error('Error:', error)
-          alert('Failed to upload image')
+          alert('圖片上傳失敗')
       })
   } else {
-      alert('Please select an image file first')
+      alert('請選擇圖片')
 
     }
 
 }
-
-
 
