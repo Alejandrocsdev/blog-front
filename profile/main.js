@@ -21,7 +21,7 @@ fileUploader.addEventListener('change', onSubmit)
 })()
 
 
-// 設置user資料
+// 更新user資料
 function getUserdata() {
   user = cookie.get('user') || ''
   if (user.avatar) {
@@ -38,39 +38,42 @@ email.textContent = user.email
 
 
 //上傳頭像至後端
-function onSubmit() {
+function onSubmit(event) {
+  if (event) {
+    event.preventDefault()
+  }
   const file = fileUploader.files[0]
+  if (file) {
+    let formData = new FormData()
+    formData.append('file', file)
 
-    if (file) {
-      let form = new FormData()
-      form.append('file', file)
+    axios
+    .patch(`${BASE_URL}/users/${id}/upload`, formData, {
+      
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+      }
+      
+    })
 
-      axios
-      .patch(`${BASE_URL}/users/${id}/upload`, form, {
-        
-        headers: {
-                'Authorization': `Bearer ${token}`
-        }
-        
-      })
+    .then(data => {
 
-      .then(data => {
+        console.log('Success:', data)
+        alert('圖片上傳成功!')
+        cookie.set('user', data.data.user)
+        console.log('已更新cookie')
+        getUserdata()
 
-          console.log('Success:', data)
-          alert('圖片上傳成功!')
+    })
+    .catch(error => {
+        console.error('Error:', error)
+        alert('圖片上傳失敗')
+    })
+} else {
+    alert('請選擇圖片')
 
-          cookie.set('user', data.data.user)
-          getUserdata()
-
-      })
-      .catch(error => {
-          console.error('Error:', error)
-          alert('圖片上傳失敗')
-      })
-  } else {
-      alert('請選擇圖片')
-
-    }
+  }
 
 }
 
