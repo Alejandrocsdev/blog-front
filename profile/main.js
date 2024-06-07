@@ -18,6 +18,9 @@ let id = user.id
 getUserdata()
 fileUploader.addEventListener('change', onSubmit)
 
+userAvatar.addEventListener('click', function() {
+  fileUploader.click()})
+
 })()
 
 
