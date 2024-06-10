@@ -48,14 +48,15 @@ body main article div.user ul.categories {
   flex: 1 1 500px;
   list-style: none;
   margin: 0.25rem;
+  padding-inline-start: 0px;
 }
 
 body main article div.user ul.categories li {
-  flex: 1 1 150px;
+  flex: 1 1 130px;
   border: 1px solid palegoldenrod;
-  padding: 0.5rem;
+  padding: 0.3rem;
   border-radius: 3px;
-  margin: 0 0.5rem;
+  margin: 0.3rem;
   transition: all 0.2s ease;
 }
 
@@ -66,7 +67,7 @@ body main article div.user ul.categories li:hover {
 
 body main article div.user ul.categories li a.category {
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: inherit;
 }
 
@@ -75,6 +76,7 @@ body main article img.article-img {
   width: 90%;
   height: 50vh;
   margin: 0 auto;
+  object-fit:contain;
 }
 
 body main article div.article-content {
