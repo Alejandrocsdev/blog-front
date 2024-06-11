@@ -64,10 +64,7 @@ function getUserdata(user) {
 }
 
 //上傳頭像至後端
-function onSubmit(event) {
-  if (event) {
-    event.preventDefault()
-  }
+function onSubmit() {
   const file = fileUploader.files[0]
   if (file) {
     let formData = new FormData()
@@ -81,11 +78,11 @@ function onSubmit(event) {
         }
       })
 
-      .then((data) => {
-        user = data.data.user
-        console.log('Success:', data)
+      .then((response) => {
+        user = response.data.user
+        console.log('Success:', response)
         alert('圖片上傳成功!')
-        cookie.set('user', data.data.user)
+        cookie.set('user', user)
         console.log('已更新cookie')
         getUserdata(user)
       })
