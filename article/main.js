@@ -8,7 +8,7 @@ const commentBtn = document.querySelector('.comment-btn-container')
 const textArea = document.querySelector('.user-comment')
 const articleContainer = document.querySelector('article')
 const commentHistory = document.querySelector('.comment-history-container')
-
+const commentSubmit = document.querySelector('.comment-submit')
 // 儲存單篇文章
 const article = []
 // 儲存歷史留言
@@ -37,6 +37,7 @@ const observer = observerInit()
   body.addEventListener('click', onTextarea)
   // 監聽器: 篩選類別
   articleContainer.addEventListener('click', onFilter)
+  commentSubmit.addEventListener('click', newComment)
 })()
 
 // API: 取得文章資料
@@ -189,3 +190,34 @@ function onFilter(event) {
   // 導向HOME頁面
   window.location.href = '/home/index.html'
 }
+
+
+// 上傳新增的留言至後端
+function newComment() {
+  const comment = { comment : textArea.value }
+  if (textArea.value.trim()) {
+    axios
+      .post(`${BASE_URL}/comments/article/${articleId}`, comment, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        console.log(`已新增留言:${response}`)
+        // 輸入內容清空
+        textArea.value = ''
+        // 重置留言紀錄
+        offset = 0
+        comments.length = 0
+        commentHistory.innerHTML = ''
+        // 重新獲取留言數據
+        getComments()
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
+  } else {
+      alert('未輸入留言')
+  }
+}
+
