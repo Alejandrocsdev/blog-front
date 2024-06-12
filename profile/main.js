@@ -10,20 +10,17 @@ const profileAvatar = document.querySelector('.profile-avatar img')
 const fileUploader = document.querySelector('#file-uploader')
 const account = document.querySelector('.user-account')
 const email = document.querySelector('.user-email')
-
+// 儲存文章資料
 const articles = []
 
 let id = user.id
-console.log(user)
 
 // 初始函式
 ;(function init() {
   getUserdata(user)
   // 取得文章資料
-  getUserArticles()
-
+  getUserArticles() 
   fileUploader.addEventListener('change', onSubmit)
-
   userAvatar.addEventListener('click', () => fileUploader.click())
 })()
 
@@ -36,19 +33,20 @@ function getUserArticles() {
     .then((responses) => {
       const data = responses.data
       articles.push(...data.articles)
-      console.log(articles)
       renderUserArticles(articles)
+     
     })
     .catch((error) => {
       console.log(error)
     })
 }
 
+// 渲染用戶文章
+
 function renderUserArticles(articles) {
   let rawHTML = ''
   articles.forEach((article) => {
-    console.log(article)
-    rawHTML += `<li><a href="../edit/index.html">${article.title}</a></li>`
+    rawHTML += `<li data-id='${article.id}'>${article.title}</li>`;
   })
   userArticles.innerHTML = rawHTML
 }
@@ -95,5 +93,21 @@ function onSubmit(event) {
       })
   } else {
     alert('請選擇圖片')
+  }
+}
+
+// 監聽器: 監聽文章列表
+userArticles.addEventListener('click', onClicked)
+
+// 監聽器函式: 導向用戶文章
+function onClicked(event) {
+  const target = event.target
+  
+  console.log(target)
+  if(target.tagName === 'LI') {
+    // 將文章id存於cookie
+    const articleId = target.dataset.id
+    cookie.set('articleId', articleId)
+    window.location.href = `../edit/index.html`;
   }
 }

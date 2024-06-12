@@ -45,6 +45,7 @@
 }
 
 .user-articles li {
+  cursor: pointer;
   padding: 1rem 0;
   background-color: var(--tertiary-background-color);
   color: var(--text-color);
@@ -52,34 +53,6 @@
   border: 1px solid #000000;
 }
 
-.user-articles a {
-  width: 100%;
-  display: inline-table;
-  color: var(--text-color);
-}
-
-.other-user {
-  background-color: var(--primary-background-color);
-  margin: 0;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 2 1fr;
-  grid-gap: 2rem;
-}
-
-.other-user li {
-  padding: 1rem 0;
-  background-color: var(--tertiary-background-color);
-  color: var(--text-color);
-  text-align: center;
-  border: 1px solid #000000;
-}
-
-.other-user a {
-  width: 100%;
-  display: inline-table;
-  color: var(--text-color);
-}
 
 #file-uploader {
   display: none;

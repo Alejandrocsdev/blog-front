@@ -43,10 +43,11 @@
   </header>
   <main>
     <div class="container">
-      <!--title  -->
-      <div class="title">
-        <div>文章標題<span class="must"> *</span>：</div>
-        <input class="input-title" placeholder="">
+      <form id="article-form" name="article-form">
+        <!--title  -->
+        <div class="title">
+          <div>文章標題<span class="must"> *</span>：</div>
+        <input class="input-title" name="title" placeholder="">
       </div>
 
       <!-- category -->
@@ -62,7 +63,7 @@
       <!-- content -->
       <div class="content">
         <div>文章內容<span class="must"> *</span>：</div>
-        <textarea class="input-content" placeholder="請輸入內容"></textarea>
+        <textarea class="input-content" placeholder="請輸入內容" name="content"></textarea>
       </div>
 
       <!-- button -->
@@ -70,7 +71,7 @@
         <button class="cancel-btn">Cancel</button>
         <button class="submit-btn">Submit</button>
       </div>
-
+    </form>
   </main>
   <!-- 登入/註冊彈跳窗 -->
   <div class="modal-bg hidden">
