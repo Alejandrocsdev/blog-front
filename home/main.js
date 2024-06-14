@@ -20,7 +20,7 @@ const articles = []
 // 省略比數
 let offset = 0
 //每頁顯示頁數
-let size = 5
+let size = 1
 // 所在頁碼
 let currentPage = 1
 // 總文章數
@@ -49,13 +49,13 @@ let filter = cookie.get('filter') || ''
   // 篩選類別
   userContent.addEventListener('click', onFilter)
   // 移動到第一頁
-  firstPageBtn.addEventListener('click', firstPage)
+  firstPageBtn.addEventListener('click', () => changePage('<<'));
   // 前一頁
-  previousPageBtn.addEventListener('click', previousPage)
+  previousPageBtn.addEventListener('click', () => changePage('<'));
   // 下一頁
-  nextPageBtn.addEventListener('click', nextPage)
+  nextPageBtn.addEventListener('click', () => changePage('>'));
   // 移動到最後一頁
-  lastPageBtn.addEventListener('click', lastPage)
+  lastPageBtn.addEventListener('click', () => changePage('>>'));
 })()
 
 // API: 取得文章資料
@@ -171,40 +171,35 @@ async function onFilter(event) {
   await getArticles()
 }
 
-// 監聽器函式: 直達第一頁
-function firstPage(){
-    if (currentPage !== 1) {
-      currentPage = 1      
-      getArticles();
-      renderPaginator()
-    }
-}
+function changePage(action) {
+  switch(action) {
+    case "<<":
+      if (currentPage !== 1) {
+        currentPage = 1
+      }
+      break;
+    case "<":
+      if (currentPage > 1) {
+        currentPage--
+      }
+      break;
+    case ">":
+      if (currentPage < totalPage) {
+        currentPage++
+      }
+      break;
+    case ">>":
+      if (currentPage !== totalPage) {
+        currentPage = totalPage
+      }
+      break;
 
-// 監聽器函式: 往前一頁
-function previousPage(){
-    if (currentPage > 1) {
-      currentPage--
-      getArticles();
-      renderPaginator()
-    }
-}
-
-// 監聽器函式: 往下一頁
-function nextPage(){
-    if (currentPage < totalPage) {
-      currentPage++;
-      getArticles();
-      renderPaginator();
-    }
-}
-
-// 監聽器函式: 直達最後一頁
-function lastPage(){
-    if (currentPage !== totalPage) {
-      currentPage = totalPage;
-      getArticles();
-      renderPaginator();
-    }
+      default:
+      console.log('ERROR');
+      return; 
+  }
+      getArticles()
+      renderPaginator()        
 }
 
 // 更新頁碼按鈕
